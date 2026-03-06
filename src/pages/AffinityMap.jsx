@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import DEFAULT_CLUSTERS, { PALETTE } from '../data/affinity';
-
-let _id = 1000;
-const uid = () => 'n' + (_id++);
+import { useData } from '../context/DataContext';
+import { PALETTE } from '../data/affinity';
 
 export default function AffinityMap() {
-  const [clusters, setClusters] = useState(() =>
-    DEFAULT_CLUSTERS.map(c => ({ ...c, notes: c.notes.map(n => ({ ...n })) }))
-  );
+  const { affinityClusters: clusters, dispatch } = useData();
+
   const [activeFilter, setActiveFilter] = useState(null);
   const [editingNote, setEditingNote] = useState(null);
   const [editingCluster, setEditingCluster] = useState(null);
@@ -19,7 +16,6 @@ export default function AffinityMap() {
   const [dragOverCluster, setDragOverCluster] = useState(null);
 
   const clusterInputRef = useRef(null);
-  const editTextRef = useRef(null);
 
   const totalNotes = clusters.reduce((sum, c) => sum + c.notes.length, 0);
 
@@ -29,95 +25,47 @@ export default function AffinityMap() {
     }
   }, [newClusterInput]);
 
-  // --- State management functions ---
+  // --- Dispatch-based state management ---
 
   function addNote(clusterId) {
-    setClusters(prev =>
-      prev.map(c =>
-        c.id === clusterId
-          ? { ...c, notes: [...c.notes, { id: uid(), text: 'New note...', tag: 'note', special: false }] }
-          : c
-      )
-    );
+    dispatch({ type: 'ADD_NOTE', clusterId });
   }
 
   function deleteNote(clusterId, noteId) {
-    setClusters(prev =>
-      prev.map(c =>
-        c.id === clusterId
-          ? { ...c, notes: c.notes.filter(n => n.id !== noteId) }
-          : c
-      )
-    );
+    dispatch({ type: 'DELETE_NOTE', clusterId, noteId });
     setDeletingNote(null);
   }
 
   function updateNote(clusterId, noteId, updates) {
-    setClusters(prev =>
-      prev.map(c =>
-        c.id === clusterId
-          ? { ...c, notes: c.notes.map(n => n.id === noteId ? { ...n, ...updates } : n) }
-          : c
-      )
-    );
+    dispatch({ type: 'UPDATE_NOTE', clusterId, noteId, updates });
+    dispatch({ type: 'SHOW_TOAST', message: 'Saved' });
   }
 
   function toggleSpecial(clusterId, noteId) {
-    setClusters(prev =>
-      prev.map(c =>
-        c.id === clusterId
-          ? { ...c, notes: c.notes.map(n => n.id === noteId ? { ...n, special: !n.special } : n) }
-          : c
-      )
-    );
+    dispatch({ type: 'TOGGLE_SPECIAL', clusterId, noteId });
   }
 
   function moveNote(fromClusterId, toClusterId, noteId) {
     if (fromClusterId === toClusterId) return;
-    let note = null;
-    setClusters(prev => {
-      const next = prev.map(c => {
-        if (c.id === fromClusterId) {
-          note = c.notes.find(n => n.id === noteId);
-          return { ...c, notes: c.notes.filter(n => n.id !== noteId) };
-        }
-        return c;
-      });
-      if (!note) return prev;
-      return next.map(c =>
-        c.id === toClusterId
-          ? { ...c, notes: [...c.notes, note] }
-          : c
-      );
-    });
+    dispatch({ type: 'MOVE_NOTE', fromClusterId, toClusterId, noteId });
     setMovingNote(null);
   }
 
   function addCluster(label) {
     if (!label.trim()) return;
-    const colorIndex = clusters.length % PALETTE.length;
-    setClusters(prev => [
-      ...prev,
-      {
-        id: 'cluster-' + uid(),
-        label: label.trim(),
-        color: PALETTE[colorIndex],
-        notes: [],
-      },
-    ]);
+    dispatch({ type: 'ADD_CLUSTER', label: label.trim() });
     setNewClusterInput(false);
     setNewClusterLabel('');
   }
 
   function deleteCluster(clusterId) {
-    setClusters(prev => prev.filter(c => c.id !== clusterId));
+    dispatch({ type: 'DELETE_CLUSTER', clusterId });
     setDeletingCluster(null);
   }
 
   function updateClusterLabel(clusterId, newLabel) {
-    setClusters(prev =>
-      prev.map(c => c.id === clusterId ? { ...c, label: newLabel } : c)
-    );
+    dispatch({ type: 'UPDATE_CLUSTER_LABEL', clusterId, label: newLabel });
+    dispatch({ type: 'SHOW_TOAST', message: 'Saved' });
     setEditingCluster(null);
   }
 

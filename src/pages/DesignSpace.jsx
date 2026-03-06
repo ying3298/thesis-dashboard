@@ -1,6 +1,27 @@
-import { DESIGN_CONSTRAINTS, HYPOTHESES } from '../data/constraints';
+import { useData } from '../context/DataContext';
+import EditableText from '../components/EditableText';
+import EditableTextarea from '../components/EditableTextarea';
+import AddItemButton from '../components/AddItemButton';
+import DeleteButton from '../components/DeleteButton';
+
+/* ── Hypothesis status config ─────────────────────────── */
+const STATUS_CONFIG = {
+  'to-test':   { label: 'To test',    color: 'var(--terracotta)' },
+  'testing':   { label: 'Testing',    color: 'var(--blue)' },
+  'validated': { label: 'Validated',  color: 'var(--olive)' },
+  'rejected':  { label: 'Rejected',   color: 'var(--text-3)' },
+};
+
+/* ── Wants / Fears / Hidden Needs config ──────────────── */
+const WANTS_FEARS_CONFIG = [
+  { key: 'wants',       label: 'Wants',       color: 'var(--olive)' },
+  { key: 'fears',       label: 'Fears',       color: 'var(--terracotta)' },
+  { key: 'hiddenNeeds', label: 'Hidden Need',  color: 'var(--blue)' },
+];
 
 export default function DesignSpace() {
+  const { designConstraints, hypotheses, coreTension, wantsFears, dispatch } = useData();
+
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '2rem 1.5rem' }}>
       {/* Page header */}
@@ -42,7 +63,7 @@ export default function DesignSpace() {
         </h2>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-          {DESIGN_CONSTRAINTS.map(rule => (
+          {designConstraints.map((rule, idx) => (
             <div
               key={rule.id}
               className="card"
@@ -55,6 +76,7 @@ export default function DesignSpace() {
                 display: 'flex',
                 gap: '1rem',
                 alignItems: 'flex-start',
+                position: 'relative',
               }}
             >
               {/* Number */}
@@ -68,35 +90,56 @@ export default function DesignSpace() {
                 textAlign: 'center',
                 opacity: 0.8,
               }}>
-                {rule.id}
+                {idx + 1}
               </span>
 
-              <div>
+              <div style={{ flex: 1 }}>
                 {/* Title */}
-                <h3 style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.95rem',
-                  fontWeight: 600,
-                  color: 'var(--text-1)',
-                  margin: '0 0 0.35rem 0',
-                }}>
-                  {rule.title}
-                </h3>
+                <EditableText
+                  value={rule.title}
+                  onSave={v => dispatch({ type: 'UPDATE_CONSTRAINT', id: rule.id, field: 'title', value: v })}
+                  placeholder="Rule title..."
+                  tag="h3"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.95rem',
+                    fontWeight: 600,
+                    color: 'var(--text-1)',
+                    margin: '0 0 0.35rem 0',
+                  }}
+                />
 
                 {/* Description */}
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.87rem',
-                  lineHeight: 1.6,
-                  color: 'var(--text-2)',
-                  margin: 0,
-                }}>
-                  {rule.description}
-                </p>
+                <EditableTextarea
+                  value={rule.description}
+                  onSave={v => dispatch({ type: 'UPDATE_CONSTRAINT', id: rule.id, field: 'description', value: v })}
+                  placeholder="Rule description..."
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.87rem',
+                    lineHeight: 1.6,
+                    color: 'var(--text-2)',
+                    margin: 0,
+                  }}
+                />
+              </div>
+
+              {/* Delete */}
+              <div className="hover-actions" style={{ position: 'absolute', top: 8, right: 8 }}>
+                <DeleteButton
+                  onConfirm={() => dispatch({ type: 'DELETE_CONSTRAINT', id: rule.id })}
+                  itemLabel="rule"
+                />
               </div>
             </div>
           ))}
         </div>
+
+        <AddItemButton
+          label="+ Add rule"
+          onAdd={() => dispatch({ type: 'ADD_CONSTRAINT' })}
+          accentColor="var(--olive)"
+        />
       </section>
 
       {/* --- Section: Hypotheses to Test --- */}
@@ -114,88 +157,125 @@ export default function DesignSpace() {
         </h2>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          {HYPOTHESES.map(h => (
-            <div
-              key={h.id}
-              className="card"
-              style={{
-                background: 'var(--surface)',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--border)',
-                padding: '1.15rem',
-              }}
-            >
-              {/* Top row: status badge + hypothesis ID */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: '0.65rem' }}>
-                <span
-                  className="tag-pill"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.58rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    padding: '2px 8px',
-                    borderRadius: 999,
-                    background: 'var(--terracotta)' + '18',
-                    color: 'var(--terracotta)',
-                    fontWeight: 700,
-                  }}
-                >
-                  To test
-                </span>
-
-                <span style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1.25rem',
-                  color: 'var(--text-1)',
-                  opacity: 0.7,
-                }}>
-                  H{h.id}
-                </span>
-              </div>
-
-              {/* Statement */}
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.92rem',
-                lineHeight: 1.6,
-                color: 'var(--text-1)',
-                margin: '0 0 0.75rem 0',
-              }}>
-                {h.statement}
-              </p>
-
-              {/* How to test callout */}
+          {hypotheses.map(h => {
+            const status = STATUS_CONFIG[h.status] || STATUS_CONFIG['to-test'];
+            return (
               <div
-                className="card-tip"
+                key={h.id}
+                className="card"
                 style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.83rem',
-                  lineHeight: 1.6,
-                  color: 'var(--text-2)',
-                  padding: '0.65rem 0.85rem',
-                  borderRadius: 'var(--radius-sm)',
-                  background: 'var(--highlight-bg)',
-                  borderLeft: '3px solid var(--highlight-border)',
+                  background: 'var(--surface)',
+                  borderRadius: 'var(--radius-md)',
+                  border: '1px solid var(--border)',
+                  padding: '1.15rem',
+                  position: 'relative',
                 }}
               >
-                <span style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.6rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--highlight-border)',
-                  display: 'block',
-                  marginBottom: 4,
-                  fontWeight: 600,
-                }}>
-                  How to test
-                </span>
-                {h.testHow}
+                {/* Top row: status badge + hypothesis ID */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: '0.65rem' }}>
+                  <span
+                    className="tag-pill hypothesis-status-toggle"
+                    onClick={() => dispatch({ type: 'TOGGLE_HYPOTHESIS_STATUS', id: h.id })}
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.58rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                      padding: '2px 8px',
+                      borderRadius: 999,
+                      background: status.color + '18',
+                      color: status.color,
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      userSelect: 'none',
+                      transition: 'transform 0.1s ease',
+                    }}
+                    title="Click to cycle status"
+                  >
+                    {status.label}
+                  </span>
+
+                  <span style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1.25rem',
+                    color: 'var(--text-1)',
+                    opacity: 0.7,
+                  }}>
+                    H{h.id}
+                  </span>
+                </div>
+
+                {/* Statement */}
+                <EditableTextarea
+                  value={h.statement}
+                  onSave={v => dispatch({ type: 'UPDATE_HYPOTHESIS', id: h.id, field: 'statement', value: v })}
+                  placeholder="Hypothesis statement..."
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.92rem',
+                    lineHeight: 1.6,
+                    color: 'var(--text-1)',
+                    margin: '0 0 0.75rem 0',
+                  }}
+                />
+
+                {/* How to test callout */}
+                <div
+                  className="card-tip"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.83rem',
+                    lineHeight: 1.6,
+                    color: 'var(--text-2)',
+                    padding: '0.65rem 0.85rem',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'var(--highlight-bg)',
+                    borderLeft: '3px solid var(--highlight-border)',
+                  }}
+                >
+                  <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.6rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    color: 'var(--highlight-border)',
+                    display: 'block',
+                    marginBottom: 4,
+                    fontWeight: 600,
+                  }}>
+                    How to test
+                  </span>
+                  <EditableTextarea
+                    value={h.testHow}
+                    onSave={v => dispatch({ type: 'UPDATE_HYPOTHESIS', id: h.id, field: 'testHow', value: v })}
+                    placeholder="How to test this hypothesis..."
+                    style={{
+                      fontFamily: 'inherit',
+                      fontSize: 'inherit',
+                      lineHeight: 'inherit',
+                      color: 'inherit',
+                      margin: 0,
+                    }}
+                  />
+                </div>
+
+                {/* Delete */}
+                <div className="hover-actions" style={{ position: 'absolute', top: 8, right: 8 }}>
+                  <DeleteButton
+                    onConfirm={() => dispatch({ type: 'DELETE_HYPOTHESIS', id: h.id })}
+                    itemLabel="hypothesis"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
+
+        <AddItemButton
+          label="+ Add hypothesis"
+          onAdd={() => dispatch({ type: 'ADD_HYPOTHESIS' })}
+          accentColor="var(--terracotta)"
+        />
       </section>
 
       {/* --- Section: The Core Tension --- */}
@@ -219,35 +299,33 @@ export default function DesignSpace() {
           padding: '1.5rem 1.75rem',
           textAlign: 'center',
         }}>
-          <p style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '1.05rem',
-            lineHeight: 1.7,
-            color: 'var(--text-1)',
-            margin: 0,
-          }}>
-            She wants to{' '}
-            <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: '1.15rem' }}>
-              feel connected
-            </span>
-            {' '}but stay{' '}
-            <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: '1.15rem' }}>
-              invisible
-            </span>.
-          </p>
-          <p style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.92rem',
-            lineHeight: 1.7,
-            color: 'var(--text-2)',
-            margin: '0.75rem 0 0 0',
-            maxWidth: 520,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}>
-            The Paired Calendar has to be present enough to create warmth,
-            but opaque enough to preserve freedom.
-          </p>
+          <EditableTextarea
+            value={coreTension.main}
+            onSave={v => dispatch({ type: 'UPDATE_CORE_TENSION', field: 'main', value: v })}
+            placeholder="Main tension..."
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '1.05rem',
+              lineHeight: 1.7,
+              color: 'var(--text-1)',
+              margin: 0,
+              textAlign: 'center',
+            }}
+          />
+          <EditableTextarea
+            value={coreTension.sub}
+            onSave={v => dispatch({ type: 'UPDATE_CORE_TENSION', field: 'sub', value: v })}
+            placeholder="Supporting detail..."
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.92rem',
+              lineHeight: 1.7,
+              color: 'var(--text-2)',
+              margin: '0.75rem auto 0 auto',
+              maxWidth: 520,
+              textAlign: 'center',
+            }}
+          />
         </div>
       </section>
 
@@ -266,37 +344,16 @@ export default function DesignSpace() {
         </h2>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-          {/* WANTS */}
-          <WantsCard
-            label="Wants"
-            color="var(--olive)"
-            lines={[
-              'Connection without exposure.',
-              'Presence without surveillance.',
-              '"I\'m here, I\'m okay" \u2014 nothing more.',
-            ]}
-          />
-
-          {/* FEARS */}
-          <WantsCard
-            label="Fears"
-            color="var(--terracotta)"
-            lines={[
-              'Shared signal becomes monitoring.',
-              'Absence = crisis.',
-              'Happy days create expectations.',
-            ]}
-          />
-
-          {/* HIDDEN NEED */}
-          <WantsCard
-            label="Hidden Need"
-            color="var(--blue)"
-            lines={[
-              'See parents\' slow daily changes.',
-              'Read them through senses (hair, eyes), not information.',
-            ]}
-          />
+          {WANTS_FEARS_CONFIG.map(({ key, label, color }) => (
+            <WantsCard
+              key={key}
+              label={label}
+              color={color}
+              lines={wantsFears[key] || []}
+              category={key}
+              dispatch={dispatch}
+            />
+          ))}
         </div>
       </section>
     </div>
@@ -306,7 +363,7 @@ export default function DesignSpace() {
 
 /* --- Sub-component for Wants/Fears/Hidden Need cards --- */
 
-function WantsCard({ label, color, lines }) {
+function WantsCard({ label, color, lines, category, dispatch }) {
   return (
     <div
       className="card"
@@ -334,19 +391,49 @@ function WantsCard({ label, color, lines }) {
 
       {/* Lines */}
       {lines.map((line, i) => (
-        <p
+        <div
           key={i}
+          className="card"
           style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.9rem',
-            lineHeight: 1.55,
-            color: 'var(--text-1)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
             margin: i < lines.length - 1 ? '0 0 0.25rem 0' : 0,
+            position: 'relative',
+            background: 'transparent',
+            border: 'none',
+            padding: 0,
+            borderRadius: 0,
           }}
         >
-          {line}
-        </p>
+          <EditableText
+            value={line}
+            onSave={v => dispatch({ type: 'UPDATE_WANTS_FEARS', category, lineIndex: i, value: v })}
+            placeholder="Add text..."
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.9rem',
+              lineHeight: 1.55,
+              color: 'var(--text-1)',
+              flex: 1,
+            }}
+          />
+          <button
+            className="action-btn"
+            onClick={() => dispatch({ type: 'DELETE_WANTS_FEARS_LINE', category, lineIndex: i })}
+            title="Delete line"
+            style={{ flexShrink: 0 }}
+          >
+            ×
+          </button>
+        </div>
       ))}
+
+      <AddItemButton
+        label="+ Add"
+        onAdd={() => dispatch({ type: 'ADD_WANTS_FEARS_LINE', category })}
+        accentColor={color}
+      />
     </div>
   );
 }

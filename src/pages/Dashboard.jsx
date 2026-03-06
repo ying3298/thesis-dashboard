@@ -1,41 +1,18 @@
-import { useState } from 'react';
+import { useData } from '../context/DataContext';
+import EditableText from '../components/EditableText';
+import EditableTextarea from '../components/EditableTextarea';
 
-const STATS = [
-  { number: '10', label: 'Key Findings' },
-  { number: '67', label: 'Research Notes' },
-  { number: '6', label: 'Design Rules' },
-  { number: '5', label: 'Hypotheses to Test' },
-];
-
-const BIG_PICTURE = [
-  {
-    label: 'What she wants',
-    color: 'var(--olive, #4A6741)',
-    text: 'Connection without emotional exposure. Presence without surveillance. A daily thread that says "I\'m here, I\'m okay" \u2014 low-effort, ambient, neutral.',
-  },
-  {
-    label: 'What she fears',
-    color: 'var(--terracotta, #C46B4D)',
-    text: 'Any shared signal becomes a monitoring system. Parents read absence as crisis. Emotional highs create expectations that make lows visible. She wants plausible deniability.',
-  },
-  {
-    label: 'What she doesn\'t know she wants',
-    color: 'var(--purple, #7A6B8A)',
-    text: 'A way to see her parents\' slow daily changes \u2014 the things currently invisible until she goes home. She reads her mom through her hair, her dad through his eyes. She craves sensory evidence, not information.',
-  },
-];
-
-const QUICK_LINKS = [
+const getQuickLinks = (stats) => [
   {
     title: 'Key Findings',
     page: 'findings',
-    description: '10 insights from the interview, with design implications',
+    description: `${stats.findingsCount} insights from the interview, with design implications`,
     emoji: '\uD83D\uDD0D',
   },
   {
     title: 'Affinity Map',
     page: 'affinity',
-    description: '67 editable research notes in 10 clusters',
+    description: `${stats.notesCount} editable research notes in ${stats.clustersCount} clusters`,
     emoji: '\uD83D\uDCCC',
   },
   {
@@ -47,24 +24,23 @@ const QUICK_LINKS = [
   {
     title: 'Design Space',
     page: 'design',
-    description: '6 constraints and 5 hypotheses to test',
+    description: `${stats.constraintsCount} constraints and ${stats.hypothesesCount} hypotheses to test`,
     emoji: '\u2702\uFE0F',
   },
 ];
 
-const PARTICIPANT_DETAILS = [
-  { label: 'Age', value: '26' },
-  { label: 'Occupation', value: 'Graphic designer' },
-  { label: 'Location', value: 'London \u2192 Taiwan' },
-  { label: 'Family', value: 'Parents in Taiwan' },
-  { label: 'Communication', value: 'LINE / WeChat' },
-  { label: 'Pet', value: 'Cat named Ding Ding (\u4E01\u4E01)' },
-  { label: 'Interview date', value: 'March 2026' },
-  { label: 'Duration', value: '~38 min (2 sessions)' },
-  { label: 'Language', value: 'Mandarin' },
-];
-
 export default function Dashboard({ onNavigate }) {
+  const { stats, participantDetails, bigPicture, dispatch } = useData();
+
+  const computedStats = [
+    { number: stats.findingsCount, label: 'Key Findings' },
+    { number: stats.notesCount, label: 'Research Notes' },
+    { number: stats.constraintsCount, label: 'Design Rules' },
+    { number: stats.hypothesesCount, label: 'Hypotheses to Test' },
+  ];
+
+  const quickLinks = getQuickLinks(stats);
+
   return (
     <div className="stagger">
       {/* Page Header */}
@@ -126,9 +102,14 @@ export default function Dashboard({ onNavigate }) {
               gap: '6px 32px',
             }}
           >
-            {PARTICIPANT_DETAILS.map((d) => (
-              <div key={d.label} style={{ display: 'flex', gap: 8, lineHeight: 1.7 }}>
-                <span
+            {participantDetails.map((d, index) => (
+              <div key={index} style={{ display: 'flex', gap: 8, lineHeight: 1.7 }}>
+                <EditableText
+                  value={d.label}
+                  onSave={(v) =>
+                    dispatch({ type: 'UPDATE_PARTICIPANT', index, field: 'label', value: v })
+                  }
+                  tag="span"
                   style={{
                     fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
                     fontSize: '0.72rem',
@@ -138,17 +119,18 @@ export default function Dashboard({ onNavigate }) {
                     minWidth: 110,
                     flexShrink: 0,
                   }}
-                >
-                  {d.label}
-                </span>
-                <span
+                />
+                <EditableText
+                  value={d.value}
+                  onSave={(v) =>
+                    dispatch({ type: 'UPDATE_PARTICIPANT', index, field: 'value', value: v })
+                  }
+                  tag="span"
                   style={{
                     fontSize: '0.92rem',
                     color: 'var(--text-1, #1A1A1A)',
                   }}
-                >
-                  {d.value}
-                </span>
+                />
               </div>
             ))}
           </div>
@@ -157,7 +139,7 @@ export default function Dashboard({ onNavigate }) {
 
       {/* Quick Stats */}
       <div className="grid-2" style={{ marginTop: 32 }}>
-        {STATS.map((s) => (
+        {computedStats.map((s) => (
           <div className="stat-card fade-in" key={s.label}>
             <div className="stat-number">{s.number}</div>
             <div className="stat-label">{s.label}</div>
@@ -169,16 +151,21 @@ export default function Dashboard({ onNavigate }) {
       <section style={{ marginTop: 48 }}>
         <h2 className="section-title">The Big Picture</h2>
         <div className="grid-cards" style={{ gap: 16 }}>
-          {BIG_PICTURE.map((item) => (
+          {bigPicture.map((item, index) => (
             <div
-              key={item.label}
+              key={index}
               className="card fade-in"
               style={{
                 borderLeft: `4px solid ${item.color}`,
                 padding: '22px 26px',
               }}
             >
-              <h3
+              <EditableText
+                value={item.label}
+                onSave={(v) =>
+                  dispatch({ type: 'UPDATE_BIG_PICTURE', index, field: 'label', value: v })
+                }
+                tag="h3"
                 style={{
                   fontFamily: 'var(--font-heading, "Instrument Serif", serif)',
                   fontSize: '1.1rem',
@@ -186,19 +173,19 @@ export default function Dashboard({ onNavigate }) {
                   color: item.color,
                   margin: '0 0 8px 0',
                 }}
-              >
-                {item.label}
-              </h3>
-              <p
+              />
+              <EditableTextarea
+                value={item.text}
+                onSave={(v) =>
+                  dispatch({ type: 'UPDATE_BIG_PICTURE', index, field: 'text', value: v })
+                }
                 style={{
                   margin: 0,
                   fontSize: '0.93rem',
                   lineHeight: 1.65,
                   color: 'var(--text-2, #6B6B6B)',
                 }}
-              >
-                {item.text}
-              </p>
+              />
             </div>
           ))}
         </div>
@@ -208,7 +195,7 @@ export default function Dashboard({ onNavigate }) {
       <section style={{ marginTop: 48 }}>
         <h2 className="section-title">Explore</h2>
         <div className="grid-2">
-          {QUICK_LINKS.map((link) => (
+          {quickLinks.map((link) => (
             <button
               key={link.page}
               className="card fade-in"

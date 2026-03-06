@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
+import { useData } from './context/DataContext';
 import Dashboard from './pages/Dashboard';
 import Findings from './pages/Findings';
 import AffinityMap from './pages/AffinityMap';
 import InterviewGuide from './pages/InterviewGuide';
 import DesignSpace from './pages/DesignSpace';
+import Toast from './components/Toast';
+import SaveIndicator from './components/SaveIndicator';
 
 const NAV_ITEMS = [
   { id: 'dashboard', label: 'Overview', icon: '\u25C9', color: 'var(--olive)' },
@@ -16,6 +19,8 @@ const NAV_ITEMS = [
 
 function App() {
   const [activePage, setActivePage] = useState('dashboard');
+  const { exportData, importData, resetToDefaults } = useData();
+  const fileInputRef = useRef(null);
 
   const renderPage = () => {
     switch (activePage) {
@@ -25,6 +30,21 @@ function App() {
       case 'guide': return <InterviewGuide />;
       case 'design': return <DesignSpace />;
       default: return <Dashboard onNavigate={setActivePage} />;
+    }
+  };
+
+  const handleImport = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => importData(ev.target.result);
+    reader.readAsText(file);
+    e.target.value = '';
+  };
+
+  const handleReset = () => {
+    if (window.confirm('Reset all data to defaults? Your edits will be lost.')) {
+      resetToDefaults();
     }
   };
 
@@ -82,8 +102,30 @@ function App() {
           ))}
         </div>
 
+        {/* Save indicator */}
+        <SaveIndicator />
+
+        {/* Data management */}
+        <div className="sidebar-data-actions">
+          <button onClick={exportData} className="sidebar-action-btn">
+            Export JSON
+          </button>
+          <button onClick={() => fileInputRef.current?.click()} className="sidebar-action-btn">
+            Import JSON
+          </button>
+          <button onClick={handleReset} className="sidebar-action-btn sidebar-action-btn--danger">
+            Reset to defaults
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            style={{ display: 'none' }}
+          />
+        </div>
+
         <div style={{
-          marginTop: 'auto',
           padding: '16px 24px',
           borderTop: '1px solid var(--border)',
           fontSize: 10,
@@ -109,6 +151,8 @@ function App() {
       <main className="main-content">
         {renderPage()}
       </main>
+
+      <Toast />
     </div>
   );
 }

@@ -1,7 +1,12 @@
 import { useState } from 'react';
-import FINDINGS from '../data/findings';
+import { useData } from '../context/DataContext';
+import EditableText from '../components/EditableText';
+import EditableTextarea from '../components/EditableTextarea';
+import AddItemButton from '../components/AddItemButton';
+import DeleteButton from '../components/DeleteButton';
 
 export default function Findings() {
+  const { findings, coreTension, dispatch } = useData();
   const [expanded, setExpanded] = useState(null);
 
   const toggle = (id) => {
@@ -23,17 +28,49 @@ export default function Findings() {
         </span>
         <h1 className="page-title">What We Learned</h1>
         <p className="page-subtitle">
-          10 key findings from Interview #1. Each one has evidence (her actual words) and a design
+          {findings.length} key findings from Interview #1. Each one has evidence (her actual words) and a design
           implication for the Paired Calendar.
         </p>
       </header>
 
       {/* Findings Cards */}
       <div className="grid-cards">
-        {FINDINGS.map((finding) => {
+        {findings.map((finding, index) => {
           const isOpen = expanded === finding.id;
           return (
-            <div key={finding.id} className="card fade-in">
+            <div key={finding.id} className="card fade-in editable-card">
+              {/* Hover action buttons */}
+              <div className="card-hover-actions">
+                {index > 0 && (
+                  <button
+                    className="action-btn"
+                    title="Move up"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch({ type: 'REORDER_FINDING', id: finding.id, direction: 'up' });
+                    }}
+                  >
+                    {'\u2191'}
+                  </button>
+                )}
+                {index < findings.length - 1 && (
+                  <button
+                    className="action-btn"
+                    title="Move down"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch({ type: 'REORDER_FINDING', id: finding.id, direction: 'down' });
+                    }}
+                  >
+                    {'\u2193'}
+                  </button>
+                )}
+                <DeleteButton
+                  onConfirm={() => dispatch({ type: 'DELETE_FINDING', id: finding.id })}
+                  itemLabel="finding"
+                />
+              </div>
+
               {/* Card Header — always visible */}
               <div
                 className="card-header"
@@ -58,11 +95,27 @@ export default function Findings() {
                     minWidth: 0,
                   }}
                 >
-                  <span style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }}>
-                    {finding.emoji}
+                  <span
+                    style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <EditableText
+                      value={finding.emoji}
+                      onSave={(v) => dispatch({ type: 'UPDATE_FINDING', id: finding.id, field: 'emoji', value: v })}
+                      placeholder="?"
+                      style={{ fontSize: 22, lineHeight: 1 }}
+                    />
                   </span>
-                  <span className="card-title" style={{ margin: 0 }}>
-                    {finding.title}
+                  <span
+                    className="card-title"
+                    style={{ margin: 0 }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <EditableText
+                      value={finding.title}
+                      onSave={(v) => dispatch({ type: 'UPDATE_FINDING', id: finding.id, field: 'title', value: v })}
+                      placeholder="Finding title..."
+                    />
                   </span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
@@ -76,7 +129,7 @@ export default function Findings() {
                       fontSize: '0.7rem',
                     }}
                   >
-                    #{finding.id}
+                    #{typeof finding.id === 'number' ? finding.id : index + 1}
                   </span>
                   <span
                     className="card-toggle"
@@ -139,7 +192,17 @@ export default function Findings() {
                         color: 'var(--text-1, #1A1A1A)',
                       }}
                     >
-                      {finding.evidence}
+                      <EditableTextarea
+                        value={finding.evidence}
+                        onSave={(v) => dispatch({ type: 'UPDATE_FINDING', id: finding.id, field: 'evidence', value: v })}
+                        placeholder="Add evidence quote..."
+                        style={{
+                          fontStyle: 'italic',
+                          fontSize: '0.92rem',
+                          lineHeight: 1.65,
+                          color: 'var(--text-1, #1A1A1A)',
+                        }}
+                      />
                     </blockquote>
                   </div>
 
@@ -157,7 +220,7 @@ export default function Findings() {
                     >
                       What this means
                     </h4>
-                    <p
+                    <div
                       style={{
                         margin: 0,
                         fontSize: '0.92rem',
@@ -165,8 +228,17 @@ export default function Findings() {
                         color: 'var(--text-2, #6B6B6B)',
                       }}
                     >
-                      {finding.summary}
-                    </p>
+                      <EditableTextarea
+                        value={finding.summary}
+                        onSave={(v) => dispatch({ type: 'UPDATE_FINDING', id: finding.id, field: 'summary', value: v })}
+                        placeholder="Add summary..."
+                        style={{
+                          fontSize: '0.92rem',
+                          lineHeight: 1.65,
+                          color: 'var(--text-2, #6B6B6B)',
+                        }}
+                      />
+                    </div>
                   </div>
 
                   {/* Design implication */}
@@ -196,7 +268,17 @@ export default function Findings() {
                         fontWeight: 500,
                       }}
                     >
-                      {finding.designImplication}
+                      <EditableTextarea
+                        value={finding.designImplication}
+                        onSave={(v) => dispatch({ type: 'UPDATE_FINDING', id: finding.id, field: 'designImplication', value: v })}
+                        placeholder="Add design implication..."
+                        style={{
+                          fontSize: '0.9rem',
+                          lineHeight: 1.6,
+                          color: 'var(--olive, #4A6741)',
+                          fontWeight: 500,
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -204,6 +286,15 @@ export default function Findings() {
             </div>
           );
         })}
+      </div>
+
+      {/* Add Finding Button */}
+      <div style={{ marginTop: 16 }}>
+        <AddItemButton
+          label="+ Add finding"
+          onAdd={() => dispatch({ type: 'ADD_FINDING' })}
+          accentColor="var(--terracotta)"
+        />
       </div>
 
       {/* Synthesis Callout */}
@@ -227,7 +318,7 @@ export default function Findings() {
           >
             The Core Tension
           </h3>
-          <p
+          <div
             style={{
               margin: 0,
               fontSize: '0.95rem',
@@ -235,12 +326,28 @@ export default function Findings() {
               color: 'var(--text-2, #6B6B6B)',
             }}
           >
-            She wants to{' '}
-            <strong style={{ color: 'var(--olive, #4A6741)' }}>FEEL connected</strong> but stay{' '}
-            <strong style={{ color: 'var(--terracotta, #C46B4D)' }}>INVISIBLE</strong>. The calendar
-            has to thread this needle &mdash; present enough to create warmth, opaque enough to
-            preserve freedom.
-          </p>
+            <EditableTextarea
+              value={coreTension.main}
+              onSave={(v) => dispatch({ type: 'UPDATE_CORE_TENSION', field: 'main', value: v })}
+              placeholder="Core tension statement..."
+              style={{
+                fontSize: '0.95rem',
+                lineHeight: 1.7,
+                color: 'var(--text-2, #6B6B6B)',
+                marginBottom: 8,
+              }}
+            />
+            <EditableTextarea
+              value={coreTension.sub}
+              onSave={(v) => dispatch({ type: 'UPDATE_CORE_TENSION', field: 'sub', value: v })}
+              placeholder="Supporting detail..."
+              style={{
+                fontSize: '0.95rem',
+                lineHeight: 1.7,
+                color: 'var(--text-2, #6B6B6B)',
+              }}
+            />
+          </div>
         </div>
       </section>
 
