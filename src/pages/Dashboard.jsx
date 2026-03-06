@@ -1,0 +1,280 @@
+import { useState } from 'react';
+
+const STATS = [
+  { number: '10', label: 'Key Findings' },
+  { number: '67', label: 'Research Notes' },
+  { number: '6', label: 'Design Rules' },
+  { number: '5', label: 'Hypotheses to Test' },
+];
+
+const BIG_PICTURE = [
+  {
+    label: 'What she wants',
+    color: 'var(--olive, #4A6741)',
+    text: 'Connection without emotional exposure. Presence without surveillance. A daily thread that says "I\'m here, I\'m okay" \u2014 low-effort, ambient, neutral.',
+  },
+  {
+    label: 'What she fears',
+    color: 'var(--terracotta, #C46B4D)',
+    text: 'Any shared signal becomes a monitoring system. Parents read absence as crisis. Emotional highs create expectations that make lows visible. She wants plausible deniability.',
+  },
+  {
+    label: 'What she doesn\'t know she wants',
+    color: 'var(--purple, #7A6B8A)',
+    text: 'A way to see her parents\' slow daily changes \u2014 the things currently invisible until she goes home. She reads her mom through her hair, her dad through his eyes. She craves sensory evidence, not information.',
+  },
+];
+
+const QUICK_LINKS = [
+  {
+    title: 'Key Findings',
+    page: 'findings',
+    description: '10 insights from the interview, with design implications',
+    emoji: '\uD83D\uDD0D',
+  },
+  {
+    title: 'Affinity Map',
+    page: 'affinity',
+    description: '67 editable research notes in 10 clusters',
+    emoji: '\uD83D\uDCCC',
+  },
+  {
+    title: 'Interview Guide',
+    page: 'guide',
+    description: 'Probes, structure, and coaching for your next interview',
+    emoji: '\uD83C\uDFA4',
+  },
+  {
+    title: 'Design Space',
+    page: 'design',
+    description: '6 constraints and 5 hypotheses to test',
+    emoji: '\u2702\uFE0F',
+  },
+];
+
+const PARTICIPANT_DETAILS = [
+  { label: 'Age', value: '26' },
+  { label: 'Occupation', value: 'Graphic designer' },
+  { label: 'Location', value: 'London \u2192 Taiwan' },
+  { label: 'Family', value: 'Parents in Taiwan' },
+  { label: 'Communication', value: 'LINE / WeChat' },
+  { label: 'Pet', value: 'Cat named Ding Ding (\u4E01\u4E01)' },
+  { label: 'Interview date', value: 'March 2026' },
+  { label: 'Duration', value: '~38 min (2 sessions)' },
+  { label: 'Language', value: 'Mandarin' },
+];
+
+export default function Dashboard({ onNavigate }) {
+  return (
+    <div className="stagger">
+      {/* Page Header */}
+      <header className="page-header">
+        <span className="page-badge">Overview</span>
+        <h1 className="page-title">Your Research at a Glance</h1>
+        <p className="page-subtitle">
+          Everything from Interview #1 with your roommate. Click any section to dig deeper.
+        </p>
+      </header>
+
+      {/* Participant Card */}
+      <div
+        className="card fade-in"
+        style={{
+          display: 'flex',
+          gap: '28px',
+          alignItems: 'flex-start',
+          padding: '28px 32px',
+        }}
+      >
+        {/* Left — Avatar */}
+        <div
+          style={{
+            width: 80,
+            height: 80,
+            minWidth: 80,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, var(--highlight-bg, #FFFBF0) 0%, #F5EDE0 100%)',
+            border: '2px solid var(--border, #E8E4DE)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 36,
+          }}
+        >
+          <span role="img" aria-label="artist">
+            {'\uD83D\uDC69\u200D\uD83C\uDFA8'}
+          </span>
+        </div>
+
+        {/* Right — Info */}
+        <div style={{ flex: 1 }}>
+          <h2
+            style={{
+              fontFamily: 'var(--font-heading, "Instrument Serif", serif)',
+              fontSize: '1.35rem',
+              fontWeight: 400,
+              color: 'var(--text-1, #1A1A1A)',
+              margin: '0 0 12px 0',
+            }}
+          >
+            Participant #1 &mdash; Roommate
+          </h2>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+              gap: '6px 32px',
+            }}
+          >
+            {PARTICIPANT_DETAILS.map((d) => (
+              <div key={d.label} style={{ display: 'flex', gap: 8, lineHeight: 1.7 }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
+                    fontSize: '0.72rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                    color: 'var(--text-3, #999)',
+                    minWidth: 110,
+                    flexShrink: 0,
+                  }}
+                >
+                  {d.label}
+                </span>
+                <span
+                  style={{
+                    fontSize: '0.92rem',
+                    color: 'var(--text-1, #1A1A1A)',
+                  }}
+                >
+                  {d.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Stats */}
+      <div className="grid-2" style={{ marginTop: 32 }}>
+        {STATS.map((s) => (
+          <div className="stat-card fade-in" key={s.label}>
+            <div className="stat-number">{s.number}</div>
+            <div className="stat-label">{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* The Big Picture */}
+      <section style={{ marginTop: 48 }}>
+        <h2 className="section-title">The Big Picture</h2>
+        <div className="grid-cards" style={{ gap: 16 }}>
+          {BIG_PICTURE.map((item) => (
+            <div
+              key={item.label}
+              className="card fade-in"
+              style={{
+                borderLeft: `4px solid ${item.color}`,
+                padding: '22px 26px',
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: 'var(--font-heading, "Instrument Serif", serif)',
+                  fontSize: '1.1rem',
+                  fontWeight: 400,
+                  color: item.color,
+                  margin: '0 0 8px 0',
+                }}
+              >
+                {item.label}
+              </h3>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: '0.93rem',
+                  lineHeight: 1.65,
+                  color: 'var(--text-2, #6B6B6B)',
+                }}
+              >
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Quick Links */}
+      <section style={{ marginTop: 48 }}>
+        <h2 className="section-title">Explore</h2>
+        <div className="grid-2">
+          {QUICK_LINKS.map((link) => (
+            <button
+              key={link.page}
+              className="card fade-in"
+              onClick={() => onNavigate(link.page)}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 16,
+                padding: '22px 24px',
+                cursor: 'pointer',
+                border: '1px solid var(--border, #E8E4DE)',
+                background: 'var(--surface, #FFFFFF)',
+                textAlign: 'left',
+                width: '100%',
+                transition: 'box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--olive, #4A6741)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--border, #E8E4DE)';
+                e.currentTarget.style.boxShadow = '';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <span style={{ fontSize: 24, lineHeight: 1 }}>{link.emoji}</span>
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-heading, "Instrument Serif", serif)',
+                    fontSize: '1.1rem',
+                    color: 'var(--text-1, #1A1A1A)',
+                    marginBottom: 4,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <span>{link.title}</span>
+                  <span
+                    style={{
+                      fontSize: '1rem',
+                      color: 'var(--text-3, #999)',
+                      transition: 'transform 0.2s ease',
+                    }}
+                  >
+                    {'\u2192'}
+                  </span>
+                </div>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: '0.85rem',
+                    color: 'var(--text-3, #999)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {link.description}
+                </p>
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
