@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import './App.css';
-import { useData } from './context/DataContext';
+import { useData, PARTICIPANT_META } from './context/DataContext';
 import Dashboard from './pages/Dashboard';
 import Findings from './pages/Findings';
 import AffinityMap from './pages/AffinityMap';
@@ -19,7 +19,7 @@ const NAV_ITEMS = [
 
 function App() {
   const [activePage, setActivePage] = useState('dashboard');
-  const { exportData, importData, resetToDefaults } = useData();
+  const { exportData, importData, resetToDefaults, activeParticipant, participantList, switchParticipant } = useData();
   const fileInputRef = useRef(null);
 
   const renderPage = () => {
@@ -74,7 +74,7 @@ function App() {
             color: 'var(--text-3)',
             marginTop: 2,
           }}>
-            Ying &mdash; Spring 2026
+            {PARTICIPANT_META[activeParticipant]?.label} &mdash; Spring 2026
           </div>
         </div>
 
@@ -125,25 +125,74 @@ function App() {
           />
         </div>
 
+        {/* Participant Switcher */}
         <div style={{
-          padding: '16px 24px',
+          padding: '12px 24px 16px',
           borderTop: '1px solid var(--border)',
-          fontSize: 10,
-          color: 'var(--text-3)',
-          lineHeight: 1.6,
         }}>
           <div style={{
+            fontSize: 10,
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
-            marginBottom: 4,
+            color: 'var(--text-3)',
+            marginBottom: 8,
           }}>
-            Participant #1
+            Participants
           </div>
-          <div>26yo, graphic designer</div>
-          <div>London &rarr; Taiwan</div>
-          <div style={{ marginTop: 4, color: 'var(--olive)', fontWeight: 500 }}>
-            Interview: March 2026
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {participantList.map(pid => {
+              const meta = PARTICIPANT_META[pid];
+              const isActive = pid === activeParticipant;
+              return (
+                <button
+                  key={pid}
+                  onClick={() => switchParticipant(pid)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '8px 10px',
+                    borderRadius: 8,
+                    border: isActive ? '1.5px solid var(--olive)' : '1px solid var(--border)',
+                    background: isActive
+                      ? 'color-mix(in srgb, var(--olive) 8%, transparent)'
+                      : 'transparent',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    transition: 'all 0.15s ease',
+                    fontFamily: 'var(--font-body)',
+                  }}
+                >
+                  <span style={{ fontSize: 20 }}>{meta.emoji}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{
+                      fontSize: 12,
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? 'var(--olive)' : 'var(--text-1)',
+                      lineHeight: 1.3,
+                    }}>
+                      {meta.label}
+                    </div>
+                    <div style={{
+                      fontSize: 10,
+                      color: 'var(--text-3)',
+                      lineHeight: 1.3,
+                    }}>
+                      {meta.subtitle} &middot; {meta.location}
+                    </div>
+                  </div>
+                  {isActive && (
+                    <span style={{
+                      width: 6, height: 6,
+                      borderRadius: '50%',
+                      background: 'var(--olive)',
+                      flexShrink: 0,
+                    }} />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       </nav>

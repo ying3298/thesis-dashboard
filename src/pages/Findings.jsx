@@ -6,7 +6,7 @@ import AddItemButton from '../components/AddItemButton';
 import DeleteButton from '../components/DeleteButton';
 
 export default function Findings() {
-  const { findings, coreTension, dispatch } = useData();
+  const { findings, coreTension, dispatch, activeParticipant, participantMeta } = useData();
   const [expanded, setExpanded] = useState(null);
 
   const toggle = (id) => {
@@ -28,7 +28,7 @@ export default function Findings() {
         </span>
         <h1 className="page-title">What We Learned</h1>
         <p className="page-subtitle">
-          {findings.length} key findings from Interview #1. Each one has evidence (her actual words) and a design
+          {findings.length} key findings from {participantMeta[activeParticipant]?.label}. Each one has evidence (her actual words) and a design
           implication for the Paired Calendar.
         </p>
       </header>

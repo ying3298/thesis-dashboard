@@ -3,7 +3,7 @@ import { useData } from '../context/DataContext';
 import { PALETTE } from '../data/affinity';
 
 export default function AffinityMap() {
-  const { affinityClusters: clusters, dispatch } = useData();
+  const { affinityClusters: clusters, dispatch, activeParticipant, participantMeta } = useData();
 
   const [activeFilter, setActiveFilter] = useState(null);
   const [editingNote, setEditingNote] = useState(null);
@@ -107,7 +107,7 @@ export default function AffinityMap() {
         <span className="page-badge" style={{ background: 'var(--blue)', color: '#fff' }}>Research</span>
         <h1 className="page-title" style={{ fontFamily: 'var(--font-heading)' }}>Affinity Map</h1>
         <p className="page-subtitle" style={{ color: 'var(--text-2)', fontFamily: 'var(--font-body)', maxWidth: 600 }}>
-          {totalNotes} notes in {clusters.length} clusters from Interview #1.
+          {totalNotes} notes in {clusters.length} clusters from {participantMeta[activeParticipant]?.label}.
           Click notes to edit. Drag to move between clusters.
         </p>
         <p style={{ color: 'var(--text-3)', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', marginTop: 4 }}>

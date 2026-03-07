@@ -1,8 +1,14 @@
 import { createContext, useContext, useReducer, useEffect, useRef, useCallback } from 'react';
-import FINDINGS from '../data/findings';
+
+/* ── P1 default data imports ──────────────────────────── */
+import FINDINGS_P1 from '../data/findings';
 import GUIDE_SECTIONS from '../data/guide';
 import { DESIGN_CONSTRAINTS, HYPOTHESES } from '../data/constraints';
-import DEFAULT_CLUSTERS from '../data/affinity';
+import DEFAULT_CLUSTERS_P1 from '../data/affinity';
+
+/* ── P2 default data imports ──────────────────────────── */
+import FINDINGS_P2 from '../data/findings-2';
+import DEFAULT_CLUSTERS_P2 from '../data/affinity-2';
 
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
@@ -11,71 +17,138 @@ const uid = () => 'item_' + (_id++);
 /* ── Storage key ───────────────────────────────────────── */
 const STORAGE_KEY = 'thesis-dashboard-data';
 
-/* ── Default static data from Dashboard.jsx ────────────── */
-const DEFAULT_PARTICIPANT_DETAILS = [
-  { label: 'Age', value: '26' },
-  { label: 'Occupation', value: 'Graphic designer' },
-  { label: 'Location', value: 'London \u2192 Taiwan' },
-  { label: 'Family', value: 'Parents in Taiwan' },
-  { label: 'Communication', value: 'LINE / WeChat' },
-  { label: 'Pet', value: 'Cat named Ding Ding (\u4E01\u4E01)' },
-  { label: 'Interview date', value: 'March 2026' },
-  { label: 'Duration', value: '~38 min (2 sessions)' },
-  { label: 'Language', value: 'Mandarin' },
-];
-
-const DEFAULT_BIG_PICTURE = [
-  {
-    label: 'What she wants',
-    color: 'var(--olive, #4A6741)',
-    text: 'Connection without emotional exposure. Presence without surveillance. A daily thread that says "I\'m here, I\'m okay" \u2014 low-effort, ambient, neutral.',
+/* ── Participant metadata ─────────────────────────────── */
+export const PARTICIPANT_META = {
+  p1: {
+    id: 'p1',
+    label: 'Participant #1',
+    subtitle: 'Roommate',
+    emoji: '\uD83D\uDC69\u200D\uD83C\uDFA8',
+    location: 'London \u2192 Taiwan',
   },
-  {
-    label: 'What she fears',
-    color: 'var(--terracotta, #C46B4D)',
-    text: 'Any shared signal becomes a monitoring system. Parents read absence as crisis. Emotional highs create expectations that make lows visible. She wants plausible deniability.',
+  p2: {
+    id: 'p2',
+    label: 'Participant #2',
+    subtitle: 'Classmate',
+    emoji: '\uD83D\uDC69\u200D\uD83D\uDCBB',
+    location: 'Eindhoven \u2192 Taipei',
   },
-  {
-    label: 'What she doesn\'t know she wants',
-    color: 'var(--purple, #7A6B8A)',
-    text: 'A way to see her parents\' slow daily changes \u2014 the things currently invisible until she goes home. She reads her mom through her hair, her dad through his eyes. She craves sensory evidence, not information.',
-  },
-];
-
-const DEFAULT_CORE_TENSION = {
-  main: 'She wants to feel connected but stay invisible.',
-  sub: 'The Paired Calendar has to be present enough to create warmth, but opaque enough to preserve freedom.',
 };
 
-const DEFAULT_WANTS_FEARS = {
-  wants: [
-    'Connection without exposure.',
-    'Presence without surveillance.',
-    '"I\'m here, I\'m okay" \u2014 nothing more.',
-  ],
-  fears: [
-    'Shared signal becomes monitoring.',
-    'Absence = crisis.',
-    'Happy days create expectations.',
-  ],
-  hiddenNeeds: [
-    'See parents\' slow daily changes.',
-    'Read them through senses (hair, eyes), not information.',
-  ],
+/* ── Per-participant default data ─────────────────────── */
+const DEFAULT_PARTICIPANT_DATA = {
+  p1: {
+    findings: FINDINGS_P1,
+    affinityClusters: DEFAULT_CLUSTERS_P1,
+    participantDetails: [
+      { label: 'Age', value: '26' },
+      { label: 'Occupation', value: 'Graphic designer' },
+      { label: 'Location', value: 'London \u2192 Taiwan' },
+      { label: 'Family', value: 'Parents in Taiwan' },
+      { label: 'Communication', value: 'LINE / WeChat' },
+      { label: 'Pet', value: 'Cat named Ding Ding (\u4E01\u4E01)' },
+      { label: 'Interview date', value: 'March 2026' },
+      { label: 'Duration', value: '~38 min (2 sessions)' },
+      { label: 'Language', value: 'Mandarin' },
+    ],
+    bigPicture: [
+      {
+        label: 'What she wants',
+        color: 'var(--olive, #4A6741)',
+        text: 'Connection without emotional exposure. Presence without surveillance. A daily thread that says "I\'m here, I\'m okay" \u2014 low-effort, ambient, neutral.',
+      },
+      {
+        label: 'What she fears',
+        color: 'var(--terracotta, #C46B4D)',
+        text: 'Any shared signal becomes a monitoring system. Parents read absence as crisis. Emotional highs create expectations that make lows visible. She wants plausible deniability.',
+      },
+      {
+        label: 'What she doesn\'t know she wants',
+        color: 'var(--purple, #7A6B8A)',
+        text: 'A way to see her parents\' slow daily changes \u2014 the things currently invisible until she goes home. She reads her mom through her hair, her dad through his eyes. She craves sensory evidence, not information.',
+      },
+    ],
+    coreTension: {
+      main: 'She wants to feel connected but stay invisible.',
+      sub: 'The Paired Calendar has to be present enough to create warmth, but opaque enough to preserve freedom.',
+    },
+    wantsFears: {
+      wants: [
+        'Connection without exposure.',
+        'Presence without surveillance.',
+        '"I\'m here, I\'m okay" \u2014 nothing more.',
+      ],
+      fears: [
+        'Shared signal becomes monitoring.',
+        'Absence = crisis.',
+        'Happy days create expectations.',
+      ],
+      hiddenNeeds: [
+        'See parents\' slow daily changes.',
+        'Read them through senses (hair, eyes), not information.',
+      ],
+    },
+  },
+  p2: {
+    findings: FINDINGS_P2,
+    affinityClusters: DEFAULT_CLUSTERS_P2,
+    participantDetails: [
+      { label: 'Occupation', value: 'Design student (DAE, Contextual Design)' },
+      { label: 'Location', value: 'Eindhoven \u2192 Taipei' },
+      { label: 'Family', value: 'Mother, father, brother, grandmother' },
+      { label: 'Communication', value: 'LINE' },
+      { label: 'Interview date', value: 'March 2026' },
+      { label: 'Duration', value: '~43 min (1 session, 4 audio files)' },
+      { label: 'Language', value: 'Mandarin' },
+    ],
+    bigPicture: [
+      {
+        label: 'What she wants',
+        color: 'var(--olive, #4A6741)',
+        text: 'To read her parents\' genuine emotional states \u2014 not performance. Physical presence when needed (Anywhere Door). Remove obstacles (money, distance) rather than redesign the connection.',
+      },
+      {
+        label: 'What she fears',
+        color: 'var(--terracotta, #C46B4D)',
+        text: 'Mom\'s invisible emotional walls. Not being able to sense basic emotions remotely. Guilt amplified by the design. Becoming a remote emotional monitoring station.',
+      },
+      {
+        label: 'What she doesn\'t know she wants',
+        color: 'var(--purple, #7A6B8A)',
+        text: 'The calendar\'s daily trace at night might transform lying in bed alone from absence into quiet presence. The asymmetry between what each side sends and receives may be the design\'s strength.',
+      },
+    ],
+    coreTension: {
+      main: 'She wants to remove the wall, not add a window.',
+      sub: 'The Paired Calendar should extend what already exists \u2014 like removing an obstacle, not imposing a new system on a relationship she considers "already like magic."',
+    },
+    wantsFears: {
+      wants: [
+        'Read parents\' genuine emotions.',
+        'Remove obstacles (money, distance).',
+        'Connection that costs nothing emotionally.',
+      ],
+      fears: [
+        'Mom\'s invisible emotional walls.',
+        'Guilt amplified by the design.',
+        'Becoming a remote monitoring station.',
+      ],
+      hiddenNeeds: [
+        'Evening trace transforms bedtime loneliness into quiet presence.',
+        'Asymmetric signals \u2014 different things sent vs received.',
+      ],
+    },
+  },
 };
 
 /* ── Build defaults ────────────────────────────────────── */
 function buildDefaults() {
   return {
-    findings: FINDINGS,
+    activeParticipant: 'p1',
+    participants: { ...DEFAULT_PARTICIPANT_DATA },
     guideSections: GUIDE_SECTIONS,
     designConstraints: DESIGN_CONSTRAINTS,
     hypotheses: HYPOTHESES,
-    affinityClusters: DEFAULT_CLUSTERS,
-    participantDetails: DEFAULT_PARTICIPANT_DETAILS,
-    bigPicture: DEFAULT_BIG_PICTURE,
-    coreTension: DEFAULT_CORE_TENSION,
-    wantsFears: DEFAULT_WANTS_FEARS,
     _prev: null,
     editCount: 0,
     toastMessage: null,
@@ -83,17 +156,49 @@ function buildDefaults() {
   };
 }
 
+/* ── Migrate from old single-participant format ────────── */
+function migrateOldFormat(parsed) {
+  if (parsed.findings && !parsed.participants) {
+    const p1Data = {
+      findings: parsed.findings,
+      affinityClusters: parsed.affinityClusters || DEFAULT_PARTICIPANT_DATA.p1.affinityClusters,
+      participantDetails: parsed.participantDetails || DEFAULT_PARTICIPANT_DATA.p1.participantDetails,
+      bigPicture: parsed.bigPicture || DEFAULT_PARTICIPANT_DATA.p1.bigPicture,
+      coreTension: parsed.coreTension || DEFAULT_PARTICIPANT_DATA.p1.coreTension,
+      wantsFears: parsed.wantsFears || DEFAULT_PARTICIPANT_DATA.p1.wantsFears,
+    };
+    return {
+      activeParticipant: 'p1',
+      participants: {
+        p1: p1Data,
+        p2: DEFAULT_PARTICIPANT_DATA.p2,
+      },
+      guideSections: parsed.guideSections || GUIDE_SECTIONS,
+      designConstraints: parsed.designConstraints || DESIGN_CONSTRAINTS,
+      hypotheses: parsed.hypotheses || HYPOTHESES,
+    };
+  }
+  return parsed;
+}
+
 /* ── Load initial state ────────────────────────────────── */
 function loadInitialState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
-      const parsed = JSON.parse(raw);
-      // Merge parsed data with defaults to fill any missing keys
+      let parsed = JSON.parse(raw);
+      parsed = migrateOldFormat(parsed);
       const defaults = buildDefaults();
+      const participants = { ...defaults.participants };
+      for (const pid of Object.keys(participants)) {
+        if (parsed.participants && parsed.participants[pid]) {
+          participants[pid] = { ...defaults.participants[pid], ...parsed.participants[pid] };
+        }
+      }
       return {
         ...defaults,
         ...parsed,
+        participants,
         _prev: null,
         editCount: 0,
         toastMessage: null,
@@ -115,11 +220,23 @@ function nextHypothesisStatus(current) {
 }
 
 /* ── Actions that do NOT mutate data (skip undo snapshot) ─ */
-const NON_MUTATING = new Set(['UNDO', 'SHOW_TOAST', 'HIDE_TOAST']);
+const NON_MUTATING = new Set(['UNDO', 'SHOW_TOAST', 'HIDE_TOAST', 'SWITCH_PARTICIPANT']);
+
+/* ── Helper: update active participant's data ──────────── */
+function withActiveParticipant(state, updater) {
+  const pid = state.activeParticipant;
+  const pData = state.participants[pid];
+  return {
+    ...state,
+    participants: {
+      ...state.participants,
+      [pid]: updater(pData),
+    },
+  };
+}
 
 /* ── Reducer ───────────────────────────────────────────── */
 function reducer(state, action) {
-  // Undo snapshot: save current state (without _prev) before any mutating action
   let nextState = state;
   if (!NON_MUTATING.has(action.type)) {
     const { _prev, ...snapshot } = state;
@@ -127,71 +244,67 @@ function reducer(state, action) {
   }
 
   switch (action.type) {
-    /* ── Findings ─────────────────────────────────────── */
+    /* ── Participant switching ────────────────────────── */
+    case 'SWITCH_PARTICIPANT': {
+      return { ...state, activeParticipant: action.id };
+    }
+
+    /* ── Findings (per-participant) ───────────────────── */
     case 'UPDATE_FINDING': {
       const { id, field, value } = action;
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p,
+          findings: p.findings.map((f) => (f.id === id ? { ...f, [field]: value } : f)),
+        })),
         editCount: nextState.editCount + 1,
-        findings: nextState.findings.map((f) =>
-          f.id === id ? { ...f, [field]: value } : f
-        ),
       };
     }
     case 'ADD_FINDING': {
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p,
+          findings: [
+            ...p.findings,
+            { id: uid(), title: 'New finding', emoji: '\uD83D\uDCA1', summary: '', evidence: '', designImplication: '' },
+          ],
+        })),
         editCount: nextState.editCount + 1,
-        findings: [
-          ...nextState.findings,
-          {
-            id: uid(),
-            title: 'New finding',
-            emoji: '\uD83D\uDCA1',
-            summary: '',
-            evidence: '',
-            designImplication: '',
-          },
-        ],
       };
     }
     case 'DELETE_FINDING': {
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p,
+          findings: p.findings.filter((f) => f.id !== action.id),
+        })),
         editCount: nextState.editCount + 1,
-        findings: nextState.findings.filter((f) => f.id !== action.id),
       };
     }
     case 'REORDER_FINDING': {
       const { id, direction } = action;
-      const list = [...nextState.findings];
-      const idx = list.findIndex((f) => f.id === id);
-      const swapIdx = direction === 'up' ? idx - 1 : idx + 1;
-      if (idx < 0 || swapIdx < 0 || swapIdx >= list.length) return state;
-      [list[idx], list[swapIdx]] = [list[swapIdx], list[idx]];
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => {
+          const list = [...p.findings];
+          const idx = list.findIndex((f) => f.id === id);
+          const swapIdx = direction === 'up' ? idx - 1 : idx + 1;
+          if (idx < 0 || swapIdx < 0 || swapIdx >= list.length) return p;
+          [list[idx], list[swapIdx]] = [list[swapIdx], list[idx]];
+          return { ...p, findings: list };
+        }),
         editCount: nextState.editCount + 1,
-        findings: list,
       };
     }
 
-    /* ── Guide Sections ───────────────────────────────── */
+    /* ── Guide Sections (shared) ─────────────────────── */
     case 'UPDATE_GUIDE_SECTION': {
       const { sectionId, field, value } = action;
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        guideSections: nextState.guideSections.map((s) =>
-          s.id === sectionId ? { ...s, [field]: value } : s
-        ),
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, guideSections: nextState.guideSections.map((s) => s.id === sectionId ? { ...s, [field]: value } : s) };
     }
     case 'UPDATE_GUIDE_ITEM': {
       const { sectionId, itemIndex, field, value } = action;
       return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
+        ...nextState, editCount: nextState.editCount + 1,
         guideSections: nextState.guideSections.map((s) => {
           if (s.id !== sectionId) return s;
           const items = [...s.items];
@@ -201,299 +314,209 @@ function reducer(state, action) {
       };
     }
     case 'ADD_GUIDE_ITEM': {
-      const { sectionId } = action;
       return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
+        ...nextState, editCount: nextState.editCount + 1,
         guideSections: nextState.guideSections.map((s) => {
-          if (s.id !== sectionId) return s;
-          return {
-            ...s,
-            items: [
-              ...s.items,
-              { title: 'New item', why: '', fix: '', principle: '', tag: 'new' },
-            ],
-          };
+          if (s.id !== action.sectionId) return s;
+          return { ...s, items: [...s.items, { title: 'New item', why: '', fix: '', principle: '', tag: 'new' }] };
         }),
       };
     }
     case 'DELETE_GUIDE_ITEM': {
-      const { sectionId, itemIndex } = action;
       return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
+        ...nextState, editCount: nextState.editCount + 1,
         guideSections: nextState.guideSections.map((s) => {
-          if (s.id !== sectionId) return s;
-          const items = s.items.filter((_, i) => i !== itemIndex);
-          return { ...s, items };
+          if (s.id !== action.sectionId) return s;
+          return { ...s, items: s.items.filter((_, i) => i !== action.itemIndex) };
         }),
       };
     }
     case 'ADD_GUIDE_SECTION': {
       return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        guideSections: [
-          ...nextState.guideSections,
-          {
-            id: uid(),
-            label: action.label || 'New Section',
-            color: '#6B6B6B',
-            icon: '\u25CB',
-            intro: '',
-            items: [],
-          },
-        ],
+        ...nextState, editCount: nextState.editCount + 1,
+        guideSections: [...nextState.guideSections, { id: uid(), label: action.label || 'New Section', color: '#6B6B6B', icon: '\u25CB', intro: '', items: [] }],
       };
     }
     case 'DELETE_GUIDE_SECTION': {
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        guideSections: nextState.guideSections.filter((s) => s.id !== action.sectionId),
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, guideSections: nextState.guideSections.filter((s) => s.id !== action.sectionId) };
     }
 
-    /* ── Constraints ──────────────────────────────────── */
+    /* ── Constraints (shared) ────────────────────────── */
     case 'UPDATE_CONSTRAINT': {
       const { id, field, value } = action;
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        designConstraints: nextState.designConstraints.map((c) =>
-          c.id === id ? { ...c, [field]: value } : c
-        ),
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, designConstraints: nextState.designConstraints.map((c) => c.id === id ? { ...c, [field]: value } : c) };
     }
     case 'ADD_CONSTRAINT': {
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        designConstraints: [
-          ...nextState.designConstraints,
-          { id: uid(), title: 'New rule', description: '', icon: '\u25CC' },
-        ],
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, designConstraints: [...nextState.designConstraints, { id: uid(), title: 'New rule', description: '', icon: '\u25CC' }] };
     }
     case 'DELETE_CONSTRAINT': {
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        designConstraints: nextState.designConstraints.filter((c) => c.id !== action.id),
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, designConstraints: nextState.designConstraints.filter((c) => c.id !== action.id) };
     }
 
-    /* ── Hypotheses ───────────────────────────────────── */
+    /* ── Hypotheses (shared) ─────────────────────────── */
     case 'UPDATE_HYPOTHESIS': {
       const { id, field, value } = action;
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        hypotheses: nextState.hypotheses.map((h) =>
-          h.id === id ? { ...h, [field]: value } : h
-        ),
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, hypotheses: nextState.hypotheses.map((h) => h.id === id ? { ...h, [field]: value } : h) };
     }
     case 'ADD_HYPOTHESIS': {
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        hypotheses: [
-          ...nextState.hypotheses,
-          { id: uid(), statement: 'New hypothesis', testHow: '', status: 'to-test' },
-        ],
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, hypotheses: [...nextState.hypotheses, { id: uid(), statement: 'New hypothesis', testHow: '', status: 'to-test' }] };
     }
     case 'DELETE_HYPOTHESIS': {
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        hypotheses: nextState.hypotheses.filter((h) => h.id !== action.id),
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, hypotheses: nextState.hypotheses.filter((h) => h.id !== action.id) };
     }
     case 'TOGGLE_HYPOTHESIS_STATUS': {
-      return {
-        ...nextState,
-        editCount: nextState.editCount + 1,
-        hypotheses: nextState.hypotheses.map((h) =>
-          h.id === action.id ? { ...h, status: nextHypothesisStatus(h.status) } : h
-        ),
-      };
+      return { ...nextState, editCount: nextState.editCount + 1, hypotheses: nextState.hypotheses.map((h) => h.id === action.id ? { ...h, status: nextHypothesisStatus(h.status) } : h) };
     }
 
-    /* ── Affinity Clusters ────────────────────────────── */
+    /* ── Affinity Clusters (per-participant) ──────────── */
     case 'UPDATE_NOTE': {
       const { clusterId, noteId, updates } = action;
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, affinityClusters: p.affinityClusters.map((c) => {
+            if (c.id !== clusterId) return c;
+            return { ...c, notes: c.notes.map((n) => (n.id === noteId ? { ...n, ...updates } : n)) };
+          }),
+        })),
         editCount: nextState.editCount + 1,
-        affinityClusters: nextState.affinityClusters.map((c) => {
-          if (c.id !== clusterId) return c;
-          return {
-            ...c,
-            notes: c.notes.map((n) => (n.id === noteId ? { ...n, ...updates } : n)),
-          };
-        }),
       };
     }
     case 'ADD_NOTE': {
-      const { clusterId } = action;
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, affinityClusters: p.affinityClusters.map((c) => {
+            if (c.id !== action.clusterId) return c;
+            return { ...c, notes: [...c.notes, { id: uid(), text: '', tag: 'new', special: false }] };
+          }),
+        })),
         editCount: nextState.editCount + 1,
-        affinityClusters: nextState.affinityClusters.map((c) => {
-          if (c.id !== clusterId) return c;
-          return {
-            ...c,
-            notes: [
-              ...c.notes,
-              { id: uid(), text: '', tag: 'new', special: false },
-            ],
-          };
-        }),
       };
     }
     case 'DELETE_NOTE': {
-      const { clusterId, noteId } = action;
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, affinityClusters: p.affinityClusters.map((c) => {
+            if (c.id !== action.clusterId) return c;
+            return { ...c, notes: c.notes.filter((n) => n.id !== action.noteId) };
+          }),
+        })),
         editCount: nextState.editCount + 1,
-        affinityClusters: nextState.affinityClusters.map((c) => {
-          if (c.id !== clusterId) return c;
-          return { ...c, notes: c.notes.filter((n) => n.id !== noteId) };
-        }),
       };
     }
     case 'MOVE_NOTE': {
       const { fromClusterId, toClusterId, noteId } = action;
-      let movedNote = null;
-      const withRemoved = nextState.affinityClusters.map((c) => {
-        if (c.id !== fromClusterId) return c;
-        movedNote = c.notes.find((n) => n.id === noteId);
-        return { ...c, notes: c.notes.filter((n) => n.id !== noteId) };
-      });
-      if (!movedNote) return state;
-      const withAdded = withRemoved.map((c) => {
-        if (c.id !== toClusterId) return c;
-        return { ...c, notes: [...c.notes, movedNote] };
-      });
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => {
+          let movedNote = null;
+          const withRemoved = p.affinityClusters.map((c) => {
+            if (c.id !== fromClusterId) return c;
+            movedNote = c.notes.find((n) => n.id === noteId);
+            return { ...c, notes: c.notes.filter((n) => n.id !== noteId) };
+          });
+          if (!movedNote) return p;
+          return { ...p, affinityClusters: withRemoved.map((c) => c.id !== toClusterId ? c : { ...c, notes: [...c.notes, movedNote] }) };
+        }),
         editCount: nextState.editCount + 1,
-        affinityClusters: withAdded,
       };
     }
     case 'TOGGLE_SPECIAL': {
       const { clusterId, noteId } = action;
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, affinityClusters: p.affinityClusters.map((c) => {
+            if (c.id !== clusterId) return c;
+            return { ...c, notes: c.notes.map((n) => n.id === noteId ? { ...n, special: !n.special } : n) };
+          }),
+        })),
         editCount: nextState.editCount + 1,
-        affinityClusters: nextState.affinityClusters.map((c) => {
-          if (c.id !== clusterId) return c;
-          return {
-            ...c,
-            notes: c.notes.map((n) =>
-              n.id === noteId ? { ...n, special: !n.special } : n
-            ),
-          };
-        }),
       };
     }
     case 'ADD_CLUSTER': {
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, affinityClusters: [...p.affinityClusters, { id: uid(), label: action.label || 'New cluster', color: '#6B6B6B', notes: [] }],
+        })),
         editCount: nextState.editCount + 1,
-        affinityClusters: [
-          ...nextState.affinityClusters,
-          {
-            id: uid(),
-            label: action.label || 'New cluster',
-            color: '#6B6B6B',
-            notes: [],
-          },
-        ],
       };
     }
     case 'DELETE_CLUSTER': {
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, affinityClusters: p.affinityClusters.filter((c) => c.id !== action.clusterId),
+        })),
         editCount: nextState.editCount + 1,
-        affinityClusters: nextState.affinityClusters.filter(
-          (c) => c.id !== action.clusterId
-        ),
       };
     }
     case 'UPDATE_CLUSTER_LABEL': {
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, affinityClusters: p.affinityClusters.map((c) => c.id === action.clusterId ? { ...c, label: action.label } : c),
+        })),
         editCount: nextState.editCount + 1,
-        affinityClusters: nextState.affinityClusters.map((c) =>
-          c.id === action.clusterId ? { ...c, label: action.label } : c
-        ),
       };
     }
 
-    /* ── Dashboard editable fields ────────────────────── */
+    /* ── Dashboard fields (per-participant) ───────────── */
     case 'UPDATE_PARTICIPANT': {
       const { index, field, value } = action;
-      const list = [...nextState.participantDetails];
-      list[index] = { ...list[index], [field]: value };
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => {
+          const list = [...p.participantDetails];
+          list[index] = { ...list[index], [field]: value };
+          return { ...p, participantDetails: list };
+        }),
         editCount: nextState.editCount + 1,
-        participantDetails: list,
       };
     }
     case 'UPDATE_BIG_PICTURE': {
       const { index, field, value } = action;
-      const list = [...nextState.bigPicture];
-      list[index] = { ...list[index], [field]: value };
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => {
+          const list = [...p.bigPicture];
+          list[index] = { ...list[index], [field]: value };
+          return { ...p, bigPicture: list };
+        }),
         editCount: nextState.editCount + 1,
-        bigPicture: list,
       };
     }
-
-    /* ── Wants / Fears / Needs ────────────────────────── */
     case 'UPDATE_WANTS_FEARS': {
       const { category, lineIndex, value } = action;
-      const updated = { ...nextState.wantsFears };
-      updated[category] = [...updated[category]];
-      updated[category][lineIndex] = value;
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => {
+          const updated = { ...p.wantsFears };
+          updated[category] = [...updated[category]];
+          updated[category][lineIndex] = value;
+          return { ...p, wantsFears: updated };
+        }),
         editCount: nextState.editCount + 1,
-        wantsFears: updated,
       };
     }
     case 'ADD_WANTS_FEARS_LINE': {
-      const { category } = action;
-      const updated = { ...nextState.wantsFears };
-      updated[category] = [...updated[category], ''];
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => {
+          const updated = { ...p.wantsFears };
+          updated[action.category] = [...updated[action.category], ''];
+          return { ...p, wantsFears: updated };
+        }),
         editCount: nextState.editCount + 1,
-        wantsFears: updated,
       };
     }
     case 'DELETE_WANTS_FEARS_LINE': {
-      const { category, lineIndex } = action;
-      const updated = { ...nextState.wantsFears };
-      updated[category] = updated[category].filter((_, i) => i !== lineIndex);
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => {
+          const updated = { ...p.wantsFears };
+          updated[action.category] = updated[action.category].filter((_, i) => i !== action.lineIndex);
+          return { ...p, wantsFears: updated };
+        }),
         editCount: nextState.editCount + 1,
-        wantsFears: updated,
       };
     }
-
-    /* ── Core Tension ─────────────────────────────────── */
     case 'UPDATE_CORE_TENSION': {
       return {
-        ...nextState,
+        ...withActiveParticipant(nextState, (p) => ({
+          ...p, coreTension: { ...p.coreTension, [action.field]: action.value },
+        })),
         editCount: nextState.editCount + 1,
-        coreTension: { ...nextState.coreTension, [action.field]: action.value },
       };
     }
 
@@ -503,32 +526,20 @@ function reducer(state, action) {
       return { ...state._prev, _prev: null, editCount: state.editCount, toastMessage: 'Undone' };
     }
 
-    /* ── Reset ────────────────────────────────────────── */
+    /* ── Reset / Import ──────────────────────────────── */
     case 'RESET_ALL': {
       localStorage.removeItem(STORAGE_KEY);
       return { ...buildDefaults(), toastMessage: 'Reset to defaults' };
     }
-
-    /* ── Import ───────────────────────────────────────── */
     case 'IMPORT_DATA': {
       const defaults = buildDefaults();
-      return {
-        ...defaults,
-        ...action.data,
-        _prev: null,
-        editCount: 0,
-        toastMessage: 'Data imported successfully',
-        lastSaved: new Date().toISOString(),
-      };
+      let data = migrateOldFormat(action.data);
+      return { ...defaults, ...data, _prev: null, editCount: 0, toastMessage: 'Data imported successfully', lastSaved: new Date().toISOString() };
     }
 
     /* ── Toast ────────────────────────────────────────── */
-    case 'SHOW_TOAST': {
-      return { ...state, toastMessage: action.message };
-    }
-    case 'HIDE_TOAST': {
-      return { ...state, toastMessage: null };
-    }
+    case 'SHOW_TOAST': return { ...state, toastMessage: action.message };
+    case 'HIDE_TOAST': return { ...state, toastMessage: null };
 
     default:
       console.warn('Unknown action type:', action.type);
@@ -544,7 +555,6 @@ export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, null, loadInitialState);
   const saveTimerRef = useRef(null);
 
-  // Debounced persistence to localStorage
   useEffect(() => {
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(() => {
@@ -555,9 +565,7 @@ export function DataProvider({ children }) {
         console.error('Failed to save to localStorage:', e);
       }
     }, 300);
-    return () => {
-      if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
-    };
+    return () => { if (saveTimerRef.current) clearTimeout(saveTimerRef.current); };
   }, [state]);
 
   return (
@@ -573,8 +581,12 @@ export function useData() {
   if (!ctx) throw new Error('useData must be used within a DataProvider');
   const { state, dispatch } = ctx;
 
+  const pid = state.activeParticipant;
+  const pData = state.participants[pid];
+
   const undo = useCallback(() => dispatch({ type: 'UNDO' }), [dispatch]);
   const resetToDefaults = useCallback(() => dispatch({ type: 'RESET_ALL' }), [dispatch]);
+  const switchParticipant = useCallback((id) => dispatch({ type: 'SWITCH_PARTICIPANT', id }), [dispatch]);
 
   const exportData = useCallback(() => {
     const { _prev, editCount, toastMessage, lastSaved, ...data } = state;
@@ -600,37 +612,54 @@ export function useData() {
     [dispatch]
   );
 
+  const allFindings = Object.values(state.participants).flatMap((p) => p.findings);
+  const allClusters = Object.values(state.participants).flatMap((p) => p.affinityClusters);
+
   return {
-    // Data slices
-    findings: state.findings,
+    // Active participant's data (same API as before for pages)
+    findings: pData.findings,
+    affinityClusters: pData.affinityClusters,
+    participantDetails: pData.participantDetails,
+    bigPicture: pData.bigPicture,
+    coreTension: pData.coreTension,
+    wantsFears: pData.wantsFears,
+
+    // Shared/global data
     guideSections: state.guideSections,
     designConstraints: state.designConstraints,
     hypotheses: state.hypotheses,
-    affinityClusters: state.affinityClusters,
-    participantDetails: state.participantDetails,
-    bigPicture: state.bigPicture,
-    coreTension: state.coreTension,
-    wantsFears: state.wantsFears,
+
+    // Participant management
+    activeParticipant: pid,
+    participantMeta: PARTICIPANT_META,
+    participantList: Object.keys(state.participants),
+    switchParticipant,
 
     // Meta
     editCount: state.editCount,
     lastSaved: state.lastSaved,
     toastMessage: state.toastMessage,
     canUndo: !!state._prev,
-
-    // Dispatch
     dispatch,
 
-    // Computed stats
+    // Per-participant stats
     stats: {
-      findingsCount: state.findings.length,
-      notesCount: state.affinityClusters.reduce((s, c) => s + c.notes.length, 0),
+      findingsCount: pData.findings.length,
+      notesCount: pData.affinityClusters.reduce((s, c) => s + c.notes.length, 0),
       constraintsCount: state.designConstraints.length,
       hypothesesCount: state.hypotheses.length,
-      clustersCount: state.affinityClusters.length,
+      clustersCount: pData.affinityClusters.length,
     },
 
-    // Convenience actions
+    // Global stats
+    globalStats: {
+      totalFindings: allFindings.length,
+      totalNotes: allClusters.reduce((s, c) => s + c.notes.length, 0),
+      totalParticipants: Object.keys(state.participants).length,
+      constraintsCount: state.designConstraints.length,
+      hypothesesCount: state.hypotheses.length,
+    },
+
     undo,
     resetToDefaults,
     exportData,

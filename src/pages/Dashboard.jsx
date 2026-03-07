@@ -30,7 +30,7 @@ const getQuickLinks = (stats) => [
 ];
 
 export default function Dashboard({ onNavigate }) {
-  const { stats, participantDetails, bigPicture, dispatch } = useData();
+  const { stats, participantDetails, bigPicture, dispatch, activeParticipant, participantMeta, globalStats } = useData();
 
   const computedStats = [
     { number: stats.findingsCount, label: 'Key Findings' },
@@ -48,7 +48,7 @@ export default function Dashboard({ onNavigate }) {
         <span className="page-badge">Overview</span>
         <h1 className="page-title">Your Research at a Glance</h1>
         <p className="page-subtitle">
-          Everything from Interview #1 with your roommate. Click any section to dig deeper.
+          {`${participantMeta[activeParticipant]?.label} — ${participantMeta[activeParticipant]?.subtitle}. Click any section to dig deeper.`}
         </p>
       </header>
 
@@ -78,7 +78,7 @@ export default function Dashboard({ onNavigate }) {
           }}
         >
           <span role="img" aria-label="artist">
-            {'\uD83D\uDC69\u200D\uD83C\uDFA8'}
+            {participantMeta[activeParticipant]?.emoji}
           </span>
         </div>
 
@@ -93,7 +93,7 @@ export default function Dashboard({ onNavigate }) {
               margin: '0 0 12px 0',
             }}
           >
-            Participant #1 &mdash; Roommate
+            {participantMeta[activeParticipant]?.label} &mdash; {participantMeta[activeParticipant]?.subtitle}
           </h2>
           <div
             style={{
@@ -146,6 +146,33 @@ export default function Dashboard({ onNavigate }) {
           </div>
         ))}
       </div>
+
+      {/* Cross-Interview Stats */}
+      {globalStats.totalParticipants > 1 && (
+        <div style={{
+          marginTop: 16,
+          padding: '14px 20px',
+          background: 'color-mix(in srgb, var(--blue) 6%, transparent)',
+          border: '1px solid color-mix(in srgb, var(--blue) 20%, transparent)',
+          borderRadius: 'var(--radius-md)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+          fontSize: '0.85rem',
+          color: 'var(--text-2)',
+        }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--blue)', fontWeight: 600 }}>
+            ACROSS {globalStats.totalParticipants} INTERVIEWS
+          </span>
+          <span>{globalStats.totalFindings} total findings</span>
+          <span>&middot;</span>
+          <span>{globalStats.totalNotes} total notes</span>
+          <span>&middot;</span>
+          <span>{globalStats.constraintsCount} design rules</span>
+          <span>&middot;</span>
+          <span>{globalStats.hypothesesCount} hypotheses</span>
+        </div>
+      )}
 
       {/* The Big Picture */}
       <section style={{ marginTop: 48 }}>
