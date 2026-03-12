@@ -10,6 +10,10 @@ import DEFAULT_CLUSTERS_P1 from '../data/affinity';
 import FINDINGS_P2 from '../data/findings-2';
 import DEFAULT_CLUSTERS_P2 from '../data/affinity-2';
 
+/* ── P3 default data imports ──────────────────────────── */
+import FINDINGS_P3 from '../data/findings-3';
+import DEFAULT_CLUSTERS_P3 from '../data/affinity-3';
+
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
 const uid = () => 'item_' + (_id++);
@@ -32,6 +36,13 @@ export const PARTICIPANT_META = {
     subtitle: 'Classmate',
     emoji: '\uD83D\uDC69\u200D\uD83D\uDCBB',
     location: 'Eindhoven \u2192 Taipei',
+  },
+  p3: {
+    id: 'p3',
+    label: 'Participant #3',
+    subtitle: 'Roommate',
+    emoji: '\uD83C\uDF35',
+    location: 'New York \u2192 Taiwan',
   },
 };
 
@@ -136,6 +147,58 @@ const DEFAULT_PARTICIPANT_DATA = {
       hiddenNeeds: [
         'Evening trace transforms bedtime loneliness into quiet presence.',
         'Asymmetric signals \u2014 different things sent vs received.',
+      ],
+    },
+  },
+  p3: {
+    findings: FINDINGS_P3,
+    affinityClusters: DEFAULT_CLUSTERS_P3,
+    participantDetails: [
+      { label: 'Age', value: '26' },
+      { label: 'Occupation', value: 'Freelancer (Parsons Fashion Management grad)' },
+      { label: 'Location', value: 'New York \u2192 Taiwan' },
+      { label: 'Family', value: 'Mom, brother (\u54E5\u54E5)' },
+      { label: 'Communication', value: 'LINE messages + phone calls' },
+      { label: 'Side gig', value: 'PR, wine delivery, freelance styling' },
+      { label: 'Interview date', value: 'March 2026' },
+      { label: 'Duration', value: '~33 min (1 session)' },
+      { label: 'Language', value: 'Mandarin' },
+    ],
+    bigPicture: [
+      {
+        label: 'What she wants',
+        color: 'var(--olive, #4A6741)',
+        text: 'Practical efficiency. A system where she can report in, get acknowledgment, and move on. No emotional overhead. She\'s satisfied with the current system \u2014 the calendar must not disrupt what already works.',
+      },
+      {
+        label: 'What she fears',
+        color: 'var(--terracotta, #C46B4D)',
+        text: 'Losing control of her narrative. Being monitored or having others know things she hasn\'t chosen to disclose. Any system that demands more emotional labor than her current "report and go" pattern.',
+      },
+      {
+        label: 'What she doesn\'t know she wants',
+        color: 'var(--purple, #7A6B8A)',
+        text: 'A fallback for busy weeks when even a text feels like too much. The calendar is the minimum viable \u5831\u5099 \u2014 a 2-second gesture that says "still here" without composing a single word.',
+      },
+    ],
+    coreTension: {
+      main: 'She wants connection without interruption.',
+      sub: 'The \u5831\u5099 system works because it\'s on her terms. The calendar must be equally controllable \u2014 a daily action she initiates, never a demand she responds to.',
+    },
+    wantsFears: {
+      wants: [
+        'Practical \u5831\u5099 (reporting). Control. Efficiency.',
+        'Acknowledgment without conversation.',
+        '"We\'re all still living" \u2014 nothing more needed.',
+      ],
+      fears: [
+        'Emotional demands or expectations.',
+        'Surveillance or passive data collection.',
+        'Losing agency over what gets shared.',
+      ],
+      hiddenNeeds: [
+        'A fallback for busy weeks when even texting feels like too much.',
+        'A way for her brother to instantly know when something funny happens.',
       ],
     },
   },

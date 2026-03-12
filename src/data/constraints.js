@@ -69,6 +69,20 @@ export const DESIGN_CONSTRAINTS = [
       "P2's strongest longing happens at night, lying in bed alone. If the calendar carries a trace of the other person's day, that trace is most valuable at the end of the day — transforming absence into quiet presence.",
     icon: "◑",
   },
+  {
+    id: 11,
+    title: "The calendar must not demand more than what they already give",
+    description:
+      "P3 texts every 1-2 days and is satisfied. The calendar's daily rip must feel EASIER than a text, not harder. If it feels like one more obligation, the \u5831\u5099-type communicator will abandon it. The gesture must cost less than the current minimum.",
+    icon: "\u25B7",
+  },
+  {
+    id: 12,
+    title: "Three communication styles, one calendar",
+    description:
+      "P1 wants plausible deniability. P2 wants emotional reading. P3 wants efficient \u5831\u5099. The calendar's ambiguity serves all three: P1 hides behind it, P2 reads into it, P3 uses it as the ultimate efficient check-in. This convergence validates the design.",
+    icon: "\u25C6",
+  },
 ];
 
 export const HYPOTHESES = [
@@ -143,5 +157,21 @@ export const HYPOTHESES = [
     testHow:
       "Design two asymmetric calendar variants: one sends 'I'm progressing' signals (for parents), one sends 'I'm content' signals (for children). Test if asymmetric feels more natural than symmetric.",
     status: "to-test",
+  },
+  {
+    id: 10,
+    statement:
+      "Children who communicate primarily through \u5831\u5099 (practical reporting) will use the calendar as an efficiency tool, not an emotional one — but both use cases are equally valid.",
+    testHow:
+      "Track P3-type (pragmatic) vs P2-type (emotional) users over 2 weeks. Compare rip timing patterns, follow-up communication rates, and subjective satisfaction. Hypothesis: both report high satisfaction for different reasons.",
+    status: "to-test",
+  },
+  {
+    id: 11,
+    statement:
+      "Silent awareness of parental aging is universal across all children abroad. The calendar's accumulating months make this shared but unspoken observation externally visible.",
+    testHow:
+      "Confirmed across P1, P2, and P3: all notice parents aging but none mention it. After 3+ months of calendar use, interview participants about whether the physical accumulation of torn pages changed their relationship to time passing.",
+    status: "validated",
   },
 ];
