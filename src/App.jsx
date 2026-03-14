@@ -13,51 +13,38 @@ import ParticipantProfile from './pages/ParticipantProfile';
 import Toast from './components/Toast';
 import SaveIndicator from './components/SaveIndicator';
 
-const UNIVERSAL_NAV = [
+const DISCOVER_NAV = [
   { id: 'dashboard', label: 'Overview', icon: '\u25C9', color: 'var(--olive)' },
-  { id: 'design', label: 'Design Space', icon: '\u25B3', color: 'var(--olive)' },
-  { id: 'synthesis', label: 'Synthesis', icon: '\u25EC', color: 'var(--purple)' },
-  { id: 'experts', label: 'Expert Frameworks', icon: '\u25C7', color: 'var(--blue)' },
-  { id: 'narrative', label: 'Narrative', icon: '\u25CE', color: 'var(--terracotta)' },
   { id: 'guide', label: 'Interview Guide', icon: '\u25C8', color: 'var(--purple)' },
 ];
 
-const PARTICIPANT_NAV = [
+const DISCOVER_PARTICIPANT_NAV = [
   { id: 'profile', label: 'Profile', icon: '\u25C9', color: 'var(--olive)' },
   { id: 'findings', label: 'Key Findings', icon: '\u25C8', color: 'var(--terracotta)' },
   { id: 'affinity', label: 'Affinity Map', icon: '\u25A6', color: 'var(--blue)' },
 ];
 
+const MAKE_SENSE_NAV = [
+  { id: 'design', label: 'Design Space', icon: '\u25B3', color: 'var(--olive)' },
+  { id: 'synthesis', label: 'Synthesis', icon: '\u25EC', color: 'var(--purple)' },
+  { id: 'experts', label: 'Expert Frameworks', icon: '\u25C7', color: 'var(--blue)' },
+];
+
+const COMMUNICATE_NAV = [
+  { id: 'narrative', label: 'Narrative', icon: '\u25CE', color: 'var(--terracotta)' },
+];
+
 function App() {
-  const [activeTab, setActiveTab] = useState('universal');
   const [activePage, setActivePage] = useState('dashboard');
   const { exportData, importData, resetToDefaults, activeParticipant, participantList, switchParticipant } = useData();
   const fileInputRef = useRef(null);
 
-  const navItems = activeTab === 'universal' ? UNIVERSAL_NAV : PARTICIPANT_NAV;
-
-  const handleTabSwitch = (tab) => {
-    setActiveTab(tab);
-    if (tab === 'universal') {
-      setActivePage('dashboard');
-    } else {
-      setActivePage('profile');
-    }
-  };
-
   const handleNavigate = (page) => {
-    // Check which tab owns this page
-    if (UNIVERSAL_NAV.some(n => n.id === page)) {
-      setActiveTab('universal');
-    } else if (PARTICIPANT_NAV.some(n => n.id === page)) {
-      setActiveTab('participant');
-    }
     setActivePage(page);
   };
 
   const handleSwitchToParticipant = (pid) => {
     switchParticipant(pid);
-    setActiveTab('participant');
     setActivePage('profile');
   };
 
@@ -110,7 +97,7 @@ function App() {
             fontSize: 18,
             color: 'var(--text-1)',
           }}>
-            Paired Calendar
+            Take Your Time
           </div>
           <div style={{
             fontSize: 11,
@@ -121,27 +108,33 @@ function App() {
           </div>
         </div>
 
-        {/* Tab Toggle */}
-        <div className="sidebar-tab-toggle">
-          <button
-            className={`sidebar-tab ${activeTab === 'universal' ? 'active' : ''}`}
-            onClick={() => handleTabSwitch('universal')}
-          >
-            Universal
-          </button>
-          <button
-            className={`sidebar-tab ${activeTab === 'participant' ? 'active' : ''}`}
-            onClick={() => handleTabSwitch('participant')}
-          >
-            Per Participant
-          </button>
-        </div>
+        <div className="sidebar-nav">
+          {/* ── DISCOVER ── */}
+          <div className="sidebar-section-label">Discover</div>
+          {DISCOVER_NAV.map(item => (
+            <button
+              key={item.id}
+              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+              onClick={() => setActivePage(item.id)}
+              aria-current={activePage === item.id ? 'page' : undefined}
+              style={{
+                '--nav-color': item.color,
+                borderLeftColor: activePage === item.id ? item.color : 'transparent',
+                backgroundColor: activePage === item.id
+                  ? `color-mix(in srgb, ${item.color} 8%, transparent)`
+                  : 'transparent',
+                color: activePage === item.id ? item.color : undefined,
+              }}
+            >
+              <span className="nav-icon" style={{ color: item.color }}>
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
+            </button>
+          ))}
 
-        {/* Participant Switcher — only in participant tab */}
-        {activeTab === 'participant' && (
-          <div style={{
-            padding: '0 16px 12px',
-          }}>
+          {/* Participant Switcher */}
+          <div style={{ padding: '6px 16px 4px' }}>
             <div style={{ display: 'flex', gap: 4 }}>
               {participantList.map(pid => {
                 const meta = PARTICIPANT_META[pid];
@@ -181,10 +174,56 @@ function App() {
               })}
             </div>
           </div>
-        )}
 
-        <div className="sidebar-nav">
-          {navItems.map(item => (
+          {DISCOVER_PARTICIPANT_NAV.map(item => (
+            <button
+              key={item.id}
+              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+              onClick={() => setActivePage(item.id)}
+              aria-current={activePage === item.id ? 'page' : undefined}
+              style={{
+                '--nav-color': item.color,
+                borderLeftColor: activePage === item.id ? item.color : 'transparent',
+                backgroundColor: activePage === item.id
+                  ? `color-mix(in srgb, ${item.color} 8%, transparent)`
+                  : 'transparent',
+                color: activePage === item.id ? item.color : undefined,
+              }}
+            >
+              <span className="nav-icon" style={{ color: item.color }}>
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
+            </button>
+          ))}
+
+          {/* ── MAKE SENSE ── */}
+          <div className="sidebar-section-label">Make Sense</div>
+          {MAKE_SENSE_NAV.map(item => (
+            <button
+              key={item.id}
+              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+              onClick={() => setActivePage(item.id)}
+              aria-current={activePage === item.id ? 'page' : undefined}
+              style={{
+                '--nav-color': item.color,
+                borderLeftColor: activePage === item.id ? item.color : 'transparent',
+                backgroundColor: activePage === item.id
+                  ? `color-mix(in srgb, ${item.color} 8%, transparent)`
+                  : 'transparent',
+                color: activePage === item.id ? item.color : undefined,
+              }}
+            >
+              <span className="nav-icon" style={{ color: item.color }}>
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
+            </button>
+          ))}
+
+          {/* ── COMMUNICATE ── */}
+          <div className="sidebar-section-label">Communicate</div>
+          {COMMUNICATE_NAV.map(item => (
             <button
               key={item.id}
               className={`nav-item ${activePage === item.id ? 'active' : ''}`}

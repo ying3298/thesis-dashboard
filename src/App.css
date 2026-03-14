@@ -134,6 +134,22 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
+/* --- Sidebar Section Labels --- */
+
+.sidebar-section-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  padding: 16px 24px 6px;
+}
+
+.sidebar-section-label:first-child {
+  padding-top: 4px;
+}
+
 .sidebar-nav {
   display: flex;
   flex-direction: column;
