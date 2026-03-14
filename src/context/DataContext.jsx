@@ -24,6 +24,9 @@ import DEFAULT_SYNTHESIS from '../data/synthesis';
 /* ── Expert frameworks default data ───────────────────── */
 import DEFAULT_EXPERTS from '../data/experts';
 
+/* ── Narrative / case study default data ─────────────── */
+import DEFAULT_NARRATIVE from '../data/narrative';
+
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
 const uid = () => 'item_' + (_id++);
@@ -282,6 +285,7 @@ function buildDefaults() {
     hypotheses: HYPOTHESES,
     synthesis: DEFAULT_SYNTHESIS,
     experts: DEFAULT_EXPERTS,
+    narrative: DEFAULT_NARRATIVE,
     _prev: null,
     editCount: 0,
     toastMessage: null,
@@ -808,6 +812,119 @@ function reducer(state, action) {
       };
     }
 
+    /* ── Narrative / Case Study (shared) ──────────────── */
+    case 'ADD_NARRATIVE_VERSION': {
+      const { collection, item } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          [collection]: {
+            ...nextState.narrative[collection],
+            versions: [...nextState.narrative[collection].versions, { id: uid(), ...item }],
+          },
+        },
+      };
+    }
+    case 'UPDATE_NARRATIVE_VERSION': {
+      const { collection, id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          [collection]: {
+            ...nextState.narrative[collection],
+            versions: nextState.narrative[collection].versions.map(v =>
+              v.id === id ? { ...v, [field]: value } : v
+            ),
+          },
+        },
+      };
+    }
+    case 'DELETE_NARRATIVE_VERSION': {
+      const { collection, id } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          [collection]: {
+            ...nextState.narrative[collection],
+            versions: nextState.narrative[collection].versions.filter(v => v.id !== id),
+          },
+        },
+      };
+    }
+    case 'SET_CURRENT_VERSION': {
+      const { collection, id } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          [collection]: {
+            ...nextState.narrative[collection],
+            versions: nextState.narrative[collection].versions.map(v => ({
+              ...v, isCurrent: v.id === id,
+            })),
+          },
+        },
+      };
+    }
+    case 'ADD_SPINE_VERSION': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          narrativeSpine: {
+            ...nextState.narrative.narrativeSpine,
+            versions: [...nextState.narrative.narrativeSpine.versions, {
+              id: uid(), label: `Iteration ${nextState.narrative.narrativeSpine.versions.length + 1}`,
+              date: new Date().toISOString().split('T')[0], isCurrent: false,
+              beats: { onceUponATime: '', everyDay: '', untilOneDay: '', becauseOfThat: '', untilFinally: '', andEverSinceThen: '' },
+            }],
+          },
+        },
+      };
+    }
+    case 'UPDATE_SPINE_BEAT': {
+      const { versionId, beat, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          narrativeSpine: {
+            ...nextState.narrative.narrativeSpine,
+            versions: nextState.narrative.narrativeSpine.versions.map(v =>
+              v.id === versionId ? { ...v, beats: { ...v.beats, [beat]: value } } : v
+            ),
+          },
+        },
+      };
+    }
+    case 'DELETE_SPINE_VERSION': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          narrativeSpine: {
+            ...nextState.narrative.narrativeSpine,
+            versions: nextState.narrative.narrativeSpine.versions.filter(v => v.id !== action.id),
+          },
+        },
+      };
+    }
+    case 'UPDATE_MILESTONE': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        narrative: {
+          ...nextState.narrative,
+          milestones: nextState.narrative.milestones.map(m =>
+            m.id === id ? { ...m, [field]: value } : m
+          ),
+        },
+      };
+    }
+
     /* ── Undo ─────────────────────────────────────────── */
     case 'UNDO': {
       if (!state._prev) return state;
@@ -918,6 +1035,7 @@ export function useData() {
     hypotheses: state.hypotheses,
     synthesis: state.synthesis,
     experts: state.experts,
+    narrative: state.narrative,
     allParticipants: state.participants,
 
     // Participant management

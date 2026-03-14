@@ -8,6 +8,7 @@ import InterviewGuide from './pages/InterviewGuide';
 import DesignSpace from './pages/DesignSpace';
 import Synthesis from './pages/Synthesis';
 import ExpertFrameworks from './pages/ExpertFrameworks';
+import Narrative from './pages/Narrative';
 import ParticipantProfile from './pages/ParticipantProfile';
 import Toast from './components/Toast';
 import SaveIndicator from './components/SaveIndicator';
@@ -17,6 +18,7 @@ const UNIVERSAL_NAV = [
   { id: 'design', label: 'Design Space', icon: '\u25B3', color: 'var(--olive)' },
   { id: 'synthesis', label: 'Synthesis', icon: '\u25EC', color: 'var(--purple)' },
   { id: 'experts', label: 'Expert Frameworks', icon: '\u25C7', color: 'var(--blue)' },
+  { id: 'narrative', label: 'Narrative', icon: '\u25CE', color: 'var(--terracotta)' },
   { id: 'guide', label: 'Interview Guide', icon: '\u25C8', color: 'var(--purple)' },
 ];
 
@@ -68,6 +70,7 @@ function App() {
       case 'design': return <DesignSpace />;
       case 'synthesis': return <Synthesis />;
       case 'experts': return <ExpertFrameworks />;
+      case 'narrative': return <Narrative />;
       case 'profile': return <ParticipantProfile onNavigate={handleNavigate} />;
       default: return <Dashboard onNavigate={handleNavigate} onSwitchTab={handleSwitchToParticipant} />;
     }
@@ -100,7 +103,7 @@ function App() {
             textTransform: 'uppercase',
             marginBottom: 2,
           }}>
-            Thesis Research
+            Thesis Orbit
           </div>
           <div style={{
             fontFamily: 'var(--font-heading)',
