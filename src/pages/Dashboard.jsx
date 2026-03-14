@@ -1,145 +1,56 @@
-import { useData } from '../context/DataContext';
-import EditableText from '../components/EditableText';
-import EditableTextarea from '../components/EditableTextarea';
+import { useData, PARTICIPANT_META } from '../context/DataContext';
 
-const getQuickLinks = (stats) => [
-  {
-    title: 'Key Findings',
-    page: 'findings',
-    description: `${stats.findingsCount} insights from the interview, with design implications`,
-    emoji: '\uD83D\uDD0D',
-  },
-  {
-    title: 'Affinity Map',
-    page: 'affinity',
-    description: `${stats.notesCount} editable research notes in ${stats.clustersCount} clusters`,
-    emoji: '\uD83D\uDCCC',
-  },
-  {
-    title: 'Interview Guide',
-    page: 'guide',
-    description: 'Probes, structure, and coaching for your next interview',
-    emoji: '\uD83C\uDFA4',
-  },
-  {
-    title: 'Design Space',
-    page: 'design',
-    description: `${stats.constraintsCount} constraints and ${stats.hypothesesCount} hypotheses to test`,
-    emoji: '\u2702\uFE0F',
-  },
-];
+export default function Dashboard({ onNavigate, onSwitchTab }) {
+  const { globalStats, allParticipants, designConstraints, hypotheses } = useData();
 
-export default function Dashboard({ onNavigate }) {
-  const { stats, participantDetails, bigPicture, dispatch, activeParticipant, participantMeta, globalStats } = useData();
-
-  const computedStats = [
-    { number: stats.findingsCount, label: 'Key Findings' },
-    { number: stats.notesCount, label: 'Research Notes' },
-    { number: stats.constraintsCount, label: 'Design Rules' },
-    { number: stats.hypothesesCount, label: 'Hypotheses to Test' },
+  const universalLinks = [
+    {
+      title: 'Design Space',
+      page: 'design',
+      description: `${designConstraints.length} design rules and ${hypotheses.length} hypotheses to test`,
+      emoji: '\u2702\uFE0F',
+    },
+    {
+      title: 'Synthesis',
+      page: 'synthesis',
+      description: 'Cross-participant patterns, spectrums, themes, and archetypes',
+      emoji: '\u25EC',
+    },
+    {
+      title: 'Expert Frameworks',
+      page: 'experts',
+      description: 'Academic voices grounding the Paired Calendar design',
+      emoji: '\uD83C\uDF93',
+    },
+    {
+      title: 'Interview Guide',
+      page: 'guide',
+      description: 'Probes, structure, and coaching for your next interview',
+      emoji: '\uD83C\uDFA4',
+    },
   ];
-
-  const quickLinks = getQuickLinks(stats);
 
   return (
     <div className="stagger">
       {/* Page Header */}
       <header className="page-header">
-        <span className="page-badge">Overview</span>
-        <h1 className="page-title">Your Research at a Glance</h1>
+        <span className="page-badge" style={{ background: 'var(--olive)', color: '#fff' }}>
+          Overview
+        </span>
+        <h1 className="page-title">Research at a Glance</h1>
         <p className="page-subtitle">
-          {`${participantMeta[activeParticipant]?.label} — ${participantMeta[activeParticipant]?.subtitle}. Click any section to dig deeper.`}
+          Cross-interview overview across {globalStats.totalParticipants} participants.
         </p>
       </header>
 
-      {/* Participant Card */}
-      <div
-        className="card fade-in"
-        style={{
-          display: 'flex',
-          gap: '28px',
-          alignItems: 'flex-start',
-          padding: '28px 32px',
-        }}
-      >
-        {/* Left — Avatar */}
-        <div
-          style={{
-            width: 80,
-            height: 80,
-            minWidth: 80,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, var(--highlight-bg, #FFFBF0) 0%, #F5EDE0 100%)',
-            border: '2px solid var(--border, #E8E4DE)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 36,
-          }}
-        >
-          <span role="img" aria-label="artist">
-            {participantMeta[activeParticipant]?.emoji}
-          </span>
-        </div>
-
-        {/* Right — Info */}
-        <div style={{ flex: 1 }}>
-          <h2
-            style={{
-              fontFamily: 'var(--font-heading, "Instrument Serif", serif)',
-              fontSize: '1.35rem',
-              fontWeight: 400,
-              color: 'var(--text-1, #1A1A1A)',
-              margin: '0 0 12px 0',
-            }}
-          >
-            {participantMeta[activeParticipant]?.label} &mdash; {participantMeta[activeParticipant]?.subtitle}
-          </h2>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-              gap: '6px 32px',
-            }}
-          >
-            {participantDetails.map((d, index) => (
-              <div key={index} style={{ display: 'flex', gap: 8, lineHeight: 1.7 }}>
-                <EditableText
-                  value={d.label}
-                  onSave={(v) =>
-                    dispatch({ type: 'UPDATE_PARTICIPANT', index, field: 'label', value: v })
-                  }
-                  tag="span"
-                  style={{
-                    fontFamily: 'var(--font-mono, "JetBrains Mono", monospace)',
-                    fontSize: '0.72rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.06em',
-                    color: 'var(--text-3, #999)',
-                    minWidth: 110,
-                    flexShrink: 0,
-                  }}
-                />
-                <EditableText
-                  value={d.value}
-                  onSave={(v) =>
-                    dispatch({ type: 'UPDATE_PARTICIPANT', index, field: 'value', value: v })
-                  }
-                  tag="span"
-                  style={{
-                    fontSize: '0.92rem',
-                    color: 'var(--text-1, #1A1A1A)',
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid-2" style={{ marginTop: 32 }}>
-        {computedStats.map((s) => (
+      {/* Cross-Interview Stats */}
+      <div className="grid-2" style={{ marginTop: 0 }}>
+        {[
+          { number: globalStats.totalFindings, label: 'Total Findings' },
+          { number: globalStats.totalNotes, label: 'Research Notes' },
+          { number: globalStats.constraintsCount, label: 'Design Rules' },
+          { number: globalStats.hypothesesCount, label: 'Hypotheses' },
+        ].map(s => (
           <div className="stat-card fade-in" key={s.label}>
             <div className="stat-number">{s.number}</div>
             <div className="stat-label">{s.label}</div>
@@ -147,82 +58,101 @@ export default function Dashboard({ onNavigate }) {
         ))}
       </div>
 
-      {/* Cross-Interview Stats */}
-      {globalStats.totalParticipants > 1 && (
-        <div style={{
-          marginTop: 16,
-          padding: '14px 20px',
-          background: 'color-mix(in srgb, var(--blue) 6%, transparent)',
-          border: '1px solid color-mix(in srgb, var(--blue) 20%, transparent)',
-          borderRadius: 'var(--radius-md)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
-          fontSize: '0.85rem',
-          color: 'var(--text-2)',
-        }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--blue)', fontWeight: 600 }}>
-            ACROSS {globalStats.totalParticipants} INTERVIEWS
-          </span>
-          <span>{globalStats.totalFindings} total findings</span>
-          <span>&middot;</span>
-          <span>{globalStats.totalNotes} total notes</span>
-          <span>&middot;</span>
-          <span>{globalStats.constraintsCount} design rules</span>
-          <span>&middot;</span>
-          <span>{globalStats.hypothesesCount} hypotheses</span>
-        </div>
-      )}
-
-      {/* The Big Picture */}
-      <section style={{ marginTop: 48 }}>
-        <h2 className="section-title">The Big Picture</h2>
-        <div className="grid-cards" style={{ gap: 16 }}>
-          {bigPicture.map((item, index) => (
-            <div
-              key={index}
-              className="card fade-in"
-              style={{
-                borderLeft: `4px solid ${item.color}`,
-                padding: '22px 26px',
-              }}
-            >
-              <EditableText
-                value={item.label}
-                onSave={(v) =>
-                  dispatch({ type: 'UPDATE_BIG_PICTURE', index, field: 'label', value: v })
-                }
-                tag="h3"
-                style={{
-                  fontFamily: 'var(--font-heading, "Instrument Serif", serif)',
-                  fontSize: '1.1rem',
-                  fontWeight: 400,
-                  color: item.color,
-                  margin: '0 0 8px 0',
+      {/* Participant Summary Cards */}
+      <section style={{ marginTop: 40 }}>
+        <h2 className="section-title">Participants</h2>
+        <div className="grid-2">
+          {Object.keys(allParticipants).map(pid => {
+            const meta = PARTICIPANT_META[pid];
+            const pData = allParticipants[pid];
+            if (!meta || !pData) return null;
+            return (
+              <button
+                key={pid}
+                className="card fade-in"
+                onClick={() => {
+                  if (onSwitchTab) onSwitchTab(pid);
                 }}
-              />
-              <EditableTextarea
-                value={item.text}
-                onSave={(v) =>
-                  dispatch({ type: 'UPDATE_BIG_PICTURE', index, field: 'text', value: v })
-                }
                 style={{
-                  margin: 0,
-                  fontSize: '0.93rem',
-                  lineHeight: 1.65,
-                  color: 'var(--text-2, #6B6B6B)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 14,
+                  padding: '16px 20px',
+                  cursor: 'pointer',
+                  border: '1px solid var(--border)',
+                  background: 'var(--surface)',
+                  textAlign: 'left',
+                  width: '100%',
+                  transition: 'box-shadow 0.2s ease, border-color 0.2s ease',
                 }}
-              />
-            </div>
-          ))}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'var(--olive)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = 'var(--border)';
+                  e.currentTarget.style.boxShadow = '';
+                }}
+              >
+                <span style={{
+                  fontSize: 28,
+                  width: 44,
+                  height: 44,
+                  minWidth: 44,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, var(--highlight-bg) 0%, #F5EDE0 100%)',
+                  border: '1.5px solid var(--border)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  {meta.emoji}
+                </span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1rem',
+                    color: 'var(--text-1)',
+                    lineHeight: 1.3,
+                  }}>
+                    {meta.label}
+                  </div>
+                  <div style={{
+                    fontSize: '0.78rem',
+                    color: 'var(--text-3)',
+                    lineHeight: 1.3,
+                    marginTop: 2,
+                  }}>
+                    {meta.subtitle} &middot; {meta.location}
+                  </div>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  gap: 2,
+                }}>
+                  <span style={{
+                    fontFamily: 'var(--font-heading)',
+                    fontSize: '1.1rem',
+                    color: 'var(--olive)',
+                    lineHeight: 1,
+                  }}>
+                    {pData.findings.length}
+                  </span>
+                  <span style={{ fontSize: '0.65rem', color: 'var(--text-3)' }}>findings</span>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </section>
 
       {/* Quick Links */}
-      <section style={{ marginTop: 48 }}>
+      <section style={{ marginTop: 40 }}>
         <h2 className="section-title">Explore</h2>
         <div className="grid-2">
-          {quickLinks.map((link) => (
+          {universalLinks.map(link => (
             <button
               key={link.page}
               className="card fade-in"
@@ -233,55 +163,41 @@ export default function Dashboard({ onNavigate }) {
                 gap: 16,
                 padding: '22px 24px',
                 cursor: 'pointer',
-                border: '1px solid var(--border, #E8E4DE)',
-                background: 'var(--surface, #FFFFFF)',
+                border: '1px solid var(--border)',
+                background: 'var(--surface)',
                 textAlign: 'left',
                 width: '100%',
                 transition: 'box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--olive, #4A6741)';
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'var(--olive)';
                 e.currentTarget.style.boxShadow = 'var(--shadow-md)';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = 'var(--border, #E8E4DE)';
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'var(--border)';
                 e.currentTarget.style.boxShadow = '';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               <span style={{ fontSize: 24, lineHeight: 1 }}>{link.emoji}</span>
               <div style={{ flex: 1 }}>
-                <div
-                  style={{
-                    fontFamily: 'var(--font-heading, "Instrument Serif", serif)',
-                    fontSize: '1.1rem',
-                    color: 'var(--text-1, #1A1A1A)',
-                    marginBottom: 4,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
-                >
+                <div style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '1.1rem',
+                  color: 'var(--text-1)',
+                  marginBottom: 4,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
                   <span>{link.title}</span>
-                  <span
-                    style={{
-                      fontSize: '1rem',
-                      color: 'var(--text-3, #999)',
-                      transition: 'transform 0.2s ease',
-                    }}
-                  >
-                    {'\u2192'}
-                  </span>
+                  <span style={{ fontSize: '1rem', color: 'var(--text-3)' }}>{'\u2192'}</span>
                 </div>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: '0.85rem',
-                    color: 'var(--text-3, #999)',
-                    lineHeight: 1.5,
-                  }}
-                >
+                <p style={{
+                  margin: 0, fontSize: '0.85rem',
+                  color: 'var(--text-3)', lineHeight: 1.5,
+                }}>
                   {link.description}
                 </p>
               </div>

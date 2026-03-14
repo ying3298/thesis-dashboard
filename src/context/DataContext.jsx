@@ -21,6 +21,9 @@ import DEFAULT_CLUSTERS_P4 from '../data/affinity-4';
 /* ── Synthesis default data ──────────────────────────── */
 import DEFAULT_SYNTHESIS from '../data/synthesis';
 
+/* ── Expert frameworks default data ───────────────────── */
+import DEFAULT_EXPERTS from '../data/experts';
+
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
 const uid = () => 'item_' + (_id++);
@@ -278,6 +281,7 @@ function buildDefaults() {
     designConstraints: DESIGN_CONSTRAINTS,
     hypotheses: HYPOTHESES,
     synthesis: DEFAULT_SYNTHESIS,
+    experts: DEFAULT_EXPERTS,
     _prev: null,
     editCount: 0,
     toastMessage: null,
@@ -780,6 +784,30 @@ function reducer(state, action) {
       };
     }
 
+    /* ── Experts (shared) ──────────────────────────────── */
+    case 'UPDATE_EXPERT': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        experts: nextState.experts.map(e => e.id === id ? { ...e, [field]: value } : e),
+      };
+    }
+    case 'ADD_EXPERT': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        experts: [...nextState.experts, {
+          id: uid(), name: 'New Expert', field: '', concepts: [],
+          works: '', keyQuote: '', connection: '', supportsRules: [],
+        }],
+      };
+    }
+    case 'DELETE_EXPERT': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        experts: nextState.experts.filter(e => e.id !== action.id),
+      };
+    }
+
     /* ── Undo ─────────────────────────────────────────── */
     case 'UNDO': {
       if (!state._prev) return state;
@@ -889,6 +917,7 @@ export function useData() {
     designConstraints: state.designConstraints,
     hypotheses: state.hypotheses,
     synthesis: state.synthesis,
+    experts: state.experts,
     allParticipants: state.participants,
 
     // Participant management

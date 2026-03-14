@@ -12,15 +12,8 @@ const STATUS_CONFIG = {
   'rejected':  { label: 'Rejected',   color: 'var(--text-3)' },
 };
 
-/* ── Wants / Fears / Hidden Needs config ──────────────── */
-const WANTS_FEARS_CONFIG = [
-  { key: 'wants',       label: 'Wants',       color: 'var(--olive)' },
-  { key: 'fears',       label: 'Fears',       color: 'var(--terracotta)' },
-  { key: 'hiddenNeeds', label: 'Hidden Need',  color: 'var(--blue)' },
-];
-
 export default function DesignSpace() {
-  const { designConstraints, hypotheses, coreTension, wantsFears, dispatch } = useData();
+  const { designConstraints, hypotheses, dispatch } = useData();
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', padding: '2rem 1.5rem' }}>
@@ -44,7 +37,7 @@ export default function DesignSpace() {
           }}
         >
           Rules and questions that guide the design.
-          From Interview #1.
+          Universal rules and hypotheses across all interviews.
         </p>
       </header>
 
@@ -278,162 +271,6 @@ export default function DesignSpace() {
         />
       </section>
 
-      {/* --- Section: The Core Tension --- */}
-      <section style={{ marginBottom: '2.5rem' }}>
-        <h2
-          className="section-title"
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '1.3rem',
-            color: 'var(--text-1)',
-            marginBottom: '1rem',
-          }}
-        >
-          The Core Tension
-        </h2>
-
-        <div style={{
-          background: 'var(--highlight-bg)',
-          border: '1.5px solid var(--highlight-border)',
-          borderRadius: 'var(--radius-lg)',
-          padding: '1.5rem 1.75rem',
-          textAlign: 'center',
-        }}>
-          <EditableTextarea
-            value={coreTension.main}
-            onSave={v => dispatch({ type: 'UPDATE_CORE_TENSION', field: 'main', value: v })}
-            placeholder="Main tension..."
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '1.05rem',
-              lineHeight: 1.7,
-              color: 'var(--text-1)',
-              margin: 0,
-              textAlign: 'center',
-            }}
-          />
-          <EditableTextarea
-            value={coreTension.sub}
-            onSave={v => dispatch({ type: 'UPDATE_CORE_TENSION', field: 'sub', value: v })}
-            placeholder="Supporting detail..."
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.92rem',
-              lineHeight: 1.7,
-              color: 'var(--text-2)',
-              margin: '0.75rem auto 0 auto',
-              maxWidth: 520,
-              textAlign: 'center',
-            }}
-          />
-        </div>
-      </section>
-
-      {/* --- Section: Wants / Fears / Hidden Needs --- */}
-      <section style={{ marginBottom: '2rem' }}>
-        <h2
-          className="section-title"
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: '1.3rem',
-            color: 'var(--text-1)',
-            marginBottom: '1rem',
-          }}
-        >
-          What She Wants / Fears / Doesn't Know She Wants
-        </h2>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-          {WANTS_FEARS_CONFIG.map(({ key, label, color }) => (
-            <WantsCard
-              key={key}
-              label={label}
-              color={color}
-              lines={wantsFears[key] || []}
-              category={key}
-              dispatch={dispatch}
-            />
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
-
-/* --- Sub-component for Wants/Fears/Hidden Need cards --- */
-
-function WantsCard({ label, color, lines, category, dispatch }) {
-  return (
-    <div
-      className="card"
-      style={{
-        background: 'var(--surface)',
-        borderRadius: 'var(--radius-md)',
-        border: '1px solid var(--border)',
-        borderLeft: `4px solid ${color}`,
-        padding: '1rem 1.15rem',
-      }}
-    >
-      {/* Label */}
-      <span style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.62rem',
-        textTransform: 'uppercase',
-        letterSpacing: '0.08em',
-        color: color,
-        fontWeight: 700,
-        display: 'block',
-        marginBottom: '0.45rem',
-      }}>
-        {label}
-      </span>
-
-      {/* Lines */}
-      {lines.map((line, i) => (
-        <div
-          key={i}
-          className="card"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            margin: i < lines.length - 1 ? '0 0 0.25rem 0' : 0,
-            position: 'relative',
-            background: 'transparent',
-            border: 'none',
-            padding: 0,
-            borderRadius: 0,
-          }}
-        >
-          <EditableText
-            value={line}
-            onSave={v => dispatch({ type: 'UPDATE_WANTS_FEARS', category, lineIndex: i, value: v })}
-            placeholder="Add text..."
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.9rem',
-              lineHeight: 1.55,
-              color: 'var(--text-1)',
-              flex: 1,
-            }}
-          />
-          <button
-            className="action-btn"
-            onClick={() => dispatch({ type: 'DELETE_WANTS_FEARS_LINE', category, lineIndex: i })}
-            title="Delete line"
-            style={{ flexShrink: 0 }}
-          >
-            ×
-          </button>
-        </div>
-      ))}
-
-      <AddItemButton
-        label="+ Add"
-        onAdd={() => dispatch({ type: 'ADD_WANTS_FEARS_LINE', category })}
-        accentColor={color}
-      />
     </div>
   );
 }
