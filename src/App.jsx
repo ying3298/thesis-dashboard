@@ -6,6 +6,7 @@ import Findings from './pages/Findings';
 import AffinityMap from './pages/AffinityMap';
 import InterviewGuide from './pages/InterviewGuide';
 import DesignSpace from './pages/DesignSpace';
+import Synthesis from './pages/Synthesis';
 import Toast from './components/Toast';
 import SaveIndicator from './components/SaveIndicator';
 
@@ -15,6 +16,7 @@ const NAV_ITEMS = [
   { id: 'affinity', label: 'Affinity Map', icon: '\u25A6', color: 'var(--blue)' },
   { id: 'guide', label: 'Interview Guide', icon: '\u25C7', color: 'var(--purple)' },
   { id: 'design', label: 'Design Space', icon: '\u25B3', color: 'var(--olive)' },
+  { id: 'synthesis', label: 'Synthesis', icon: '\u25EC', color: 'var(--purple)' },
 ];
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
       case 'affinity': return <AffinityMap />;
       case 'guide': return <InterviewGuide />;
       case 'design': return <DesignSpace />;
+      case 'synthesis': return <Synthesis />;
       default: return <Dashboard onNavigate={setActivePage} />;
     }
   };
@@ -67,7 +70,7 @@ function App() {
             fontSize: 18,
             color: 'var(--text-1)',
           }}>
-            Paired Calendar
+            Interaction Design
           </div>
           <div style={{
             fontSize: 11,

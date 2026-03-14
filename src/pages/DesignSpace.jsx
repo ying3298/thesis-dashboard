@@ -43,7 +43,7 @@ export default function DesignSpace() {
             maxWidth: 540,
           }}
         >
-          Rules and questions that guide the Paired Calendar design.
+          Rules and questions that guide the design.
           From Interview #1.
         </p>
       </header>

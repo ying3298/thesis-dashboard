@@ -159,51 +159,59 @@ const GUIDE_SECTIONS = [
     items: [
       {
         title: "0–3 min: Warm up + consent",
-        why: "The first minutes set the tone. If she feels like a research subject, she'll give research answers. If she feels like she's having coffee with a friend, she'll give real ones.",
+        why: "The first minutes set the tone. If they feel like a research subject, they'll give research answers. If they feel like they're having coffee with a friend, they'll give real ones.",
         fix: "Start casual: 'How's your week been?' Get consent naturally. Don't read from a script. Make eye contact before you start recording.",
         principle:
           "The interview starts before the interview starts.",
         tag: "phase 1",
       },
       {
-        title: "3–10 min: Daily life texture",
-        why: "Before asking about communication, understand her days. What does a Tuesday look like? When does she think about home? This context makes everything after richer.",
-        fix: "'Walk me through yesterday, starting from when you woke up. What's the first thing you did?' Follow threads that involve family naturally.",
+        title: "3–7 min: Perspectal",
+        why: "Not everyone bonds with their biological parents. Some view a grandparent, aunt, or older sibling as their 'parent.' Before you ask about communication, you need to know WHO they're communicating with — and how they define that relationship. P4 taught us this: his grandma is a primary figure, not his mom alone.",
+        fix: "'When I say the word \"parent,\" who comes to mind first?' Then: 'Tell me about your relationship with that person — what role do they play in your life?' If they name someone unexpected, follow it. Don't correct toward biological parents.",
         principle:
-          "Context before content. Understand the life before the behavior.",
+          "Let the participant define who matters. The relationship map is theirs to draw, not yours to assume.",
         tag: "phase 2",
       },
       {
-        title: "10–18 min: Communication behavior",
-        why: "Now she's warmed up and you have context. Ask about how she actually talks to her parents — not how she thinks she should. Look for gaps between what she says and what she showed you.",
-        fix: "'When was the last time you reached out to your mom? What made you do it at that moment?' Follow with echoes and time machines.",
+        title: "7–14 min: Daily life texture",
+        why: "Before asking about communication, understand their days. What does a Tuesday look like? When do they think about home? This context makes everything after richer.",
+        fix: "'Walk me through yesterday, starting from when you woke up. What's the first thing you did?' Follow threads that involve family naturally.",
         principle:
-          "Don't ask what they do. Ask about the last time they did it.",
+          "Context before content. Understand the life before the behavior.",
         tag: "phase 3",
       },
       {
-        title: "18–22 min: Change and absence",
-        why: "This is where it gets deep. How does distance change the relationship? What do they miss? What surprised them when they went home? This is where the calendar insight lives.",
-        fix: "'What was different about your parents the last time you went home? What did you notice first?' Let silence work here.",
+        title: "14–20 min: Communication behavior",
+        why: "Now they're warmed up and you have context. Ask about how they actually talk to their parent figure — not how they think they should. Look for gaps between what they say and what they showed you.",
+        fix: "'When was the last time you reached out to [person they named]? What made you do it at that moment?' Follow with echoes and time machines.",
         principle:
-          "Change is invisible from the inside. Ask about the moments they saw it from the outside.",
+          "Don't ask what they do. Ask about the last time they did it.",
         tag: "phase 4",
       },
       {
-        title: "22–27 min: Ideal connection → then concept",
-        why: "Only NOW introduce the calendar concept. She's described her real situation for 20 minutes. She has the vocabulary and emotional context to react honestly to the idea.",
-        fix: "'If I showed you something — imagine a calendar you and your mom share, and all it shows is when each of you tore off the page...' Watch her face. Her first reaction is the data.",
+        title: "20–24 min: Change and absence",
+        why: "This is where it gets deep. How does distance change the relationship? What do they miss? What surprised them when they went home? This is where the calendar insight lives.",
+        fix: "'What was different about [person] the last time you went home? What did you notice first?' Let silence work here.",
         principle:
-          "Show the concept when they have enough context to react honestly.",
+          "Change is invisible from the inside. Ask about the moments they saw it from the outside.",
         tag: "phase 5",
       },
       {
-        title: "27–30 min: Close",
-        why: "Don't just stop. Give her space to add anything. The best insight often comes in the last 2 minutes when the 'interview' pressure is off and she's just talking.",
-        fix: "'Is there anything I didn't ask about that you think matters?' Then: 'One last thing — if your mom could know one thing about your daily life, what would it be?'",
+        title: "24–28 min: Ideal connection → then concept",
+        why: "Only NOW introduce the calendar concept. They've described their real situation for 20+ minutes. They have the vocabulary and emotional context to react honestly to the idea.",
+        fix: "'If I showed you something — imagine a calendar you and [person] share, and all it shows is when each of you tore off the page...' Watch their face. Their first reaction is the data.",
+        principle:
+          "Show the concept when they have enough context to react honestly.",
+        tag: "phase 6",
+      },
+      {
+        title: "28–30 min: Close",
+        why: "Don't just stop. Give them space to add anything. The best insight often comes in the last 2 minutes when the 'interview' pressure is off and they're just talking.",
+        fix: "'Is there anything I didn't ask about that you think matters?' Then: 'One last thing — if [person] could know one thing about your daily life, what would it be?'",
         principle:
           "The closing question often gets the most honest answer in the whole interview.",
-        tag: "phase 6",
+        tag: "phase 7",
       },
     ],
   },

@@ -18,6 +18,9 @@ import DEFAULT_CLUSTERS_P3 from '../data/affinity-3';
 import FINDINGS_P4 from '../data/findings-4';
 import DEFAULT_CLUSTERS_P4 from '../data/affinity-4';
 
+/* ── Synthesis default data ──────────────────────────── */
+import DEFAULT_SYNTHESIS from '../data/synthesis';
+
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
 const uid = () => 'item_' + (_id++);
@@ -274,6 +277,7 @@ function buildDefaults() {
     guideSections: GUIDE_SECTIONS,
     designConstraints: DESIGN_CONSTRAINTS,
     hypotheses: HYPOTHESES,
+    synthesis: DEFAULT_SYNTHESIS,
     _prev: null,
     editCount: 0,
     toastMessage: null,
@@ -645,6 +649,137 @@ function reducer(state, action) {
       };
     }
 
+    /* ── Synthesis (shared/cross-participant) ──────────── */
+    case 'UPDATE_SYNTHESIS_SPECTRUM': {
+      const { spectrumId, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          spectrums: nextState.synthesis.spectrums.map(s =>
+            s.id === spectrumId ? { ...s, [field]: value } : s
+          ),
+        },
+      };
+    }
+    case 'UPDATE_SYNTHESIS_SPECTRUM_POSITION': {
+      const { spectrumId, participantId, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          spectrums: nextState.synthesis.spectrums.map(s =>
+            s.id === spectrumId
+              ? { ...s, positions: { ...s.positions, [participantId]: value } }
+              : s
+          ),
+        },
+      };
+    }
+    case 'ADD_SYNTHESIS_SPECTRUM': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          spectrums: [...nextState.synthesis.spectrums, {
+            id: uid(), label: 'New spectrum', leftLabel: 'Left', rightLabel: 'Right',
+            positions: { p1: 50, p2: 50, p3: 50, p4: 50 },
+          }],
+        },
+      };
+    }
+    case 'DELETE_SYNTHESIS_SPECTRUM': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          spectrums: nextState.synthesis.spectrums.filter(s => s.id !== action.spectrumId),
+        },
+      };
+    }
+    case 'UPDATE_SYNTHESIS_MATRIX': {
+      const { field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          matrix: { ...nextState.synthesis.matrix, [field]: value },
+        },
+      };
+    }
+    case 'UPDATE_SYNTHESIS_MATRIX_NESTED': {
+      const { parent, key, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          matrix: {
+            ...nextState.synthesis.matrix,
+            [parent]: { ...nextState.synthesis.matrix[parent], [key]: value },
+          },
+        },
+      };
+    }
+    case 'UPDATE_SYNTHESIS_ITEM': {
+      const { collection, id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          [collection]: nextState.synthesis[collection].map(item =>
+            item.id === id ? { ...item, [field]: value } : item
+          ),
+        },
+      };
+    }
+    case 'ADD_SYNTHESIS_ITEM': {
+      const { collection, item } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          [collection]: [...nextState.synthesis[collection], { id: uid(), ...item }],
+        },
+      };
+    }
+    case 'DELETE_SYNTHESIS_ITEM': {
+      const { collection, id } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          [collection]: nextState.synthesis[collection].filter(item => item.id !== id),
+        },
+      };
+    }
+    case 'TOGGLE_SYNTHESIS_THEME': {
+      const { themeId, participantId } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          themes: nextState.synthesis.themes.map(t =>
+            t.id === themeId
+              ? { ...t, participants: { ...t.participants, [participantId]: !t.participants[participantId] } }
+              : t
+          ),
+        },
+      };
+    }
+    case 'UPDATE_SYNTHESIS_ARCHETYPE': {
+      const { participantId, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        synthesis: {
+          ...nextState.synthesis,
+          archetypes: {
+            ...nextState.synthesis.archetypes,
+            [participantId]: { ...nextState.synthesis.archetypes[participantId], [field]: value },
+          },
+        },
+      };
+    }
+
     /* ── Undo ─────────────────────────────────────────── */
     case 'UNDO': {
       if (!state._prev) return state;
@@ -753,6 +888,8 @@ export function useData() {
     guideSections: state.guideSections,
     designConstraints: state.designConstraints,
     hypotheses: state.hypotheses,
+    synthesis: state.synthesis,
+    allParticipants: state.participants,
 
     // Participant management
     activeParticipant: pid,
