@@ -28,8 +28,8 @@ export default function Findings() {
         </span>
         <h1 className="page-title">What We Learned</h1>
         <p className="page-subtitle">
-          {findings.length} key findings from {participantMeta[activeParticipant]?.label}. Each one has evidence (her actual words) and a design
-          implication for the Paired Calendar.
+          {findings.length} key findings from {participantMeta[activeParticipant]?.label}. Each one has evidence (their actual words) and a
+          design implication.
         </p>
       </header>
 
@@ -253,7 +253,7 @@ export default function Findings() {
                         margin: '0 0 8px 0',
                       }}
                     >
-                      {'For the calendar \u2192'}
+                      {'For the design \u2192'}
                     </h4>
                     <div
                       className="card-tip"

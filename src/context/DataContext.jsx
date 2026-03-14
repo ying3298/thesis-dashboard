@@ -14,6 +14,10 @@ import DEFAULT_CLUSTERS_P2 from '../data/affinity-2';
 import FINDINGS_P3 from '../data/findings-3';
 import DEFAULT_CLUSTERS_P3 from '../data/affinity-3';
 
+/* ── P4 default data imports ──────────────────────────── */
+import FINDINGS_P4 from '../data/findings-4';
+import DEFAULT_CLUSTERS_P4 from '../data/affinity-4';
+
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
 const uid = () => 'item_' + (_id++);
@@ -43,6 +47,13 @@ export const PARTICIPANT_META = {
     subtitle: 'Roommate',
     emoji: '\uD83C\uDF35',
     location: 'New York \u2192 Taiwan',
+  },
+  p4: {
+    id: 'p4',
+    label: 'Participant #4',
+    subtitle: 'Friend',
+    emoji: '\uD83C\uDFAC',
+    location: 'Netherlands \u2192 Taiwan',
   },
 };
 
@@ -199,6 +210,57 @@ const DEFAULT_PARTICIPANT_DATA = {
       hiddenNeeds: [
         'A fallback for busy weeks when even texting feels like too much.',
         'A way for her brother to instantly know when something funny happens.',
+      ],
+    },
+  },
+  p4: {
+    findings: FINDINGS_P4,
+    affinityClusters: DEFAULT_CLUSTERS_P4,
+    participantDetails: [
+      { label: 'Occupation', value: 'Animator / creative freelancer' },
+      { label: 'Location', value: 'Netherlands \u2192 Taiwan' },
+      { label: 'Family', value: 'Mom (\u7345\u5B50\u5EA7, smoker), grandmother (\u5976\u5976)' },
+      { label: 'Communication', value: 'Phone calls every 2\u20133 months' },
+      { label: 'Key detail', value: 'Lived with grandma until age 18' },
+      { label: 'Interview date', value: 'March 2026' },
+      { label: 'Duration', value: '~2 hours (1 session)' },
+      { label: 'Language', value: 'Mandarin' },
+    ],
+    bigPicture: [
+      {
+        label: 'What he wants',
+        color: 'var(--olive, #4A6741)',
+        text: 'Freedom through distance. No friction, no monitoring, no demands. He wants to know his family is alive and healthy \u2014 nothing more. Any design intervention should feel like decor, not technology.',
+      },
+      {
+        label: 'What he fears',
+        color: 'var(--terracotta, #C46B4D)',
+        text: 'Being watched. Family\'s attention focused on him. Any system that turns the relationship into a monitoring station \u2014 in either direction. He also fears objects that demand sustained engagement over time.',
+      },
+      {
+        label: 'What he doesn\'t know he wants',
+        color: 'var(--purple, #7A6B8A)',
+        text: 'A reason-free way to stay present. He only calls with a concrete question (pad thai recipe), but he feels good every time he does. The calendar gives him a daily reason that requires no reason at all \u2014 just tear.',
+      },
+    ],
+    coreTension: {
+      main: 'He values the distance but reads faces to fill the silence.',
+      sub: 'The calendar must honor the space he treasures while offering what phone calls can\'t \u2014 presence without conversation, connection without a reason.',
+    },
+    wantsFears: {
+      wants: [
+        'Freedom through distance. No daily friction.',
+        'Health + big emotions only. Everything else is noise.',
+        'Ambient, decorative, easy to observe, zero function.',
+      ],
+      fears: [
+        'Being monitored or having family\'s attention fixed on him.',
+        'Communication that demands a reason or topic.',
+        'Objects that feel like surveillance or require sustained creativity.',
+      ],
+      hiddenNeeds: [
+        'A reason-free way to stay present with grandma and mom.',
+        'Physical, sensory connection \u2014 like smoke on a jacket \u2014 not digital data.',
       ],
     },
   },
