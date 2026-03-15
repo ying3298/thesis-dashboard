@@ -336,13 +336,13 @@ function loadInitialState() {
           participants[pid] = { ...defaults.participants[pid], ...parsed.participants[pid] };
         }
       }
-      /* ── Migrate: refresh Interview Structure Phase 1 with full opening script ── */
+      /* ── Migrate: refresh entire Interview Structure section from defaults ── */
       if (parsed.guideSections) {
-        const structureSection = parsed.guideSections.find(s => s.id === 'structure');
-        if (structureSection && structureSection.items?.[0]?.title === '0–3 min: Warm up + consent') {
-          const defaultStructure = GUIDE_SECTIONS.find(s => s.id === 'structure');
-          if (defaultStructure) {
-            structureSection.items[0] = defaultStructure.items[0];
+        const defaultStructure = GUIDE_SECTIONS.find(s => s.id === 'structure');
+        if (defaultStructure) {
+          const idx = parsed.guideSections.findIndex(s => s.id === 'structure');
+          if (idx !== -1) {
+            parsed.guideSections[idx] = defaultStructure;
           }
         }
       }
