@@ -158,11 +158,27 @@ const GUIDE_SECTIONS = [
       "Template for the next interview. Follow the energy, but know where you are.",
     items: [
       {
-        title: "0–3 min: Warm up + consent",
-        why: "The first minutes set the tone. If they feel like a research subject, they'll give research answers. If they feel like they're having coffee with a friend, they'll give real ones.",
-        fix: "Start casual: 'How's your week been?' Get consent naturally. Don't read from a script. Make eye contact before you start recording.",
+        title: "0–3 min: Introduction & Consent",
+        why: "The opening sets the entire emotional tone. If it feels clinical, you'll get clinical answers. The goal is to establish safety: they know what this is about, they know they can stop anytime, and they feel like a person — not a data point. Getting consent naturally and warmly tells them this is a conversation, not an extraction.",
+        fix: `Opening script (adapt naturally, don't read verbatim):
+
+"Hi, my name is [name]. I'm a graduate student in Interaction Design at SVA. Thank you so much for taking the time to talk with me today — I really appreciate it.
+
+Before we start, I want to ask — would it be okay if I audio-record our conversation? It's just so I can focus on listening instead of writing everything down. The recording will only be used for my thesis research and won't be shared with anyone else."
+
+[Wait for consent. If yes:]
+
+"Great, thank you. I'm starting the recording now."
+
+[Begin recording, then continue:]
+
+"So a little bit about what I'm working on — I'm exploring how families who live far apart, especially across different time zones, stay connected emotionally. I'm interested in the quiet, everyday moments — not just the big calls or visits, but the small ways people feel close to each other across distance."
+
+"This interview will take about 45 to 60 minutes. There are no right or wrong answers — I'm here to learn from your experience. Feel free to skip anything you're not comfortable with, and we can stop at any time."
+
+"Before we begin, do you have any questions for me?"`,
         principle:
-          "The interview starts before the interview starts.",
+          "The interview starts before the interview starts. Safety first, data second.",
         tag: "phase 1",
       },
       {
