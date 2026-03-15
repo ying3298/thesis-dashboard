@@ -4,9 +4,26 @@ export default function EditableText({ value, onSave, placeholder, tag: Tag = 's
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(value);
   const inputRef = useRef(null);
+  const draftRef = useRef(draft);
+  const valueRef = useRef(value);
+  const onSaveRef = useRef(onSave);
+
+  // Keep refs in sync
+  draftRef.current = draft;
+  valueRef.current = value;
+  onSaveRef.current = onSave;
 
   useEffect(() => { setDraft(value); }, [value]);
   useEffect(() => { if (editing && inputRef.current) inputRef.current.focus(); }, [editing]);
+
+  // Save on unmount if still editing
+  useEffect(() => {
+    if (!editing) return;
+    return () => {
+      const trimmed = draftRef.current.trim();
+      if (trimmed && trimmed !== valueRef.current) onSaveRef.current(trimmed);
+    };
+  }, [editing]);
 
   const save = () => {
     const trimmed = draft.trim();

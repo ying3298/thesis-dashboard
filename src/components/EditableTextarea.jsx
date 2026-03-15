@@ -1,9 +1,17 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 export default function EditableTextarea({ value, onSave, placeholder, className = '', style = {}, rows = 2 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(value);
   const textareaRef = useRef(null);
+  const draftRef = useRef(draft);
+  const valueRef = useRef(value);
+  const onSaveRef = useRef(onSave);
+
+  // Keep refs in sync
+  draftRef.current = draft;
+  valueRef.current = value;
+  onSaveRef.current = onSave;
 
   useEffect(() => { setDraft(value); }, [value]);
 
@@ -15,6 +23,15 @@ export default function EditableTextarea({ value, onSave, placeholder, className
       ta.style.height = 'auto';
       ta.style.height = ta.scrollHeight + 'px';
     }
+  }, [editing]);
+
+  // Save on unmount if still editing
+  useEffect(() => {
+    if (!editing) return;
+    return () => {
+      const trimmed = draftRef.current.trim();
+      if (trimmed !== valueRef.current) onSaveRef.current(trimmed);
+    };
   }, [editing]);
 
   const autoSize = (e) => {

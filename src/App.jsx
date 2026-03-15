@@ -9,6 +9,7 @@ import DesignSpace from './pages/DesignSpace';
 import Synthesis from './pages/Synthesis';
 import ExpertFrameworks from './pages/ExpertFrameworks';
 import Narrative from './pages/Narrative';
+import ProblemSpace from './pages/ProblemSpace';
 import ParticipantProfile from './pages/ParticipantProfile';
 import Toast from './components/Toast';
 import SaveIndicator from './components/SaveIndicator';
@@ -16,6 +17,7 @@ import SaveIndicator from './components/SaveIndicator';
 const DISCOVER_NAV = [
   { id: 'dashboard', label: 'Overview', icon: '\u25C9', color: 'var(--olive)' },
   { id: 'guide', label: 'Interview Guide', icon: '\u25C8', color: 'var(--purple)' },
+  { id: 'experts', label: 'Expert Frameworks', icon: '\u25C7', color: 'var(--blue)' },
 ];
 
 const DISCOVER_PARTICIPANT_NAV = [
@@ -25,9 +27,9 @@ const DISCOVER_PARTICIPANT_NAV = [
 ];
 
 const MAKE_SENSE_NAV = [
+  { id: 'problem', label: 'Problem Space', icon: '\u25CE', color: 'var(--purple)' },
   { id: 'design', label: 'Design Space', icon: '\u25B3', color: 'var(--olive)' },
   { id: 'synthesis', label: 'Synthesis', icon: '\u25EC', color: 'var(--purple)' },
-  { id: 'experts', label: 'Expert Frameworks', icon: '\u25C7', color: 'var(--blue)' },
 ];
 
 const COMMUNICATE_NAV = [
@@ -58,6 +60,7 @@ function App() {
       case 'synthesis': return <Synthesis />;
       case 'experts': return <ExpertFrameworks />;
       case 'narrative': return <Narrative />;
+      case 'problem': return <ProblemSpace />;
       case 'profile': return <ParticipantProfile onNavigate={handleNavigate} />;
       default: return <Dashboard onNavigate={handleNavigate} onSwitchTab={handleSwitchToParticipant} />;
     }

@@ -27,6 +27,9 @@ import DEFAULT_EXPERTS from '../data/experts';
 /* ── Narrative / case study default data ─────────────── */
 import DEFAULT_NARRATIVE from '../data/narrative';
 
+/* ── Problem space default data ──────────────────────── */
+import DEFAULT_PROBLEM_SPACE from '../data/problemSpace';
+
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
 const uid = () => 'item_' + (_id++);
@@ -286,6 +289,7 @@ function buildDefaults() {
     synthesis: DEFAULT_SYNTHESIS,
     experts: DEFAULT_EXPERTS,
     narrative: DEFAULT_NARRATIVE,
+    problemSpace: DEFAULT_PROBLEM_SPACE,
     _prev: null,
     editCount: 0,
     toastMessage: null,
@@ -925,6 +929,104 @@ function reducer(state, action) {
       };
     }
 
+    /* ── Problem Space (shared) ────────────────────────── */
+    case 'UPDATE_PROBLEM_STATEMENT': {
+      const { field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          statement: { ...nextState.problemSpace.statement, [field]: value },
+        },
+      };
+    }
+    case 'UPDATE_PROBLEM_SCENARIO': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          scenarios: nextState.problemSpace.scenarios.map(s => s.id === id ? { ...s, [field]: value } : s),
+        },
+      };
+    }
+    case 'ADD_PROBLEM_SCENARIO': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          scenarios: [...nextState.problemSpace.scenarios, { id: uid(), title: 'New scenario', description: '', participant: '' }],
+        },
+      };
+    }
+    case 'DELETE_PROBLEM_SCENARIO': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          scenarios: nextState.problemSpace.scenarios.filter(s => s.id !== action.id),
+        },
+      };
+    }
+    case 'UPDATE_PROBLEM_GOAL': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          userGoals: nextState.problemSpace.userGoals.map(g => g.id === id ? { ...g, [field]: value } : g),
+        },
+      };
+    }
+    case 'ADD_PROBLEM_GOAL': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          userGoals: [...nextState.problemSpace.userGoals, { id: uid(), title: 'New goal', description: '' }],
+        },
+      };
+    }
+    case 'DELETE_PROBLEM_GOAL': {
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          userGoals: nextState.problemSpace.userGoals.filter(g => g.id !== action.id),
+        },
+      };
+    }
+    case 'UPDATE_PROBLEM_SCOPE': {
+      const { list, id, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          [list]: nextState.problemSpace[list].map(s => s.id === id ? { ...s, text: value } : s),
+        },
+      };
+    }
+    case 'ADD_PROBLEM_SCOPE': {
+      const { list } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          [list]: [...nextState.problemSpace[list], { id: uid(), text: '' }],
+        },
+      };
+    }
+    case 'DELETE_PROBLEM_SCOPE': {
+      const { list, id } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        problemSpace: {
+          ...nextState.problemSpace,
+          [list]: nextState.problemSpace[list].filter(s => s.id !== id),
+        },
+      };
+    }
+
     /* ── Undo ─────────────────────────────────────────── */
     case 'UNDO': {
       if (!state._prev) return state;
@@ -1036,6 +1138,7 @@ export function useData() {
     synthesis: state.synthesis,
     experts: state.experts,
     narrative: state.narrative,
+    problemSpace: state.problemSpace,
     allParticipants: state.participants,
 
     // Participant management
