@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './App.css';
 import { useData, PARTICIPANT_META } from './context/DataContext';
 import Dashboard from './pages/Dashboard';
@@ -14,6 +14,10 @@ import ParticipantProfile from './pages/ParticipantProfile';
 import ResearchChain from './pages/ResearchChain';
 import Toast from './components/Toast';
 import SaveIndicator from './components/SaveIndicator';
+
+const DISCOVER_IDS = ['dashboard', 'guide', 'experts', 'profile', 'findings', 'affinity'];
+const MAKE_SENSE_IDS = ['problem', 'design', 'synthesis', 'chain'];
+const COMMUNICATE_IDS = ['narrative'];
 
 const DISCOVER_NAV = [
   { id: 'dashboard', label: 'Overview', icon: '\u25C9', color: 'var(--olive)' },
@@ -38,10 +42,27 @@ const COMMUNICATE_NAV = [
   { id: 'narrative', label: 'Narrative', icon: '\u25CE', color: 'var(--terracotta)' },
 ];
 
+function getSectionForPage(page) {
+  if (DISCOVER_IDS.includes(page)) return 'discover';
+  if (MAKE_SENSE_IDS.includes(page)) return 'make_sense';
+  if (COMMUNICATE_IDS.includes(page)) return 'communicate';
+  return 'discover';
+}
+
 function App() {
   const [activePage, setActivePage] = useState('dashboard');
+  const [openSection, setOpenSection] = useState('discover');
   const { exportData, importData, resetToDefaults, activeParticipant, participantList, switchParticipant } = useData();
   const fileInputRef = useRef(null);
+
+  // Auto-expand section when active page changes
+  useEffect(() => {
+    setOpenSection(getSectionForPage(activePage));
+  }, [activePage]);
+
+  const toggleSection = (section) => {
+    setOpenSection(prev => prev === section ? null : section);
+  };
 
   const handleNavigate = (page) => {
     setActivePage(page);
@@ -116,140 +137,179 @@ function App() {
 
         <div className="sidebar-nav">
           {/* ── DISCOVER ── */}
-          <div className="sidebar-section-label">Discover</div>
-          {DISCOVER_NAV.map(item => (
-            <button
-              key={item.id}
-              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
-              onClick={() => setActivePage(item.id)}
-              aria-current={activePage === item.id ? 'page' : undefined}
-              style={{
-                '--nav-color': item.color,
-                borderLeftColor: activePage === item.id ? item.color : 'transparent',
-                backgroundColor: activePage === item.id
-                  ? `color-mix(in srgb, ${item.color} 8%, transparent)`
-                  : 'transparent',
-                color: activePage === item.id ? item.color : undefined,
-              }}
-            >
-              <span className="nav-icon" style={{ color: item.color }}>
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
-            </button>
-          ))}
+          <button
+            className={`section-toggle ${openSection === 'discover' ? 'open' : ''} ${DISCOVER_IDS.includes(activePage) ? 'has-active' : ''}`}
+            onClick={() => toggleSection('discover')}
+          >
+            <span className="section-toggle-chevron">{openSection === 'discover' ? '\u25BC' : '\u25B6'}</span>
+            <span>Discover</span>
+            {DISCOVER_IDS.includes(activePage) && openSection !== 'discover' && (
+              <span className="section-toggle-dot" />
+            )}
+          </button>
+          {openSection === 'discover' && (
+            <div className="section-items">
+              {DISCOVER_NAV.map(item => (
+                <button
+                  key={item.id}
+                  className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+                  onClick={() => setActivePage(item.id)}
+                  aria-current={activePage === item.id ? 'page' : undefined}
+                  style={{
+                    '--nav-color': item.color,
+                    borderLeftColor: activePage === item.id ? item.color : 'transparent',
+                    backgroundColor: activePage === item.id
+                      ? `color-mix(in srgb, ${item.color} 8%, transparent)`
+                      : 'transparent',
+                    color: activePage === item.id ? item.color : undefined,
+                  }}
+                >
+                  <span className="nav-icon" style={{ color: item.color }}>
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
 
-          {/* Participant Switcher */}
-          <div style={{ padding: '6px 16px 4px' }}>
-            <div style={{ display: 'flex', gap: 4 }}>
-              {participantList.map(pid => {
-                const meta = PARTICIPANT_META[pid];
-                const isActive = pid === activeParticipant;
-                return (
-                  <button
-                    key={pid}
-                    onClick={() => switchParticipant(pid)}
-                    title={meta.label}
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      gap: 3,
-                      padding: '6px 4px',
-                      borderRadius: 8,
-                      border: isActive ? '1.5px solid var(--olive)' : '1px solid var(--border)',
-                      background: isActive
-                        ? 'color-mix(in srgb, var(--olive) 8%, transparent)'
-                        : 'transparent',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease',
-                    }}
-                  >
-                    <span style={{ fontSize: 18 }}>{meta.emoji}</span>
-                    <span style={{
-                      fontSize: 9,
-                      fontWeight: isActive ? 600 : 400,
-                      color: isActive ? 'var(--olive)' : 'var(--text-3)',
-                      lineHeight: 1.2,
-                    }}>
-                      P{pid.replace('p', '')}
-                    </span>
-                  </button>
-                );
-              })}
+              {/* Participant Switcher */}
+              <div style={{ padding: '6px 16px 4px' }}>
+                <div style={{ display: 'flex', gap: 4 }}>
+                  {participantList.map(pid => {
+                    const meta = PARTICIPANT_META[pid];
+                    const isActive = pid === activeParticipant;
+                    return (
+                      <button
+                        key={pid}
+                        onClick={() => switchParticipant(pid)}
+                        title={meta.label}
+                        style={{
+                          flex: 1,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: 3,
+                          padding: '6px 4px',
+                          borderRadius: 8,
+                          border: isActive ? '1.5px solid var(--olive)' : '1px solid var(--border)',
+                          background: isActive
+                            ? 'color-mix(in srgb, var(--olive) 8%, transparent)'
+                            : 'transparent',
+                          cursor: 'pointer',
+                          transition: 'all 0.15s ease',
+                        }}
+                      >
+                        <span style={{ fontSize: 18 }}>{meta.emoji}</span>
+                        <span style={{
+                          fontSize: 9,
+                          fontWeight: isActive ? 600 : 400,
+                          color: isActive ? 'var(--olive)' : 'var(--text-3)',
+                          lineHeight: 1.2,
+                        }}>
+                          P{pid.replace('p', '')}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {DISCOVER_PARTICIPANT_NAV.map(item => (
+                <button
+                  key={item.id}
+                  className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+                  onClick={() => setActivePage(item.id)}
+                  aria-current={activePage === item.id ? 'page' : undefined}
+                  style={{
+                    '--nav-color': item.color,
+                    borderLeftColor: activePage === item.id ? item.color : 'transparent',
+                    backgroundColor: activePage === item.id
+                      ? `color-mix(in srgb, ${item.color} 8%, transparent)`
+                      : 'transparent',
+                    color: activePage === item.id ? item.color : undefined,
+                  }}
+                >
+                  <span className="nav-icon" style={{ color: item.color }}>
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
             </div>
-          </div>
-
-          {DISCOVER_PARTICIPANT_NAV.map(item => (
-            <button
-              key={item.id}
-              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
-              onClick={() => setActivePage(item.id)}
-              aria-current={activePage === item.id ? 'page' : undefined}
-              style={{
-                '--nav-color': item.color,
-                borderLeftColor: activePage === item.id ? item.color : 'transparent',
-                backgroundColor: activePage === item.id
-                  ? `color-mix(in srgb, ${item.color} 8%, transparent)`
-                  : 'transparent',
-                color: activePage === item.id ? item.color : undefined,
-              }}
-            >
-              <span className="nav-icon" style={{ color: item.color }}>
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
-            </button>
-          ))}
+          )}
 
           {/* ── MAKE SENSE ── */}
-          <div className="sidebar-section-label">Make Sense</div>
-          {MAKE_SENSE_NAV.map(item => (
-            <button
-              key={item.id}
-              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
-              onClick={() => setActivePage(item.id)}
-              aria-current={activePage === item.id ? 'page' : undefined}
-              style={{
-                '--nav-color': item.color,
-                borderLeftColor: activePage === item.id ? item.color : 'transparent',
-                backgroundColor: activePage === item.id
-                  ? `color-mix(in srgb, ${item.color} 8%, transparent)`
-                  : 'transparent',
-                color: activePage === item.id ? item.color : undefined,
-              }}
-            >
-              <span className="nav-icon" style={{ color: item.color }}>
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
-            </button>
-          ))}
+          <button
+            className={`section-toggle ${openSection === 'make_sense' ? 'open' : ''} ${MAKE_SENSE_IDS.includes(activePage) ? 'has-active' : ''}`}
+            onClick={() => toggleSection('make_sense')}
+          >
+            <span className="section-toggle-chevron">{openSection === 'make_sense' ? '\u25BC' : '\u25B6'}</span>
+            <span>Make Sense</span>
+            {MAKE_SENSE_IDS.includes(activePage) && openSection !== 'make_sense' && (
+              <span className="section-toggle-dot" />
+            )}
+          </button>
+          {openSection === 'make_sense' && (
+            <div className="section-items">
+              {MAKE_SENSE_NAV.map(item => (
+                <button
+                  key={item.id}
+                  className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+                  onClick={() => setActivePage(item.id)}
+                  aria-current={activePage === item.id ? 'page' : undefined}
+                  style={{
+                    '--nav-color': item.color,
+                    borderLeftColor: activePage === item.id ? item.color : 'transparent',
+                    backgroundColor: activePage === item.id
+                      ? `color-mix(in srgb, ${item.color} 8%, transparent)`
+                      : 'transparent',
+                    color: activePage === item.id ? item.color : undefined,
+                  }}
+                >
+                  <span className="nav-icon" style={{ color: item.color }}>
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* ── COMMUNICATE ── */}
-          <div className="sidebar-section-label">Communicate</div>
-          {COMMUNICATE_NAV.map(item => (
-            <button
-              key={item.id}
-              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
-              onClick={() => setActivePage(item.id)}
-              aria-current={activePage === item.id ? 'page' : undefined}
-              style={{
-                '--nav-color': item.color,
-                borderLeftColor: activePage === item.id ? item.color : 'transparent',
-                backgroundColor: activePage === item.id
-                  ? `color-mix(in srgb, ${item.color} 8%, transparent)`
-                  : 'transparent',
-                color: activePage === item.id ? item.color : undefined,
-              }}
-            >
-              <span className="nav-icon" style={{ color: item.color }}>
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
-            </button>
-          ))}
+          <button
+            className={`section-toggle ${openSection === 'communicate' ? 'open' : ''} ${COMMUNICATE_IDS.includes(activePage) ? 'has-active' : ''}`}
+            onClick={() => toggleSection('communicate')}
+          >
+            <span className="section-toggle-chevron">{openSection === 'communicate' ? '\u25BC' : '\u25B6'}</span>
+            <span>Communicate</span>
+            {COMMUNICATE_IDS.includes(activePage) && openSection !== 'communicate' && (
+              <span className="section-toggle-dot" />
+            )}
+          </button>
+          {openSection === 'communicate' && (
+            <div className="section-items">
+              {COMMUNICATE_NAV.map(item => (
+                <button
+                  key={item.id}
+                  className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+                  onClick={() => setActivePage(item.id)}
+                  aria-current={activePage === item.id ? 'page' : undefined}
+                  style={{
+                    '--nav-color': item.color,
+                    borderLeftColor: activePage === item.id ? item.color : 'transparent',
+                    backgroundColor: activePage === item.id
+                      ? `color-mix(in srgb, ${item.color} 8%, transparent)`
+                      : 'transparent',
+                    color: activePage === item.id ? item.color : undefined,
+                  }}
+                >
+                  <span className="nav-icon" style={{ color: item.color }}>
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Save indicator */}

@@ -153,8 +153,86 @@ body {
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
   flex: 1;
+}
+
+/* --- Section Toggle (Breakdown Buttons) --- */
+
+.section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  transition: all 0.15s ease;
+  position: relative;
+  margin-top: 4px;
+  border-radius: 0;
+}
+
+.section-toggle:first-child {
+  margin-top: 0;
+}
+
+.section-toggle:hover {
+  color: var(--text-1);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.section-toggle.open {
+  color: var(--text-1);
+}
+
+.section-toggle.has-active:not(.open) {
+  color: var(--olive);
+}
+
+.section-toggle-chevron {
+  font-size: 7px;
+  width: 14px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+  opacity: 0.6;
+}
+
+.section-toggle-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--olive);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.section-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  animation: sectionExpand 0.15s ease;
+  overflow: hidden;
+}
+
+@keyframes sectionExpand {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
 }
 
 .nav-item {
