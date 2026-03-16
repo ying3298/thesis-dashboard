@@ -149,6 +149,7 @@ export default function ResearchChain() {
     hmwOptions, opportunity, chainHypotheses,
     designPrinciples, principleSystem,
     conceptCards, confidenceTable, flags,
+    deferredToIdeation,
   } = researchChain;
 
   return (
@@ -166,8 +167,8 @@ export default function ResearchChain() {
           color: 'var(--text-2)', fontFamily: 'var(--font-body)',
           maxWidth: 580, lineHeight: 1.65,
         }}>
-          The full evidence chain from problem statement to design concepts.
-          Built for committee review. Flags mark where philosophy holds the chain instead of data.
+          The data-grounded evidence chain from problem statement to design concept.
+          Only research-backed links remain. Design philosophy deferred to ideation.
         </p>
         <div style={{
           display: 'flex', gap: 8, marginTop: 12, flexWrap: 'wrap',
@@ -188,7 +189,16 @@ export default function ResearchChain() {
             background: 'color-mix(in srgb, var(--terracotta) 10%, transparent)',
             color: 'var(--terracotta)',
           }}>
-            7 honesty flags
+            2 honesty flags
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
+            textTransform: 'uppercase', letterSpacing: '0.06em',
+            padding: '3px 10px', borderRadius: 999,
+            background: 'color-mix(in srgb, var(--purple) 10%, transparent)',
+            color: 'var(--purple)',
+          }}>
+            5 deferred to ideation
           </span>
         </div>
       </header>
@@ -199,7 +209,7 @@ export default function ResearchChain() {
       <SectionDivider number="1" label="How Might We \u2014 Ranked by Evidence" />
 
       <p style={{ fontSize: '0.85rem', color: 'var(--text-3)', marginBottom: 20, marginTop: -8, lineHeight: 1.6 }}>
-        Three HMW framings derived from the problem statement. Ranked by how many participants contributed evidence.
+        Two data-grounded HMW framings derived from the problem statement. Ranked by participant evidence strength.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -361,7 +371,7 @@ export default function ResearchChain() {
       <SectionDivider number="3" label="Design Principles" />
 
       <p style={{ fontSize: '0.85rem', color: 'var(--text-3)', marginBottom: 20, marginTop: -8, lineHeight: 1.6 }}>
-        Three principles derived from the chosen HMW. Each paired with participant quotes as evidence.
+        Two data-grounded principles derived from the chosen HMW. Each paired with participant quotes as evidence.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -517,7 +527,7 @@ export default function ResearchChain() {
       <SectionDivider number="4" label="Concept Cards" />
 
       <p style={{ fontSize: '0.85rem', color: 'var(--text-3)', marginBottom: 20, marginTop: -8, lineHeight: 1.6 }}>
-        Three concepts mapped to principles. Ordered by evidence strength, not by concept number. Each concept is rated at its actual confidence level.
+        The concept with the strongest data backing. Other concepts (Clock Experiments, AI Dialogue) deferred to ideation stage.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
@@ -681,12 +691,48 @@ export default function ResearchChain() {
       </div>
 
       {/* ═══════════════════════════════════════════════ */}
-      {/*  SECTION 6: ALL FLAGS                          */}
+      {/*  SECTION 6: DEFERRED TO IDEATION               */}
       {/* ═══════════════════════════════════════════════ */}
-      <SectionDivider number="6" label="Honesty Flags \u2014 All 7" />
+      <SectionDivider number="6" label={`Deferred to Ideation \u2014 ${deferredToIdeation?.length || 0} Items`} />
 
       <p style={{ fontSize: '0.85rem', color: 'var(--text-3)', marginBottom: 16, marginTop: -8, lineHeight: 1.6 }}>
-        Every place in the chain where philosophy holds instead of data. Named, not hidden.
+        Design philosophy elements removed from this chain. They belong in the ideation stage (Design Space), not in research synthesis.
+      </p>
+
+      {deferredToIdeation && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {deferredToIdeation.map((item) => (
+            <div key={item.id} style={{
+              padding: '12px 16px',
+              background: 'color-mix(in srgb, var(--purple) 4%, var(--surface))',
+              border: '1px solid color-mix(in srgb, var(--purple) 16%, transparent)',
+              borderLeft: '3px solid var(--purple)',
+              borderRadius: 'var(--radius-sm)',
+            }}>
+              <div style={{
+                fontWeight: 600, fontSize: '0.88rem', color: 'var(--text-1)',
+                marginBottom: 4,
+              }}>
+                {item.item}
+              </div>
+              <p style={{
+                margin: 0, fontSize: '0.82rem', lineHeight: 1.6,
+                color: 'var(--text-2)',
+              }}>
+                {item.reason}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ═══════════════════════════════════════════════ */}
+      {/*  SECTION 7: ALL FLAGS                          */}
+      {/* ═══════════════════════════════════════════════ */}
+      <SectionDivider number="7" label={`Honesty Flags \u2014 ${flags?.length || 0} Remaining`} />
+
+      <p style={{ fontSize: '0.85rem', color: 'var(--text-3)', marginBottom: 16, marginTop: -8, lineHeight: 1.6 }}>
+        Weak points in the remaining data-grounded chain. Named, not hidden.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
