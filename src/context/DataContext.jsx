@@ -30,6 +30,9 @@ import DEFAULT_NARRATIVE from '../data/narrative';
 /* ── Problem space default data ──────────────────────── */
 import DEFAULT_PROBLEM_SPACE from '../data/problemSpace';
 
+/* ── Research chain default data ───────────────────────── */
+import DEFAULT_RESEARCH_CHAIN from '../data/researchChain';
+
 /* ── ID generation ─────────────────────────────────────── */
 let _id = Date.now();
 const uid = () => 'item_' + (_id++);
@@ -290,6 +293,7 @@ function buildDefaults() {
     experts: DEFAULT_EXPERTS,
     narrative: DEFAULT_NARRATIVE,
     problemSpace: DEFAULT_PROBLEM_SPACE,
+    researchChain: DEFAULT_RESEARCH_CHAIN,
     _prev: null,
     editCount: 0,
     toastMessage: null,
@@ -1038,6 +1042,63 @@ function reducer(state, action) {
       };
     }
 
+    /* ── Research Chain (shared) ──────────────────────── */
+    case 'UPDATE_RESEARCH_CHAIN_FIELD': {
+      const { field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        researchChain: { ...nextState.researchChain, [field]: value },
+      };
+    }
+    case 'UPDATE_RESEARCH_CHAIN_HMW': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        researchChain: {
+          ...nextState.researchChain,
+          hmwOptions: nextState.researchChain.hmwOptions.map(h =>
+            h.id === id ? { ...h, [field]: value } : h
+          ),
+        },
+      };
+    }
+    case 'UPDATE_RESEARCH_CHAIN_HYPOTHESIS': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        researchChain: {
+          ...nextState.researchChain,
+          chainHypotheses: nextState.researchChain.chainHypotheses.map(h =>
+            h.id === id ? { ...h, [field]: value } : h
+          ),
+        },
+      };
+    }
+    case 'UPDATE_RESEARCH_CHAIN_PRINCIPLE': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        researchChain: {
+          ...nextState.researchChain,
+          designPrinciples: nextState.researchChain.designPrinciples.map(p =>
+            p.id === id ? { ...p, [field]: value } : p
+          ),
+        },
+      };
+    }
+    case 'UPDATE_RESEARCH_CHAIN_CONCEPT': {
+      const { id, field, value } = action;
+      return {
+        ...nextState, editCount: nextState.editCount + 1,
+        researchChain: {
+          ...nextState.researchChain,
+          conceptCards: nextState.researchChain.conceptCards.map(c =>
+            c.id === id ? { ...c, [field]: value } : c
+          ),
+        },
+      };
+    }
+
     /* ── Undo ─────────────────────────────────────────── */
     case 'UNDO': {
       if (!state._prev) return state;
@@ -1150,6 +1211,7 @@ export function useData() {
     experts: state.experts,
     narrative: state.narrative,
     problemSpace: state.problemSpace,
+    researchChain: state.researchChain,
     allParticipants: state.participants,
 
     // Participant management

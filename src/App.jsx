@@ -11,6 +11,7 @@ import ExpertFrameworks from './pages/ExpertFrameworks';
 import Narrative from './pages/Narrative';
 import ProblemSpace from './pages/ProblemSpace';
 import ParticipantProfile from './pages/ParticipantProfile';
+import ResearchChain from './pages/ResearchChain';
 import Toast from './components/Toast';
 import SaveIndicator from './components/SaveIndicator';
 
@@ -30,6 +31,7 @@ const MAKE_SENSE_NAV = [
   { id: 'problem', label: 'Problem Space', icon: '\u25CE', color: 'var(--purple)' },
   { id: 'design', label: 'Design Space', icon: '\u25B3', color: 'var(--olive)' },
   { id: 'synthesis', label: 'Synthesis', icon: '\u25EC', color: 'var(--purple)' },
+  { id: 'chain', label: 'Evidence Chain', icon: '\u25C6', color: 'var(--olive)' },
 ];
 
 const COMMUNICATE_NAV = [
@@ -61,6 +63,7 @@ function App() {
       case 'experts': return <ExpertFrameworks />;
       case 'narrative': return <Narrative />;
       case 'problem': return <ProblemSpace />;
+      case 'chain': return <ResearchChain />;
       case 'profile': return <ParticipantProfile onNavigate={handleNavigate} />;
       default: return <Dashboard onNavigate={handleNavigate} onSwitchTab={handleSwitchToParticipant} />;
     }
