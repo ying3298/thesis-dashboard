@@ -10,7 +10,7 @@ export const TRANSCRIPT_DATA = {
     "label": "P1 — Graphic Designer, London",
     "turns": [
       {
-        "question": "啦，好啦。其實應該可能會有follow up question所以可能會差不多，就是盡量是個 問題，然後我們盡量試著，在就，是兩點50分之前結束，",
+        "question": "訪談開場與說明",
         "answer": [
           {
             "text": "當然",
@@ -19,7 +19,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你可以稍微可以稍微介紹一下，你自己嗎？",
+        "question": "可以自我介紹一下嗎？",
         "answer": [
           {
             "text": "我是1個住在輪圈的平面設計師，ok大概住在倫敦第3年了，你幾歲26歲ok",
@@ -28,7 +28,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "反正因為這個主題其實我就是想要大概了解一下，通常就是你說你住在倫敦3年 嗎？",
+        "question": "你住在倫敦幾年了？",
         "answer": [
           {
             "text": "事件吧可能會有一些生活的時刻，需要一些人的幫助的時候，我就會想到我的父母，",
@@ -37,7 +37,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "通常像是什麼樣的事情",
+        "question": "什麼時候會覺得需要父母的幫助？",
         "answer": [
           {
             "text": "譬如說我有時候會好奇這個東西發芽了還能不能吃的時候，我可能就會想打電話給我媽",
@@ -50,7 +50,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "通常都是，通常都是你發生生活當中，你有一些疑難雜症，你有一點好奇有經驗的 人會怎麼解決的時候，你會想到你的父母對，ok那有什麼狀況？",
+        "question": "遇到生活中的問題時，你會想到父母嗎？",
         "answer": [
           {
             "text": "疑難雜症包含很多東西啊比如說想家的時候，",
@@ -59,7 +59,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "想加，那你覺得通常就是你要比方說你先有這個念頭嗎？",
+        "question": "你是先有想傳訊息的念頭，還是？",
         "answer": [
           {
             "text": "因為時差不太確定他們會不會接電話或者是或者是他們可能在忙之類的，或是我可能也",
@@ -92,7 +92,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他們回的時候，你通常的反應是什麼就是好像收到了，所以會他們回的東西，通常就 是當然還是看你穿什麼啦對不對？",
+        "question": "他們回覆的時候，你通常的反應是什麼？",
         "answer": [
           {
             "text": "這樣，然後回一些習俗的youtuber就會說什麼大什麼出擊啊幹嘛然後農曆哪1天啊。今",
@@ -105,7 +105,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "狀況下是你有先傳訊息給他們還是他們本身想要他們也本身會穿他們本身也想傳一 些稀疏的分享",
+        "question": "通常是你先傳訊息，還是他們主動？",
         "answer": [
           {
             "text": "喔。如果davy base的話，如果他們出去玩，然後有拍照片的話，我還蠻開心的喔ok為",
@@ -118,7 +118,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "的，沒有我也過得很好，所以有一種放心的感覺嗎？",
+        "question": "收到他們的回覆，有一種放心的感覺嗎？",
         "answer": [
           {
             "text": "如果他們開始傳一些假訊息，然後就有點擔心，就是就是通常這個時候你會做什麼，通",
@@ -139,7 +139,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你有覺得欸。等一下你現在回想你上次跟因為你說，你平常都是傳訊息嘛但如果你 現在回想，這樣，上次，我這個問題分成兩個好了，先講一樣是傳訊息，你上次傳訊息 的內容是什麼？",
+        "question": "你上次傳訊息給他們的內容是什麼？",
         "answer": [
           {
             "text": "上次在跟他們講電話的時候，",
@@ -148,7 +148,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "或是你最近一次有印象的時候",
+        "question": "最近一次有印象的通話是什麼時候？",
         "answer": [
           {
             "text": "再一次講電話，應該是喔過年的時候過年的時候，除夕那1天有打電話回家拜年，那你",
@@ -161,7 +161,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你在講那通電話的當下",
+        "question": "講電話的當下，你在想什麼？",
         "answer": [
           {
             "text": "其實就是有一點想回家過年，但又覺得大家真的好吵，",
@@ -170,7 +170,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果你要形容妳的感覺的話",
+        "question": "如果要形容那個感覺的話？",
         "answer": [
           {
             "text": "是痛並快樂，是1個很有趣的事情，就是想想，也是真的，想他們但是他們吵也是真的",
@@ -183,7 +183,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得你最喜歡沒有跟你父母這麼近距離的應該說，住到倫敦之後，對於你跟父母之間 的這個距離，你感覺到最開心的1件事是什麼？",
+        "question": "住在倫敦後，距離帶給你最開心的事是什麼？",
         "answer": [
           {
             "text": "感覺他最開心的1件事情，就是他們煩到我的時候，我的人真的可以不見了，",
@@ -192,7 +192,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你其他就是你在你在想這個距離帶給你的各種影像跟改變的時候",
+        "question": "距離帶給你的其他影響和改變？",
         "answer": [
           {
             "text": "就是你可以自己1個人處理的這麼",
@@ -201,7 +201,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "多事情，",
+        "question": "（接續）還有想到什麼嗎？",
         "answer": [
           {
             "text": "感覺自己很像是1個終極的大人中初級、中級、高級的那個終極明明為大人名為a",
@@ -210,7 +210,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "到，那你覺得怎麼樣？",
+        "question": "那你覺得怎麼樣？",
         "answer": [
           {
             "text": "有一些有一些更多的成長，就是發現我1個人就是可以活得很好，沒有什麼好，怕的就",
@@ -223,7 +223,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "沒有很有關係喔。真的嗎？",
+        "question": "你覺得這跟你的關係有關嗎？",
         "answer": [
           {
             "text": "1個是什麼？我想一下，就是譬如說回到家以後，就會發現家裡有1個新的規則，譬如說",
@@ -248,7 +248,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "但是這些事情有讓你，但通常現在你說這是你現在能想到的嗎？",
+        "question": "這些是你現在能想到的嗎？",
         "answer": [
           {
             "text": "然後我沒有參與到的，通常這個東西好像都要回家以後才看得到，如果透過交流的話，",
@@ -273,7 +273,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你媽嗎的臉，你會先注意到什麼你現在腦海裡浮現，媽媽的臉你會先註意到什麼",
+        "question": "想到媽媽的臉，你會先注意到什麼？",
         "answer": [
           {
             "text": "頭髮頭髮為什麼？因為髮型總總是會有一些不一樣的地方跟髮量也會有一點不一樣的，",
@@ -290,7 +290,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你會注意到他們的造型跟髮量，你覺得是為什麼？",
+        "question": "你為什麼會注意到他們的造型跟髮量？",
         "answer": [
           {
             "text": "頭髮展示了一些人的生活狀態，所以通常會看到，比如說人老了，年紀大了以後也會有",
@@ -315,7 +315,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果你現在想到你爸爸的臉的話",
+        "question": "想到爸爸的臉呢？第一個會注意到什麼？",
         "answer": [
           {
             "text": "爸爸的，好像，是眼睛，為什麼呢？因為我爸的眼睛比較特別、比較特別，但我爸有一",
@@ -332,7 +332,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你在看他的眼睛的時候",
+        "question": "你看他的眼睛時，在想什麼？",
         "answer": [
           {
             "text": "就是想從他的眼睛裡面看出去的時候，燒掉了哪1個部分，但是他又看得到哪些部分呢",
@@ -345,7 +345,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得你在，想這件事的時候，就是他可以看到哪些部分跟看不到哪些部分的時候， 你的感覺",
+        "question": "想到他能看到和看不到你的哪些部分，你的感覺？",
         "answer": [
           {
             "text": "是什麼我的感覺是什麼啊我沒什麼感覺，",
@@ -354,7 +354,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果是媽媽的呢媽媽一樣的",
+        "question": "如果是媽媽的話呢？",
         "answer": [
           {
             "text": "我就會想說他，他最近的狀態是怎麼樣，",
@@ -363,7 +363,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你會問嗎？",
+        "question": "你會直接問他們嗎？",
         "answer": [
           {
             "text": "好像不太會，但我偶爾會問一下，你最近沒有在做什麼法嗎？那他通常都說什麼，他如",
@@ -380,7 +380,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得你跟你爸媽有建立出1個，像是，我不知道你們家有內梗嗎？",
+        "question": "你們家有內梗（inside joke）嗎？",
         "answer": [
           {
             "text": "什麼，但我在想好，你可以慢慢想內梗喔，我爸很喜歡開一些，萬笑，我爸很會講一些",
@@ -393,7 +393,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你那你每次聽到的時候",
+        "question": "每次聽到的時候，你在想什麼？",
         "answer": [
           {
             "text": "好笑，我覺得他很好笑，我覺得我覺得蠻好笑的，我小時候覺得很難笑，我現在覺得很",
@@ -414,7 +414,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他很認真，那通常，所以通常你就反正你說你小的時候很認真，你就不會笑，但是你現 在長大之後，你就會笑，所以你是你笑的，是這就是鼓勵他繼續多講嗎？",
+        "question": "你笑，是為了鼓勵他繼續講嗎？",
         "answer": [
           {
             "text": "你笑的時候，就真的gat到他的笑點了你就是想跟他一起共享這個時刻，我就覺得真的",
@@ -427,7 +427,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "笑，那你們家只有你笑，還是其他人也會笑你媽也會笑，所以你媽也有給到，應該可 以跟我講一下大概其中1個笑話是什麼嗎？",
+        "question": "你們家其他人也會笑嗎？可以分享一個笑話嗎？",
         "answer": [
           {
             "text": "喔我爸有時候會突然自己開1個話題，然後他就會說你知道嗎？我覺得老人吃過吃過的",
@@ -448,7 +448,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "的，那你覺得你發現自己聽得懂這笑話之後，你對於這件事的感覺是什麼就是蠻好的， 我爸很有幽默感，我就很開心，你有1個很有幽默感的，對",
+        "question": "聽得懂這個笑話之後，你的感覺是什麼？",
         "answer": [
           {
             "text": "而且我又會發現我的幽默感，好像跟我爸還蠻像的",
@@ -457,7 +457,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "可愛好，所以除了這個，那跟現在其實其實因為現在你講的東西比較多，樹的就是你 要記得，就是你記得跟我講，就是如果講的是錯的，就是你現在講的這些東西，比較多 的...",
+        "question": "目前聊到的這些事情，大部分跟什麼有關？",
         "answer": [
           {
             "text": "你覺得這樣你對這件事的感覺怎麼樣我覺得滿好的，因為我可能平常沒有什麼想分享的",
@@ -474,7 +474,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "這算是最後1個主題，就是在倫敦的這3年，其實有沒有什麼事情？",
+        "question": "在倫敦這3年，有沒有什麼事情想分享？",
         "answer": [
           {
             "text": "他們知道的也滿好的事情，但我其實感覺他們都知道，就算你沒有講你說哪部分的知道",
@@ -487,7 +487,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "像是，好我給你一些例子，但是如果有時候你覺得很辛苦，或者是有時候你覺得壓力很 大，像這種事情，你是會想要跟他們分享的，",
+        "question": "辛苦或壓力大的時候，你會想跟他們分享嗎？",
         "answer": [
           {
             "text": "好像是不會耶。但他覺得他們問他們會問",
@@ -496,7 +496,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "會吧通常都會問，那他們問的時候，你通常都會跟他們說",
+        "question": "他們問起的時候，你通常怎麼回答？",
         "answer": [
           {
             "text": "什麼，我覺得不耐煩，你就會覺得或者是就全，講，為什麼，就覺得如果是我要，我已",
@@ -521,7 +521,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得有哪些事情是他們可能這個，其實這就有點像是我現在也沒辦法考證啊",
+        "question": "有哪些事情是他們可能不知道的？",
         "answer": [
           {
             "text": "可能身體狀況吧？關於這個東西就是講了，我也幫不上什麼忙，所以他們就不一定會跟",
@@ -534,7 +534,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "知道這樣",
+        "question": "（接續）他們知道嗎？",
         "answer": [
           {
             "text": "嗯，",
@@ -543,7 +543,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "（接續）",
         "answer": [
           {
             "text": "ok",
@@ -552,7 +552,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得有什麼東西想要補充的嗎？",
+        "question": "你有什麼想補充的嗎？",
         "answer": [
           {
             "text": "我現在會有1個銷貨的什麼東西，",
@@ -641,7 +641,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "有時候會寫一些目標啊",
+        "question": "（接續：補充分享）",
         "answer": [
           {
             "text": "寫日曆的時候，主要是反正就是很快可以寫下來的東西，然後通常就是寫",
@@ -650,7 +650,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "行程啊。然後跟一些安排啊。或者是梳理一下做事的那個邏輯之類的",
+        "question": "你會寫日記或月曆嗎？通常記什麼？",
         "answer": [
           {
             "text": "了，你就會發現也沒什麼，大不了，你會回去看你之前寫的東西嗎？會",
@@ -659,7 +659,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "記日記的話，不太會日記的話，可能久久會去看一次，月曆也是久久會去，看一次，可 是寫完的時候然後會重新看一下，寫完的時候會重新看一下，自己這一段時間都在做什 ...",
+        "question": "（接續：日記和月曆的用途）",
         "answer": [
           {
             "text": "所以你算是你會說自己喜歡可以看之前發生的事情可以可以看到之前自己寫的這些事情",
@@ -672,7 +672,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "可能還是看狀態耶。因為我通常是只有錢就是寫日記這個習慣",
+        "question": "什麼時候會特別想寫日記？",
         "answer": [
           {
             "text": "那這樣問你好了當你回去看的時候，你看到了有1天，是你那天沒有煩惱，你寫了兩件",
@@ -685,7 +685,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "什麼就很開心，就覺得好就是那天很新很棒，有一些時候我特別開心，我超級開心的時 候就會寫一大篇，就是會想要把我如此開心，我為什麼因此開心就是我居然能我居然因 ...",
+        "question": "開心的時候也會寫嗎？",
         "answer": [
           {
             "text": "那，你現在你現在可以跟我分享1件，你上次這麼開心，然後寫了這麼多的事嗎？我想",
@@ -694,11 +694,11 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "上一次這麼 開心，",
+        "question": "上一次特別開心是什麼時候？",
         "answer": []
       },
       {
-        "question": "上一次我我開心，我寫了，什麼喔應該是跨年跨年林冠伶來我們家玩，然後我們住了1 天，然後我們就去開，我們就開車，然後吃燒肉啊然後晚上再家裡跟丁丁，然後一起看 ...",
+        "question": "（接續：跨年的回憶）",
         "answer": [
           {
             "text": "聽起來很，不錯，所以通常開心的這類的事情，但你通常寫開心的事情比較常寫還是你",
@@ -715,7 +715,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "還是就是確實應該就是寫給你自己看的日記不是寫給自己看的",
+        "question": "日記是寫給自己看的嗎？",
         "answer": [
           {
             "text": "所以如果今天你想像這個狀，",
@@ -764,7 +764,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我好像不見得會很開開心的",
+        "question": "你不一定會寫開心的事？",
         "answer": [
           {
             "text": "還行，所以對你來說，只有分享開心的按鈕，這件事情會減低，你的減低，你的疑惑嗎",
@@ -777,7 +777,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "這樣子我應該要寫，還是不應該要寫，那如果我好幾天都沒寫，他們就會，",
+        "question": "如果是跟家人分享的日曆，你會寫嗎？",
         "answer": [
           {
             "text": "就是他們就開始問說，你這幾天為什麼不開心那這樣子那這樣子如果說就是有1件發生",
@@ -802,15 +802,15 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他們想要知道說你怎麼都沒有好好",
+        "question": "他們會想知道你有沒有好好吃飯嗎？",
         "answer": []
       },
       {
-        "question": "我是覺得他們應該不會有什麼問題",
+        "question": "他們會有疑問嗎？",
         "answer": []
       },
       {
-        "question": "邊有菜園的，他們應該就不會，有，就有在好好吃飯就沒事這樣，",
+        "question": "有在好好吃飯的話就沒事？",
         "answer": [
           {
             "text": "你覺得有什麼東西，是你們使用了，如果你跟你爸媽真的有這個東西，是兩端的東西，",
@@ -827,11 +827,11 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你說日曆嗎 對，",
+        "question": "你對日曆的想法是什麼？",
         "answer": []
       },
       {
-        "question": "我覺得我沒有什麼需要他改變的東西，那日地本身就是一種改變啊",
+        "question": "你覺得需要它改變什麼嗎？",
         "answer": [
           {
             "text": "所以你覺得應該這樣講好了，如果你想像這個日曆來，你家的第1天，跟來你家的第30",
@@ -848,7 +848,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他本來就會改變了，所以每天都要死的話，他第1天跟第三時間就可就不一樣了，",
+        "question": "日曆本身就會改變？",
         "answer": [
           {
             "text": "所以像我們剛剛講的就是你回去看你之前寫的東西的這個部分的話，你會想要回去看的",
@@ -865,7 +865,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "會想一下",
+        "question": "（接續：想一下）",
         "answer": [
           {
             "text": "你說剛剛你是希望說吃飯這件事嗎？所以如果是跟吃飯有關的事情，然後1個月的時候",
@@ -882,7 +882,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "食物吧所以我覺得還蠻可以的",
+        "question": "你覺得日曆上放什麼內容比較好？",
         "answer": [
           {
             "text": "我現在喔其實我應該是已經拿到錢了啦。我跟你講我們我們我們部門很小氣，要不是我",
@@ -908,7 +908,7 @@ export const TRANSCRIPT_DATA = {
     "label": "P2 — 徐翎, Netherlands",
     "turns": [
       {
-        "question": "的喔好緊張，喔不要緊張，不要緊張，讓我來把他翻出來反正其實前面我會大概跟你 講一下很簡短的介紹，然後因為我我要錄音，所以我會跟你講，就是需要取得你的同意 之...",
+        "question": "訪談開場與說明",
         "answer": [
           {
             "text": "有就對了，那是你的權益，",
@@ -917,7 +917,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "反正如果等一下，在我們這個訪談的主題是要，就是大概就是去了解一下跟探索一 下，沒有跟沒有住在一起的家人，他們之間的互動還有關係，還有維持關係，不管等等 的，...",
+        "question": "這次訪談的主題是什麼？",
         "answer": [
           {
             "text": "你現在是可以接電話，的嗎？好，你先切，早安，我現在正在進行訪談，一下，這樣",
@@ -926,7 +926,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "（接續）",
         "answer": [
           {
             "text": "我我我我在訪談半個小時，怎麼你現在要過來還是什麼？我我我做爛，如果你們要做事",
@@ -943,7 +943,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "的ok所以錄音沒問題",
+        "question": "錄音沒問題嗎？",
         "answer": [
           {
             "text": "的，我覺得人國人一樣，只是有帶帽子，好不好？我根本也沒化妝，",
@@ -952,7 +952,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我現在我現在長得跟鬼一樣好",
+        "question": "（接續：確認狀態）",
         "answer": [
           {
             "text": "反正我是全部都錄進去，",
@@ -961,7 +961,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我不用等一下，等一下，我也不用那個嗎我也不用，我應該是不用跟你自我介紹了，但 是你稍微自我介紹一下，我是徐翎，如然後",
+        "question": "請自我介紹一下",
         "answer": [
           {
             "text": "住在台北，然後現在在荷蘭念書，然後我唸書其他aya ino然後我的主修是contacts",
@@ -1054,7 +1054,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我覺得單純比較強烈的思念的狀態都是發生",
+        "question": "你什麼時候會比較強烈地思念家人？",
         "answer": [
           {
             "text": "所以晚上",
@@ -1063,7 +1063,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "邊的生活，就是一整天都沒做啥事就過去了，就是你會覺得生活節奏變得很慢，這樣 好像又很好，的",
+        "question": "在荷蘭的生活節奏是什麼感覺？",
         "answer": [
           {
             "text": "感覺那這件事情，有影響到你覺得晚上你的感覺的差別是什麼嗎？我說你說現在1天的",
@@ -1076,7 +1076,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我覺得一開始會覺得就是哇好沒有效率喔。然後然後就是我會覺得說在荷蘭的半年很短 ，在台北的半年長，因為他在台北的半年可能會有很多事件發生，那在荷蘭的半年時間 ...",
+        "question": "你對荷蘭和台北的時間感受有什麼不同？",
         "answer": [
           {
             "text": "所以你說先回到剛剛，你說你覺得你晚上還有，你早上想到他們的時候，你感覺不一樣",
@@ -1093,7 +1093,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "通常可能是晚上要1個月",
+        "question": "通常什麼時候會特別想家？",
         "answer": [
           {
             "text": "感覺，",
@@ -1102,7 +1102,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "另外一方面也會覺得說這感覺不像是ok我今天如果在台中或是台南唸書",
+        "question": "跟在台灣唸書的距離感有什麼不同？",
         "answer": [
           {
             "text": "但是現在就比較我覺得現在好，很多耶。你覺得為什麼現在比較好",
@@ -1111,7 +1111,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我覺得一方面是習慣，一定有嘛",
+        "question": "你覺得一方面是習慣嗎？",
         "answer": [
           {
             "text": "感覺，你之前你說你",
@@ -1200,7 +1200,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "貿易的關係跟狀態，",
+        "question": "貿易的關係跟狀態？",
         "answer": [
           {
             "text": "所以如果你現在去看，你，現在去看你上一次跟你家人傳訊息，妳在妳家人群組傳了最",
@@ -1213,7 +1213,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "一下，我有兩個，但如果是跟我比較比較好的，那個群組的話，是我媽咪，他們，我媽 咪她們，我媽咪，他們發他們在台南，我說哪裡啊感覺好好玩喔然後上午就傳了一堆我 ...",
+        "question": "你們的家人群組通常聊什麼？",
         "answer": [
           {
             "text": "在他們，你在傳的時候，他們跟你說他們在，在台南玩的時候，你在想什麼，",
@@ -1222,7 +1222,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我看著因為是我大阿姨在拍我弟",
+        "question": "你看到家人傳的照片時，感覺是什麼？",
         "answer": [
           {
             "text": "所以，所以你說你看到他們出去玩的照片的時候，你想到的是這個",
@@ -1231,7 +1231,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "再確認一下，是嗎？",
+        "question": "（接續：確認一下）",
         "answer": [
           {
             "text": "這樣子那你覺得你算應該說你上次跟你媽媽，講電話，是什麼時候",
@@ -1240,7 +1240,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "短，的，還長，的",
+        "question": "短的還是長的通話？",
         "answer": [
           {
             "text": "先講短的，按一下再完成一，短的是25號、25號2月25號",
@@ -1249,7 +1249,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "上個月25號，",
+        "question": "上一次通話是什麼時候？",
         "answer": [
           {
             "text": "然後長得是什麼有一陣子了，但是很長",
@@ -1258,7 +1258,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "在哪哩",
+        "question": "在哪裡？",
         "answer": [
           {
             "text": "不過那如果你們短的那一次，妳們在聊什麼就",
@@ -1267,7 +1267,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "是生活雜誌，但是我有那個常常，那次，我們好像講了，應該兩個多小時都沒有再拿走 好my god反正因為我因為我媽前幾天有跟，但是我跟徐爾划槳，聊天是滿近的，看...",
+        "question": "那次通話主要聊了什麼？",
         "answer": [
           {
             "text": "然後就會說什麼，",
@@ -1276,7 +1276,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "把你們家3個姓許的泥許攸跟許由一都不愛我",
+        "question": "你們家三個姓許的關係？",
         "answer": []
       }
     ]
@@ -1285,7 +1285,7 @@ export const TRANSCRIPT_DATA = {
     "label": "P3 — 阿花/Cactus, Parsons",
     "turns": [
       {
-        "question": "Hello hello",
+        "question": "打招呼",
         "answer": [
           {
             "text": "酷",
@@ -1294,7 +1294,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你需要你有任何你，在接下來的30分鐘，需要的東西水手機做的地方就是你現在還 有什麼東西去還是你要先去上廁所都ok ok好好反正現在我這個，這個訪談主要的宗旨...",
+        "question": "訪談開場與說明",
         "answer": [
           {
             "text": "我是阿花",
@@ -1303,7 +1303,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "就，跟我記得的不一樣我，是cactus ok然後你在你在做什麼然後你最近",
+        "question": "你的名字是？你最近在做什麼？",
         "answer": [
           {
             "text": "雖然你最近在忙什麼妳在做什麼去年從parsons fashion management畢業現在在free",
@@ -1316,7 +1316,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你幾歲",
+        "question": "你幾歲？",
         "answer": [
           {
             "text": "二十六二十六",
@@ -1325,7 +1325,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "歲好ok好，那我先問你第1個就是，第1個就是，日常生活的就是你現在想像來紐約之後 的任何1天1個平凡的1天，你開始想你起床的時候，然後你一整天下來的這整個過...",
+        "question": "來紐約之後，一個平凡的一天大概是什麼樣子？",
         "answer": [
           {
             "text": "如果要講，最近真的會比較少，除非家人，傳訊息給我，或者是，或者是，可能，最容",
@@ -1346,7 +1346,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你剛剛說最近比較少的",
+        "question": "你說最近比較少（想家），原因是？",
         "answer": [
           {
             "text": "比較忙了，比較比較多，就是virtual jobs或是physical jobs再進行的話之前只有學校嘛",
@@ -1363,7 +1363,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "是這樣，那你說你剛剛你講說，你通常是放鬆閒下來的時候會想到，那你通常是想到什 麼",
+        "question": "放鬆閒下來的時候，你通常會想到什麼？",
         "answer": [
           {
             "text": "就想到很久沒跟家人講電話，然後回一下訊息，大概是真的就是這樣回一下訊息，比如",
@@ -1388,7 +1388,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你在做這些事情的時候你在",
+        "question": "跟家人分享近況的時候，你在想什麼？",
         "answer": [
           {
             "text": "比較像是1個1個讓他們知道，我在幹什麼的異物的",
@@ -1401,7 +1401,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他們的反應是什麼貼圖",
+        "question": "他們的反應通常是什麼？",
         "answer": [
           {
             "text": "會就知道你知道",
@@ -1418,7 +1418,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你說如果我們回到之前一點就是",
+        "question": "如果回到之前比較不忙的時候呢？",
         "answer": [
           {
             "text": "對",
@@ -1427,7 +1427,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得他，像你剛剛說，最近就是晚上喜歡找你真的放鬆，但是如果你之前還在上課的 時候沒有那麼，現在那麼忙碌的時候，他通常還會在什麼樣的情況下發生",
+        "question": "之前不那麼忙碌的時候，什麼情況下會想到家人？",
         "answer": [
           {
             "text": "小事冒出來就會這個，我媽看到或我哥看到，他們會覺得蠻有趣的，就會拍一下，然後",
@@ -1444,7 +1444,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他們回的時候，你覺得我就會想說你看到了，",
+        "question": "他們回的時候，你的感覺是什麼？",
         "answer": [
           {
             "text": "其實就是1個比較常更新跟現在比較慢、更新的狀況而已，但是那個邏輯是一樣的，",
@@ -1453,7 +1453,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果你不介意的話你",
+        "question": "可以打開手機讓我看看你們家人群組在聊什麼嗎？",
         "answer": [
           {
             "text": "我看？一下",
@@ -1470,7 +1470,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你在傳這個時候，你在想什麼，",
+        "question": "傳訊息的時候，你在想什麼？",
         "answer": [
           {
             "text": "我在想我媽看到的時候，他會他會去想什麼這樣，但是對啊",
@@ -1479,7 +1479,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "1個，你為什麼會想知道你媽在想什麼",
+        "question": "你為什麼會想知道你媽在想什麼？",
         "answer": [
           {
             "text": "沒有因為我們小時候很常玩這個遊戲",
@@ -1492,7 +1492,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "但你媽還沒有回，",
+        "question": "但你媽還沒回？",
         "answer": [
           {
             "text": "她，有在電話裡面喔，他電話好棒喔，這樣子，就這樣，這個就是蠻出乎你意料",
@@ -1501,7 +1501,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "的，真的還蠻棒的，你聽到你好棒喔的時候，你的心情到底是什麼",
+        "question": "聽到「你好棒喔」的時候，你的心情是什麼？",
         "answer": [
           {
             "text": "沒有沒有沒有沒有毫無波瀾",
@@ -1510,7 +1510,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你就是覺得ok你知道了這樣",
+        "question": "你就是覺得「她知道了」這樣？",
         "answer": [
           {
             "text": "對",
@@ -1527,7 +1527,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果我我幫你形容一下",
+        "question": "如果我幫你形容一下的話？",
         "answer": [
           {
             "text": "以前是1個，1個禮拜，可能有兩次到三次左右，",
@@ -1536,7 +1536,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你說訊息加電話訊息",
+        "question": "訊息跟電話的比例大概是？",
         "answer": [
           {
             "text": "訊息，可能是訊息可能1天一次或是兩天一次這樣，然後，以電話就比較少電話，可能",
@@ -1549,7 +1549,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "訊息比電話多多的原因是什麼？",
+        "question": "訊息比電話多，原因是什麼？",
         "answer": [
           {
             "text": "就是我不用花太多時間一次講很多東西啊我穿了就走了，這樣一部分是因為我們這個訊",
@@ -1562,7 +1562,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "報備，是的，原因是會有人一直問，",
+        "question": "報備的原因是什麼？",
         "answer": [
           {
             "text": "沒有，就省省省時間讓你知道我在幹什麼，我沒死這樣，我還沒死這樣，",
@@ -1571,7 +1571,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "通常需要，就是動用到講電話的時候，",
+        "question": "什麼時候需要動用到講電話？",
         "answer": [
           {
             "text": "就是1個，太多事情沒講到了，直接用電話，講一講這樣，",
@@ -1580,7 +1580,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "通常你一次性要講很多事情的時候",
+        "question": "通常是要一次講很多事情的時候？",
         "answer": [
           {
             "text": "對，而且有時候是可能，就要我媽要交代一些事情事情他就會說，那你注意一下喔。這",
@@ -1597,7 +1597,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "什麼大概有過講電話，你比較印象深刻的事情嗎？",
+        "question": "有沒有比較印象深刻的一次通話？",
         "answer": [
           {
             "text": "房子賣了，",
@@ -1606,7 +1606,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "為什麼",
+        "question": "為什麼？",
         "answer": [
           {
             "text": "什麼為什麼就是因為舊房子賣了是大事，",
@@ -1615,7 +1615,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "時候你覺得，你們兩個個別的感覺是怎麼樣在講這件事情的時候，",
+        "question": "講這件事的時候，你們各自的感覺是什麼？",
         "answer": [
           {
             "text": "個別的感覺是什麼也沒有，就真的就是1個，我覺得這個很重要，我要讓你知道，然後",
@@ -1628,7 +1628,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你有沒有過？",
+        "question": "你有沒有過（某種經驗）？",
         "answer": [
           {
             "text": "比較沒有，我都會比較沒有，",
@@ -1637,7 +1637,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "比較比較，沒有比較沒有，對對，對這也蠻重要的，你們通常是什麼時候講的話，我說 你的時間跟他們的時間，",
+        "question": "你們通常什麼時候講電話？你的時間跟他們的時間？",
         "answer": [
           {
             "text": "可能是我媽剛起床，也就是台灣時間八九點這裡的，晚上這樣",
@@ -1646,7 +1646,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "通常那我問你，你之前在台灣的時候，你跟你媽媽聊天的頻率，還有那個模式，大概是 什麼",
+        "question": "在台灣的時候，你跟媽媽聊天的頻率和方式大概是什麼？",
         "answer": [
           {
             "text": "就回家看到就會打雷一下，在幹嘛在幹嘛就是1個所有的核心邏輯都是1個報備是的，但",
@@ -1663,7 +1663,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得時間有影響到嗎？",
+        "question": "你覺得時間（出國的時間）有影響到嗎？",
         "answer": [
           {
             "text": "跟你比較沒有比較，沒有，就是我，我盡量秉持著1個，我打過去，我知道他已經會接",
@@ -1684,7 +1684,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你就有覺得應該也不是你有覺得，應該說出國了一陣子，然後回家看到他們的時候，你 現在回想你，反正就是一齣國之後，最久第一次回台灣的時候，你看到家人的時候的感 覺是什麼？",
+        "question": "出國後第一次回台灣看到家人的感覺是什麼？",
         "answer": [
           {
             "text": "我覺得，喔，回到1個舒適圈的感覺，",
@@ -1713,7 +1713,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得他們看到你的時候",
+        "question": "你覺得他們看到你的時候呢？",
         "answer": [
           {
             "text": "的，那當然都是，當然都是",
@@ -1734,7 +1734,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "就比較平靜一點平靜一點",
+        "question": "比較平靜一點？",
         "answer": [
           {
             "text": "該幹嘛幹嘛這樣欸你回來了，那我們來去吃個飯，那我們就是這樣，這樣很practical的",
@@ -1747,7 +1747,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你說，你說回台灣之後，ok，好接下來這，個是想像需要動用一點，你的想像力就是， 你現在在腦海裡面想你媽媽的臉，然後你看到他的臉之後，你覺得你第1個會注意到的 地方是哪裡",
+        "question": "想像媽媽的臉，你第一個會注意到什麼？",
         "answer": [
           {
             "text": "我覺得我真的不會，我可能會覺得喔。注意，看一下有沒有這個變老的痕跡，這樣對",
@@ -1756,7 +1756,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "為什麼",
+        "question": "為什麼？",
         "answer": [
           {
             "text": "因為很久沒見了，你就會那個時間也過了一陣子，真的真的可能白頭髮變多，或是這種",
@@ -1769,7 +1769,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "應該說你不一定，所以這個意思是，你沒有現在特定想到說你會去看的某1個部位 ，像這樣的東西，你會去看的是整體的1個改變，你有沒有看到？",
+        "question": "你注意到的是整體的改變嗎？",
         "answer": [
           {
             "text": "我就會真的是時間有在過耶。這樣，",
@@ -1778,7 +1778,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你會問他這件事嗎？",
+        "question": "你會問他們這件事嗎？",
         "answer": [
           {
             "text": "不會",
@@ -1787,7 +1787,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "（接續）",
         "answer": [
           {
             "text": "對",
@@ -1796,7 +1796,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他會跟你分享這類的事嗎？",
+        "question": "他們會跟你分享這類的事嗎？",
         "answer": [
           {
             "text": "比較比較沒了，",
@@ -1805,7 +1805,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得有什麼事情是，有什麼事情是他們很難，就是因為這個你沒有做住在沒有住在一 起，沒有住在同1個城市，這件事情他們很難很難知道的嗎？",
+        "question": "有什麼事情是因為不住在一起，他們很難知道的？",
         "answer": [
           {
             "text": "譬如說",
@@ -1826,7 +1826,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "事情為什麼等一下所以如果你因為沒有，我們現在當然都知道，你明天就要回台灣了啦",
+        "question": "為什麼？你明天就要回台灣了",
         "answer": [
           {
             "text": "七水不會耶不會對這個有點太細了",
@@ -1835,7 +1835,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "就太小了，這個這個不用會",
+        "question": "這個太小了，不需要知道嗎？",
         "answer": [
           {
             "text": "不用報備嗎？對這個不會講到，",
@@ -1844,7 +1844,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "但為什麼你覺得這個太細了，你覺得的是什麼？",
+        "question": "為什麼你覺得這太細了？",
         "answer": [
           {
             "text": "的1個，我覺得現在比較不會去講一些，我跟你講了，你完全沒有辦法做到任何幫助的",
@@ -1857,7 +1857,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我如果剛剛那個想像提的話",
+        "question": "如果回到剛剛想像的那個問題呢？",
         "answer": [
           {
             "text": "一樣耶。而且更報備是的更多細節，這樣，更看整體到底變化了多少",
@@ -1870,7 +1870,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你說臉那一",
+        "question": "你說臉的那個問題",
         "answer": [
           {
             "text": "題喔臉那一題，然後那個互動是",
@@ -1879,7 +1879,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "臉，那一題，也是看整體變化嗎？",
+        "question": "爸爸的臉也是看整體變化嗎？",
         "answer": [
           {
             "text": "沒有",
@@ -1900,7 +1900,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "這個如果反過來就是假設你在想像他們在看你的時候，你有，應該是說你有感覺到 ，你希望他們注意到的是什麼嗎？",
+        "question": "反過來，你希望他們注意到你的什麼？",
         "answer": [
           {
             "text": "我比較沒有想過我有有沒有希望別人注意到我什麼事情，我比較不會去focus在我希望",
@@ -1913,7 +1913,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "上面應該是說他們一定會注意到你的各種狀態",
+        "question": "他們一定會注意到你的各種狀態",
         "answer": [
           {
             "text": "嗎我們？家",
@@ -1930,7 +1930,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他們通常都會看到什麼頭髮喔",
+        "question": "他們通常會看到什麼？",
         "answer": [
           {
             "text": "之類的就很表層的東西，",
@@ -1939,7 +1939,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "像上次你媽跟你講的就是",
+        "question": "上次你媽跟你講了什麼？",
         "answer": [
           {
             "text": "什麼，",
@@ -1980,7 +1980,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "主要，你們除了聊你的、現在的工作的東西的時候，然後還有講，應該是說還有哪 些東西是你們也會講的，你覺得可以值得提一下的嗎？",
+        "question": "除了工作以外，你們還會聊什麼？",
         "answer": [
           {
             "text": "我覺得除了日常，當然日常就會說你們這個，回來要不要去看看看中醫啊要不要什麼什",
@@ -2001,7 +2001,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你有覺得比方說，你最常跟他們講的一句話是什麼我說再不管這些講電話，就像講電話 的時候，你發現你自己最常會講的一句話是什麼",
+        "question": "你最常跟他們講的一句話是什麼？",
         "answer": [
           {
             "text": "因為現在在紐約打拼嘛所以就會是，很大的一部分，就是在現在這個階段圍毆萬獨立所",
@@ -2014,7 +2014,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他們那你，覺得來之後他們，你有很常感覺到他們最常講的一句話什麼，我說你媽其 實，就是你媽",
+        "question": "他們最常跟你講的一句話呢？",
         "answer": [
           {
             "text": "沒真，的沒有特別什麼欸真的真的最常講的其實，就是問一下喔現在怎麼樣對真的",
@@ -2023,7 +2023,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果你現在",
+        "question": "如果你現在想的話？",
         "answer": [
           {
             "text": "現在，而且真的其實也不會說現在",
@@ -2044,7 +2044,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "等一下我覺得這蠻有趣的就是，為什麼你們家會有這麼頻繁報備的習慣啊",
+        "question": "為什麼你們家有這麼頻繁報備的習慣？",
         "answer": [
           {
             "text": "因為我我覺得我覺得1天，我覺得一這兩天報廢一次不算頻繁吧？還是其實算",
@@ -2053,7 +2053,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "算我覺得算以應該說這當然是每個人都可以定義啦",
+        "question": "每個人對「報備」的定義都不同",
         "answer": [
           {
             "text": "所以如果我覺得一到兩天，其實也不是，對我來講，是1個，比如說像這個禮拜，其實",
@@ -2086,7 +2086,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "應該是說這個習慣是他是怎麼養成的",
+        "question": "這個習慣是怎麼養成的？",
         "answer": [
           {
             "text": "就沒有，就是就是他一直就是一直都存在，我們就算在台灣也一樣，",
@@ -2095,7 +2095,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "妳喜歡這個習慣嗎？",
+        "question": "你喜歡這個報備的習慣嗎？",
         "answer": [
           {
             "text": "我覺得滿好的就是，某種程度上會感受到說好啊我們都還在過生活",
@@ -2112,7 +2112,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得以你現在用這個東西，就是手機訊息啊。這些東西來報備的時候，有沒有哪些時 候是你覺得這個東西其實這個功能我還蠻想要的，就是說，現在這些你們還在創造，互 ...",
+        "question": "用手機訊息來報備，有沒有覺得缺少什麼功能？",
         "answer": [
           {
             "text": "我覺得老實說我覺得我蠻滿意，現在這個系統的",
@@ -2121,7 +2121,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果說手機訊息、電話話",
+        "question": "如果手機訊息和電話之外的話？",
         "answer": [
           {
             "text": "因為我覺得我覺得，現在這個頻率不會讓我覺得很自習，然後會還是會有1個好的距離",
@@ -2142,7 +2142,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "講就是，你是可以掌控",
+        "question": "你覺得你可以掌控的部分是？",
         "answer": [
           {
             "text": "我可以掌控這1件是什麼情對啊而且它它其實那個核心本質其實就，只是1個報備這樣然",
@@ -2159,7 +2159,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "（接續）",
         "answer": [
           {
             "text": "我有個默契吧會有1個默契說我知道你現在醒",
@@ -2172,7 +2172,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "等一下喔ok這是最後1個問題了但我記得，我上次已經問過你了但我，不太，確定 你有沒有換答案但是應該是好沒關係，反正就是我上次不是有跟你講那個吸塵器的事情 嗎？",
+        "question": "你還記得上次聊過的那個「吸塵器連動」的想法嗎？",
         "answer": [
           {
             "text": "會噴sky投資吸塵器",
@@ -2181,7 +2181,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你你不記得吸塵器的那個問題，就是，如果你媽在他家放了一台吸塵器，是連動到你 這裡，只要你做了1件事情，他就開始掃地，然後你就想像1個畫面是你嗎？",
+        "question": "吸塵器的問題：如果媽媽家的吸塵器連動到你這裡？",
         "answer": [
           {
             "text": "可是這中間其實沒什麼，連結，說說話，我說如果要這樣設計的話，其實蠻沒有邏輯的",
@@ -2194,7 +2194,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "沒有，現在就只是在我，只是想要知道，就是你想要讓他們知道的一、這件事是吃藥， 那如果是你哥的話呢",
+        "question": "如果是你想讓他們知道的一件事呢？如果是你哥呢？",
         "answer": [
           {
             "text": "那a good question我覺得我跟我哥其實沒有，沒有要講，的就是沒有，什麼事情會需",
@@ -2207,7 +2207,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "因為，就只是for放啊反正就是",
+        "question": "就只是 for fun？",
         "answer": [
           {
             "text": "我會滿想要讓我哥知道發生了什麼好笑的事情，",
@@ -2216,7 +2216,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "應該要你做了你，",
+        "question": "應該要你做了才算？",
         "answer": [
           {
             "text": "我想我不一定要我做了什麼事情，我想要發生好笑的事情，可以讓",
@@ -2225,7 +2225,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "很快就知道了，所以你這樣算，嗎？",
+        "question": "所以你這樣算嗎？",
         "answer": [
           {
             "text": "然後我，可以然後他，就他就立刻",
@@ -2238,7 +2238,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "有，什麼東西是你想要補充的嗎",
+        "question": "有什麼想要補充的嗎？",
         "answer": [
           {
             "text": "沒有你有什麼想要補充的問題嗎",
@@ -2247,7 +2247,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "這個？",
+        "question": "（接續：補充分享）",
         "answer": [
           {
             "text": "我反而是有great progress的時候會",
@@ -2280,7 +2280,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你覺得像通常你生活當中",
+        "question": "你生活中通常？",
         "answer": [
           {
             "text": "對我會把這個解讀為m這個時候我會把這件事情解讀是這樣",
@@ -2289,7 +2289,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "我，想我只是想要問為什麼而已就是你就是為什麼",
+        "question": "我想問的是為什麼？",
         "answer": [
           {
             "text": "發生很大的是我們",
@@ -2306,7 +2306,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "發生很大的事情的時候你很想要",
+        "question": "發生很大的事情的時候，你很想要？",
         "answer": [
           {
             "text": "啊。然後我也知道他們知道這件事情會爽，他覺得唉呦好棒喔離你的目標進一步，這樣",
@@ -2319,7 +2319,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "（接續）",
         "answer": [
           {
             "text": "很棒",
@@ -2328,7 +2328,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "就結束了是你的，合作那你之後有想到其他跟這件事有關的事情可以來跟，",
+        "question": "之後有想到其他相關的事情嗎？",
         "answer": [
           {
             "text": "我講你的脖子好連接著你，的頭我的那",
@@ -2345,7 +2345,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "聽說就是這樣很古濾的，對啊",
+        "question": "（接續：閒聊）",
         "answer": [
           {
             "text": "我最近在你去什麼函式剪髮店，",
@@ -2354,7 +2354,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你知道這是誰撿",
+        "question": "你知道這是誰撿的嗎？",
         "answer": [
           {
             "text": "的嗎？crystal",
@@ -2363,7 +2363,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "這裡肉不見得",
+        "question": "（接續：閒聊）",
         "answer": [
           {
             "text": "難掉，真的",
@@ -2376,7 +2376,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "現在，開始錄到一些廢話",
+        "question": "（接續：閒聊）",
         "answer": [
           {
             "text": "藍色螺絲裝",
@@ -2385,7 +2385,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "錯我很準時33分鐘",
+        "question": "（結束）",
         "answer": []
       }
     ]
@@ -2394,7 +2394,7 @@ export const TRANSCRIPT_DATA = {
     "label": "P4 — Follow-up Session",
     "turns": [
       {
-        "question": "訪談你的時候，有些我問媽媽的問題，我可能根本就不會問，如果，等一下，我想一下 喔，我記得我，那時候我記得我最一開始問的問題都是這個，可是那時候不是正式的訪 ...",
+        "question": "如果明天是最後一天，我問媽媽的問題我可能不會問",
         "answer": [
           {
             "text": "我會，我反而會更放心的去做我想做的事情，因為他不會變老",
@@ -2403,7 +2403,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "如果好那我再，換1個就是如果現在他，你知道，你知道今天是就是最後1天， 但是你們都還是可以一起做很多事情，你會你會想要跟他一起做什麼",
+        "question": "如果今天是最後一天，你會想跟他一起做什麼？",
         "answer": [
           {
             "text": "大家一起看電視吃晚餐煮飯沒有特別",
@@ -2412,7 +2412,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "為什麼",
+        "question": "為什麼？",
         "answer": [
           {
             "text": "因為我不覺得要特別做什麼，才可以維繫才可以，我覺得我覺得重點是有相處，就是有",
@@ -2437,7 +2437,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "她煮的飯",
+        "question": "她煮的飯？",
         "answer": [
           {
             "text": "對，",
@@ -2446,7 +2446,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "他煮飯的，時候你要幹嘛",
+        "question": "她煮飯的時候你在做什麼？",
         "answer": [
           {
             "text": "就是看電視啊平常幹嘛就幹嘛啊為什麼要特別？因為",
@@ -2455,7 +2455,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "這個，那你有，那你有想要就是這1天有要講什麼嗎？",
+        "question": "這一天有想要跟他講什麼嗎？",
         "answer": [
           {
             "text": "好了，對",
@@ -2464,7 +2464,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你如果想像你們就是在吃飯的時候",
+        "question": "想像你們在吃飯的時候？",
         "answer": [
           {
             "text": "是最後1天的前提對",
@@ -2473,7 +2473,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你們就是今天想要在最後1天一起度過1個",
+        "question": "你們在最後一天想要一起做什麼？",
         "answer": [
           {
             "text": "那就是長了1天的時候，那就是1個，就是1個，開1個會說唉呀。這個這20幾年爽不爽",
@@ -2490,7 +2490,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "回顧，",
+        "question": "回顧？",
         "answer": [
           {
             "text": "回顧回顧大會感覺，感覺大部分感覺應該都是這樣子，吧我猜啦我覺得這樣好像也蠻合",
@@ -2507,7 +2507,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你有什麼就是除了回顧之外",
+        "question": "除了回顧之外，還有什麼？",
         "answer": [
           {
             "text": "因為",
@@ -2516,7 +2516,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "回顧的用意是什麼",
+        "question": "回顧的用意是什麼？",
         "answer": [
           {
             "text": "什麼意思回顧的用意",
@@ -2525,7 +2525,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你為什麼會覺得你想要回顧啊就是我們之前就是回顧過去20年",
+        "question": "為什麼想要回顧過去？",
         "answer": [
           {
             "text": "因為也沒有以後了，",
@@ -2534,7 +2534,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "就，那你想你在想，那你現在在想回顧的這個那個狀況，還有你在想這個情境的時 候，你的感覺是什麼",
+        "question": "想到回顧的情境時，你的感覺是什麼？",
         "answer": [
           {
             "text": "就是gone so far這樣子感覺",
@@ -2543,7 +2543,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "We have gone so far是一種",
+        "question": "「We have gone so far」是一種什麼感覺？",
         "answer": [
           {
             "text": "種",
@@ -2561,7 +2561,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "它是一種relief",
+        "question": "是一種 relief？",
         "answer": [
           {
             "text": "就不顧好像很虧不顧好像，很多做的事情，就，不知道為什麼要這樣做的感覺，可以來",
@@ -2574,7 +2574,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "你可以幫我1個忙嗎？",
+        "question": "你可以幫我一個忙嗎？",
         "answer": []
       }
     ]
@@ -2583,7 +2583,7 @@ export const TRANSCRIPT_DATA = {
     "label": "P5 — India, MFA NYC",
     "turns": [
       {
-        "question": "Currently like i just kind of tell your letter bit what i am working on right...",
+        "question": "Introduction: what the research is about",
         "answer": [
           {
             "text": "gli and how do you feel about that so we go on like explore a little bit about that",
@@ -2628,7 +2628,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "And",
+        "question": "Tell me about yourself and your family",
         "answer": [
           {
             "text": "i stay here in new york city a here in your city i david my partner and my cat",
@@ -2673,11 +2673,11 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "Do you think like this relationship before you move to here and after you move...",
+        "question": "How has your relationship with family changed since moving here?",
         "answer": []
       },
       {
-        "question": "(Question)",
+        "question": "(Continued)",
         "answer": [
           {
             "text": "think for to bear to understand my relationship in the bed the letter also",
@@ -2706,7 +2706,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "What like very degrees it was hard to keep commuting back in for so i think...",
+        "question": "Was it hard to maintain the relationship with distance?",
         "answer": [
           {
             "text": "was like approximately to do three arts by flight so it will like a proximately six ours",
@@ -2771,7 +2771,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "You think do how do you feel about this evolution actually like this over all...",
+        "question": "How do you feel about this evolution overall?",
         "answer": [
           {
             "text": "go as for then the dependence and wanted to go home and the sing that hay was",
@@ -2836,11 +2836,11 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "Looking back",
+        "question": "Looking back?",
         "answer": []
       },
       {
-        "question": "Looking back like the transition and between still live in in the yard and then...",
+        "question": "Looking back at the transition from living at home to being here?",
         "answer": [
           {
             "text": "give you the differ filling and turns of this distance i think",
@@ -3133,7 +3133,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "Young that was a coal yet i was so usually this like how long how long was that...",
+        "question": "How long was that transition period?",
         "answer": [
           {
             "text": "i am like a longer calls and cutty minutes but they are gain like shorter calls when",
@@ -3166,7 +3166,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "To give some ex contacts we are like approximately to",
+        "question": "To give some context, how far apart are you?",
         "answer": [
           {
             "text": "wealth to twelve half a behind so her morning will be my night yes and i am like so",
@@ -3195,7 +3195,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "What what are you think about that then like",
+        "question": "What do you think about that distance?",
         "answer": [
           {
             "text": "then she telling it just a very my mom thing to do but i think recently i was having",
@@ -3284,7 +3284,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "(Continued)",
         "answer": [
           {
             "text": "lake of that we get to get a bed stained with the bats get like a small medal and i",
@@ -3357,7 +3357,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "How would you describe a fragrance like intern of like connecting them having...",
+        "question": "How would you describe fragrance as a way of connecting?",
         "answer": [
           {
             "text": "why why do you think so i think calls is one there but like a law of ways like mom i",
@@ -3406,7 +3406,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "They keep that my brother and",
+        "question": "Tell me about your brother and family dynamics",
         "answer": [
           {
             "text": "that is the more portal but",
@@ -3499,7 +3499,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "That",
+        "question": "(Continued)",
         "answer": [
           {
             "text": "right you good morning messages i think in the the last couple of years and might",
@@ -3524,7 +3524,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "How was it like you call her and do you still remember how she she just about...",
+        "question": "How was it the last time you called her?",
         "answer": [
           {
             "text": "but o k so like",
@@ -3573,7 +3573,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "But yeah",
+        "question": "(Continued)",
         "answer": [
           {
             "text": "on like one time she was having with like floor so she was just like there is like butt",
@@ -3606,11 +3606,11 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "You say the last time you actually see them in person is two years ago one...",
+        "question": "When was the last time you saw them in person?",
         "answer": []
       },
       {
-        "question": "What was the first thought when you see them in person i think it like they are...",
+        "question": "What was the first thought when you saw them in person?",
         "answer": [
           {
             "text": "the king are they the player landed in jet and jakin and",
@@ -3619,7 +3619,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "That was all that was a day of open studio here when we were doing the buls...",
+        "question": "(Continued: visit experience)",
         "answer": [
           {
             "text": "thing that we have discussed but like a course lake in my case having a part note",
@@ -3688,7 +3688,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "If you are like picture in that",
+        "question": "If you picture that moment?",
         "answer": [
           {
             "text": "say your moms face and your head",
@@ -3697,15 +3697,15 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "What was the was the what would be the first thing you not is like now you star...",
+        "question": "What would be the first thing you notice about them now?",
         "answer": []
       },
       {
-        "question": "I was i hurt her because i think now and interesting that look me in my mother...",
+        "question": "(Continued: noticing mother)",
         "answer": []
       },
       {
-        "question": "I it interesting because my mom or tied or at some point so her head what like...",
+        "question": "What about your mom — what do you notice about her appearance?",
         "answer": [
           {
             "text": "why why would you why would you think about like noticing similarity at the first",
@@ -3730,7 +3730,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "(Continued)",
         "answer": [
           {
             "text": "you were a yea i i see i see what i get it i get it",
@@ -3739,7 +3739,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "Actual and what is that remind you or what is that",
+        "question": "What does that remind you of?",
         "answer": [
           {
             "text": "ye like when you seeing this picture",
@@ -3748,7 +3748,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "What is that sugar in you ye that it just now i think i am only a bay one i look",
+        "question": "What does that stir in you?",
         "answer": [
           {
             "text": "it it a nice and",
@@ -3789,7 +3789,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "It more about it is there like a castle this are there other reasons like why...",
+        "question": "Are there other reasons why you notice aging?",
         "answer": [
           {
             "text": "kind of decle and i makes me remind of them it",
@@ -3802,11 +3802,11 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "How do you yea how do you feel about the moment when you realized their aging",
+        "question": "How do you feel about the moment you realized they are aging?",
         "answer": []
       },
       {
-        "question": "When that moment happened how do you feel and what are you thinking",
+        "question": "When that moment happened, what were you thinking?",
         "answer": [
           {
             "text": "i think in me now and this point i have made my be for that because",
@@ -3819,7 +3819,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "I have so seeing also aging in lake with them they go i let all my all it just...",
+        "question": "(Continued: seeing aging)",
         "answer": [
           {
             "text": "there anything that makes me uncomfortable and by the i think if you would have",
@@ -3844,7 +3844,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "(Question)",
+        "question": "(Continued)",
         "answer": [
           {
             "text": "o k so then like if we going back a no bed and talking about like how you guy still",
@@ -3861,7 +3861,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "Do you found anything like you personally hope can be better or if there is...",
+        "question": "Is there anything you personally hope could be better?",
         "answer": [
           {
             "text": "now not to have them they for example i remember like before and even when i",
@@ -3890,7 +3890,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "It is like if there is a way you can sort of really really that then share your...",
+        "question": "If there was a way to share your daily life with them?",
         "answer": [
           {
             "text": "why why you think that is important to you",
@@ -4031,7 +4031,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "I like in this like in this case you see in a transform to clean floor...",
+        "question": "Robot vacuum concept: if cleaning transforms to their floor?",
         "answer": [
           {
             "text": "i go in the morning instead of founding the floors very clean you found the floors",
@@ -4056,7 +4056,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "Probably ask her to be happier so that my house is cleaner and likely be happy so",
+        "question": "Would you ask her to be happier so your house is cleaner?",
         "answer": [
           {
             "text": "yeah ok then like still the same thing but that just forget about it connect to your",
@@ -4093,15 +4093,15 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "If it now we kind of change the position if it you of if it you amos connect to...",
+        "question": "If we change positions — what if your mom connects to you?",
         "answer": []
       },
       {
-        "question": "(Question)",
+        "question": "(Continued)",
         "answer": []
       },
       {
-        "question": "May be moody",
+        "question": "What would that feel like for you?",
         "answer": [
           {
             "text": "one i think of anything else the part of moon that the second person would want",
@@ -4182,7 +4182,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "I am thinking about you i am just thinking about like if it is not vacuum roll...",
+        "question": "What if it is not a vacuum but something else?",
         "answer": [
           {
             "text": "the influence and it may be you can be impact of this and",
@@ -4251,7 +4251,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "How you mas doing filling right yes that is very interesting why why would you...",
+        "question": "How does your mom feel about visibility of your daily life?",
         "answer": [
           {
             "text": "i think something tangible that i can look out for more signals i am trying so hard",
@@ -4316,7 +4316,7 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "If what you say not would you say like how you feel about the visibility of...",
+        "question": "How do you feel about the visibility of your daily life to them?",
         "answer": [
           {
             "text": "i would i know it like out that in view",
@@ -4333,11 +4333,11 @@ export const TRANSCRIPT_DATA = {
         ]
       },
       {
-        "question": "What the o k just one less cushion",
+        "question": "Just one last question",
         "answer": []
       },
       {
-        "question": "What is the most thing you say to your mom",
+        "question": "What is the thing you say most often to your mom?",
         "answer": [
           {
             "text": "a man i have i have of asking her what she do we allow you that even a name she",
