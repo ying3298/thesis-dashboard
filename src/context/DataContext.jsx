@@ -18,6 +18,10 @@ import DEFAULT_CLUSTERS_P3 from '../data/affinity-3';
 import FINDINGS_P4 from '../data/findings-4';
 import DEFAULT_CLUSTERS_P4 from '../data/affinity-4';
 
+/* ── P5 default data imports ──────────────────────────── */
+import FINDINGS_P5 from '../data/findings-5';
+import DEFAULT_CLUSTERS_P5 from '../data/affinity-5';
+
 /* ── Synthesis default data ──────────────────────────── */
 import DEFAULT_SYNTHESIS from '../data/synthesis';
 
@@ -69,6 +73,13 @@ export const PARTICIPANT_META = {
     subtitle: 'Friend',
     emoji: '\uD83C\uDFAC',
     location: 'Netherlands \u2192 Taiwan',
+  },
+  p5: {
+    id: 'p5',
+    label: 'Participant #5',
+    subtitle: 'Classmate',
+    emoji: '\uD83C\uDF3A',
+    location: 'New York \u2192 India',
   },
 };
 
@@ -276,6 +287,59 @@ const DEFAULT_PARTICIPANT_DATA = {
       hiddenNeeds: [
         'A reason-free way to stay present with grandma and mom.',
         'Physical, sensory connection \u2014 like smoke on a jacket \u2014 not digital data.',
+      ],
+    },
+  },
+  p5: {
+    findings: FINDINGS_P5,
+    affinityClusters: DEFAULT_CLUSTERS_P5,
+    participantDetails: [
+      { label: 'Occupation', value: '2nd year MFA student' },
+      { label: 'Location', value: 'New York City \u2192 India' },
+      { label: 'Family', value: 'Mom, dad, brother (all in India)' },
+      { label: 'Household', value: 'Lives with partner David and cat' },
+      { label: 'Communication', value: 'Phone calls, messages, reels/emojis' },
+      { label: 'Time difference', value: '~12\u201312.5 hours' },
+      { label: 'Key detail', value: 'Parents moved \u2014 childhood home no longer exists' },
+      { label: 'Interview date', value: 'March 2026' },
+      { label: 'Duration', value: '~54 min (1 session)' },
+      { label: 'Language', value: 'English' },
+    ],
+    bigPicture: [
+      {
+        label: 'What she wants',
+        color: 'var(--olive, #4A6741)',
+        text: 'Tangible, interpretable signals \u2014 not data. A trace she can read in her own way, like how she reads resemblance in her mother\'s face. Something ambient, visible, woven into daily life.',
+      },
+      {
+        label: 'What she fears',
+        color: 'var(--terracotta, #C46B4D)',
+        text: 'Being pulled back to an earlier phase of dependence. Losing the healthy independence her parents gave her. Any design that creates new obligation or makes the gap feel like a problem to fix.',
+      },
+      {
+        label: 'What she doesn\'t know she wants',
+        color: 'var(--purple, #7A6B8A)',
+        text: 'A new shared anchor to replace the childhood home that no longer exists. Her parents moved \u2014 the physical context is gone. A shared object could become the new "place" that belongs to both sides.',
+      },
+    ],
+    coreTension: {
+      main: 'She has healthy distance but the shared context is disappearing.',
+      sub: 'Dad has shared US experience so conversation flows; with mom, topics run dry after the cat. The calendar gives both relationships a daily touchpoint that doesn\'t require finding something to say.',
+    },
+    wantsFears: {
+      wants: [
+        'Tangible, interpretable signals \u2014 not dashboards.',
+        'Ambient presence woven into daily life.',
+        'Something she can read in her own way.',
+      ],
+      fears: [
+        'Design that creates new obligation.',
+        'Being pulled back to dependence.',
+        'Direct data that removes interpretive space.',
+      ],
+      hiddenNeeds: [
+        'A new shared anchor \u2014 childhood home is gone.',
+        'Topic-free connection with mom (cat can\'t carry it forever).',
       ],
     },
   },
