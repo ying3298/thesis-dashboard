@@ -12,11 +12,12 @@ import Narrative from './pages/Narrative';
 import ProblemSpace from './pages/ProblemSpace';
 import ParticipantProfile from './pages/ParticipantProfile';
 import ResearchChain from './pages/ResearchChain';
+import ColorCoding from './pages/ColorCoding';
 import Toast from './components/Toast';
 import SaveIndicator from './components/SaveIndicator';
 
 const DISCOVER_IDS = ['dashboard', 'guide', 'experts', 'profile', 'findings', 'affinity'];
-const MAKE_SENSE_IDS = ['problem', 'design', 'synthesis', 'chain'];
+const MAKE_SENSE_IDS = ['problem', 'design', 'synthesis', 'chain', 'color-coding'];
 const COMMUNICATE_IDS = ['narrative'];
 
 const DISCOVER_NAV = [
@@ -36,6 +37,7 @@ const MAKE_SENSE_NAV = [
   { id: 'design', label: 'Design Space', icon: '\u25B3', color: 'var(--olive)' },
   { id: 'synthesis', label: 'Synthesis', icon: '\u25EC', color: 'var(--purple)' },
   { id: 'chain', label: 'Evidence Chain', icon: '\u25C6', color: 'var(--olive)' },
+  { id: 'color-coding', label: 'Color Coding', icon: '\u25A3', color: 'var(--terracotta)' },
 ];
 
 const COMMUNICATE_NAV = [
@@ -85,6 +87,7 @@ function App() {
       case 'narrative': return <Narrative />;
       case 'problem': return <ProblemSpace />;
       case 'chain': return <ResearchChain />;
+      case 'color-coding': return <ColorCoding />;
       case 'profile': return <ParticipantProfile onNavigate={handleNavigate} />;
       default: return <Dashboard onNavigate={handleNavigate} onSwitchTab={handleSwitchToParticipant} />;
     }
