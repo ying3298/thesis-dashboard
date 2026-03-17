@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { THEME_CODES, CODING_DATA } from '../data/colorCoding';
+import { TRANSCRIPT_DATA } from '../data/transcriptData';
 
 const PIDS = ['p1', 'p2', 'p3', 'p4', 'p5'];
 
-/* ── helpers ── */
 function totalForTheme(tid) {
   return PIDS.reduce((sum, pid) => sum + (CODING_DATA[pid].counts[tid] || 0), 0);
 }
@@ -20,11 +20,28 @@ function pctOfCoded(pid, tid) {
   return d.codedLines > 0 ? ((d.counts[tid] || 0) / d.codedLines) * 100 : 0;
 }
 
-/* ── main component ── */
 export default function ColorCoding() {
-  const [selectedTheme, setSelectedTheme] = useState(null);
-  const [view, setView] = useState('heatmap'); // heatmap | bars | quotes
+  const [selectedCode, setSelectedCode] = useState(null);
+  const [view, setView] = useState('heatmap');
+  const [selectedParticipant, setSelectedParticipant] = useState('p1');
+  const [expandedQ, setExpandedQ] = useState(new Set());
   const mx = maxCount();
+
+  const toggleQ = (idx) => {
+    setExpandedQ(prev => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      return next;
+    });
+  };
+
+  const expandAll = () => {
+    const turns = TRANSCRIPT_DATA[selectedParticipant]?.turns || [];
+    setExpandedQ(new Set(turns.map((_, i) => i)));
+  };
+
+  const collapseAll = () => setExpandedQ(new Set());
 
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: '2rem 1.5rem' }}>
@@ -40,15 +57,15 @@ export default function ColorCoding() {
           className="page-title"
           style={{ fontFamily: 'var(--font-heading)' }}
         >
-          Qualitative Color Coding
+          Coding Signal
         </h1>
         <p className="page-subtitle">
-          8 theme codes applied across 5 interview transcripts — first-pass
-          automated coding with keyword matching
+          6 signal codes applied across 5 interview transcripts — first-pass
+          automated coding
         </p>
       </header>
 
-      {/* ── Theme Legend ── */}
+      {/* ── Signal Legend ── */}
       <section style={{ marginBottom: 40 }}>
         <h2
           style={{
@@ -58,27 +75,27 @@ export default function ColorCoding() {
             color: 'var(--text-1)',
           }}
         >
-          Theme Codes
+          Coding Signal
         </h2>
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: 10,
           }}
         >
           {THEME_CODES.map((t) => {
-            const isActive = selectedTheme === t.id;
+            const isActive = selectedCode === t.id;
             const total = totalForTheme(t.id);
             return (
               <button
                 key={t.id}
-                onClick={() => setSelectedTheme(isActive ? null : t.id)}
+                onClick={() => setSelectedCode(isActive ? null : t.id)}
                 style={{
                   display: 'flex',
                   alignItems: 'flex-start',
                   gap: 10,
-                  padding: '10px 14px',
+                  padding: '12px 14px',
                   border: isActive
                     ? `2px solid ${t.color}`
                     : '1px solid var(--border)',
@@ -92,11 +109,11 @@ export default function ColorCoding() {
                 <span
                   style={{
                     display: 'inline-block',
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
+                    width: 14,
+                    height: 14,
+                    borderRadius: 3,
                     background: t.color,
-                    marginTop: 6,
+                    marginTop: 2,
                     flexShrink: 0,
                   }}
                 />
@@ -108,7 +125,7 @@ export default function ColorCoding() {
                       color: 'var(--text-1)',
                     }}
                   >
-                    {t.number}. {t.label}
+                    {t.label}
                     <span
                       style={{
                         fontWeight: 400,
@@ -117,7 +134,7 @@ export default function ColorCoding() {
                         marginLeft: 6,
                       }}
                     >
-                      {total} passages
+                      {total}
                     </span>
                   </div>
                   <div
@@ -152,12 +169,15 @@ export default function ColorCoding() {
       >
         {[
           { id: 'heatmap', label: 'Heatmap' },
-          { id: 'bars', label: 'Bar Chart' },
-          { id: 'quotes', label: 'Key Quotes' },
+          { id: 'bars', label: 'Stacked Bars' },
+          { id: 'transcript', label: 'Transcript' },
         ].map((v) => (
           <button
             key={v.id}
-            onClick={() => setView(v.id)}
+            onClick={() => {
+              setView(v.id);
+              if (v.id === 'transcript') setExpandedQ(new Set());
+            }}
             style={{
               padding: '6px 16px',
               borderRadius: 'var(--radius-sm)',
@@ -186,14 +206,13 @@ export default function ColorCoding() {
               color: 'var(--text-1)',
             }}
           >
-            Theme × Participant Heatmap
+            Signal × Participant
           </h2>
 
-          {/* Column headers */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: '180px repeat(5, 1fr) 60px',
+              gridTemplateColumns: '160px repeat(5, 1fr) 56px',
               gap: 2,
               marginBottom: 2,
             }}
@@ -226,30 +245,25 @@ export default function ColorCoding() {
             </div>
           </div>
 
-          {/* Rows */}
           {THEME_CODES.map((t) => {
-            const isHighlighted = selectedTheme === t.id;
+            const isHl = selectedCode === t.id;
             const total = totalForTheme(t.id);
             return (
               <div
                 key={t.id}
                 onClick={() =>
-                  setSelectedTheme(
-                    selectedTheme === t.id ? null : t.id
-                  )
+                  setSelectedCode(selectedCode === t.id ? null : t.id)
                 }
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '180px repeat(5, 1fr) 60px',
+                  gridTemplateColumns: '160px repeat(5, 1fr) 56px',
                   gap: 2,
                   marginBottom: 2,
                   cursor: 'pointer',
-                  opacity:
-                    selectedTheme && !isHighlighted ? 0.35 : 1,
+                  opacity: selectedCode && !isHl ? 0.3 : 1,
                   transition: 'opacity .2s',
                 }}
               >
-                {/* Theme label */}
                 <div
                   style={{
                     display: 'flex',
@@ -260,9 +274,7 @@ export default function ColorCoding() {
                     fontWeight: 500,
                     color: 'var(--text-1)',
                     borderRadius: '4px 0 0 4px',
-                    background: isHighlighted
-                      ? t.bg
-                      : 'var(--surface)',
+                    background: isHl ? t.bg : 'var(--surface)',
                   }}
                 >
                   <span
@@ -277,7 +289,6 @@ export default function ColorCoding() {
                   {t.label}
                 </div>
 
-                {/* Cells */}
                 {PIDS.map((pid) => {
                   const count = CODING_DATA[pid].counts[t.id] || 0;
                   const pct = pctOfCoded(pid, t.id);
@@ -302,23 +313,19 @@ export default function ColorCoding() {
                         background:
                           count === 0
                             ? 'var(--surface)'
-                            : `${t.color}${Math.round(
-                                intensity * 200 + 55
-                              )
+                            : `${t.color}${Math.round(intensity * 200 + 55)
                                 .toString(16)
                                 .padStart(2, '0')}`,
                         borderRadius: 2,
                         transition: 'all .2s',
-                        position: 'relative',
                       }}
-                      title={`${t.label}: ${count} passages (${pct.toFixed(1)}% of coded)`}
+                      title={`${t.label}: ${count} (${pct.toFixed(1)}% of coded)`}
                     >
                       {count > 0 ? count : '–'}
                     </div>
                   );
                 })}
 
-                {/* Total */}
                 <div
                   style={{
                     display: 'flex',
@@ -338,11 +345,11 @@ export default function ColorCoding() {
             );
           })}
 
-          {/* Footer: coverage row */}
+          {/* Coverage footer */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: '180px repeat(5, 1fr) 60px',
+              gridTemplateColumns: '160px repeat(5, 1fr) 56px',
               gap: 2,
               marginTop: 8,
               paddingTop: 8,
@@ -350,19 +357,13 @@ export default function ColorCoding() {
             }}
           >
             <div
-              style={{
-                fontSize: 11,
-                color: 'var(--text-3)',
-                padding: '4px 10px',
-              }}
+              style={{ fontSize: 11, color: 'var(--text-3)', padding: '4px 10px' }}
             >
               Coverage
             </div>
             {PIDS.map((pid) => {
               const d = CODING_DATA[pid];
-              const pct = ((d.codedLines / d.totalLines) * 100).toFixed(
-                1
-              );
+              const pct = ((d.codedLines / d.totalLines) * 100).toFixed(1);
               return (
                 <div
                   key={pid}
@@ -378,7 +379,6 @@ export default function ColorCoding() {
                     style={{
                       fontSize: 9,
                       display: 'block',
-                      color: 'var(--text-3)',
                       opacity: 0.6,
                     }}
                   >
@@ -392,7 +392,7 @@ export default function ColorCoding() {
         </section>
       )}
 
-      {/* ── BAR CHART VIEW ── */}
+      {/* ── STACKED BARS VIEW ── */}
       {view === 'bars' && (
         <section style={{ marginBottom: 48 }}>
           <h2
@@ -403,7 +403,7 @@ export default function ColorCoding() {
               color: 'var(--text-1)',
             }}
           >
-            Theme Distribution
+            Signal Distribution
           </h2>
           {THEME_CODES.map((t) => {
             const total = totalForTheme(t.id);
@@ -412,21 +412,18 @@ export default function ColorCoding() {
               0
             );
             const pct = grandTotal > 0 ? (total / grandTotal) * 100 : 0;
-            const isActive = selectedTheme === t.id;
+            const isActive = selectedCode === t.id;
 
             return (
               <div
                 key={t.id}
                 onClick={() =>
-                  setSelectedTheme(
-                    selectedTheme === t.id ? null : t.id
-                  )
+                  setSelectedCode(selectedCode === t.id ? null : t.id)
                 }
                 style={{
-                  marginBottom: 12,
+                  marginBottom: 14,
                   cursor: 'pointer',
-                  opacity:
-                    selectedTheme && !isActive ? 0.35 : 1,
+                  opacity: selectedCode && !isActive ? 0.3 : 1,
                   transition: 'opacity .2s',
                 }}
               >
@@ -437,40 +434,28 @@ export default function ColorCoding() {
                     marginBottom: 4,
                   }}
                 >
-                  <span
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 500,
-                      color: 'var(--text-1)',
-                    }}
-                  >
+                  <span style={{ fontSize: 12, fontWeight: 500, color: 'var(--text-1)' }}>
                     <span
                       style={{
                         display: 'inline-block',
-                        width: 8,
-                        height: 8,
+                        width: 10,
+                        height: 10,
                         borderRadius: 2,
                         background: t.color,
                         marginRight: 8,
                       }}
                     />
-                    {t.number}. {t.label}
+                    {t.label}
                   </span>
-                  <span
-                    style={{
-                      fontSize: 11,
-                      color: 'var(--text-3)',
-                    }}
-                  >
+                  <span style={{ fontSize: 11, color: 'var(--text-3)' }}>
                     {total} ({pct.toFixed(1)}%)
                   </span>
                 </div>
 
-                {/* Stacked bar */}
                 <div
                   style={{
                     display: 'flex',
-                    height: 24,
+                    height: 26,
                     borderRadius: 4,
                     overflow: 'hidden',
                     background: 'var(--surface)',
@@ -478,18 +463,10 @@ export default function ColorCoding() {
                   }}
                 >
                   {PIDS.map((pid) => {
-                    const count =
-                      CODING_DATA[pid].counts[t.id] || 0;
-                    const w =
-                      total > 0 ? (count / total) * 100 : 0;
+                    const count = CODING_DATA[pid].counts[t.id] || 0;
+                    const w = total > 0 ? (count / total) * 100 : 0;
                     if (count === 0) return null;
-                    const colors = [
-                      '#4472C4',
-                      '#ED7D31',
-                      '#70AD47',
-                      '#FFC000',
-                      '#5B9BD5',
-                    ];
+                    const pColors = ['#4472C4', '#ED7D31', '#70AD47', '#FFC000', '#5B9BD5'];
                     const idx = PIDS.indexOf(pid);
                     return (
                       <div
@@ -497,7 +474,7 @@ export default function ColorCoding() {
                         title={`${CODING_DATA[pid].label}: ${count}`}
                         style={{
                           width: `${w}%`,
-                          background: colors[idx],
+                          background: pColors[idx],
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -505,12 +482,9 @@ export default function ColorCoding() {
                           fontWeight: 600,
                           color: '#fff',
                           minWidth: count > 0 ? 28 : 0,
-                          transition: 'width .3s',
                         }}
                       >
-                        {count > 2
-                          ? CODING_DATA[pid].label
-                          : ''}
+                        {count > 2 ? CODING_DATA[pid].label : ''}
                       </div>
                     );
                   })}
@@ -519,7 +493,6 @@ export default function ColorCoding() {
             );
           })}
 
-          {/* Legend */}
           <div
             style={{
               display: 'flex',
@@ -529,13 +502,7 @@ export default function ColorCoding() {
             }}
           >
             {PIDS.map((pid, idx) => {
-              const colors = [
-                '#4472C4',
-                '#ED7D31',
-                '#70AD47',
-                '#FFC000',
-                '#5B9BD5',
-              ];
+              const pColors = ['#4472C4', '#ED7D31', '#70AD47', '#FFC000', '#5B9BD5'];
               return (
                 <div
                   key={pid}
@@ -552,7 +519,7 @@ export default function ColorCoding() {
                       width: 10,
                       height: 10,
                       borderRadius: 2,
-                      background: colors[idx],
+                      background: pColors[idx],
                     }}
                   />
                   {CODING_DATA[pid].label}
@@ -563,8 +530,283 @@ export default function ColorCoding() {
         </section>
       )}
 
-      {/* ── QUOTES VIEW ── */}
-      {view === 'quotes' && (
+      {/* ── TRANSCRIPT VIEW ── */}
+      {view === 'transcript' && (
+        <section style={{ marginBottom: 48 }}>
+          {/* Participant Tabs */}
+          <div style={{
+            display: 'flex',
+            gap: 6,
+            marginBottom: 16,
+            flexWrap: 'wrap',
+          }}>
+            {PIDS.map(pid => {
+              const isActive = selectedParticipant === pid;
+              return (
+                <button
+                  key={pid}
+                  onClick={() => {
+                    setSelectedParticipant(pid);
+                    setExpandedQ(new Set());
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 'var(--radius-sm)',
+                    border: isActive ? '2px solid var(--text-1)' : '1px solid var(--border)',
+                    background: isActive ? 'var(--text-1)' : 'var(--surface)',
+                    color: isActive ? '#fff' : 'var(--text-2)',
+                    fontWeight: isActive ? 600 : 400,
+                    fontSize: 12,
+                    cursor: 'pointer',
+                    transition: 'all .15s',
+                  }}
+                >
+                  {CODING_DATA[pid].label}
+                  <span style={{
+                    fontSize: 10,
+                    opacity: 0.7,
+                    marginLeft: 6,
+                  }}>
+                    {CODING_DATA[pid].desc}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Compact Legend + Controls */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 16,
+            padding: '10px 14px',
+            background: 'var(--surface)',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--border)',
+            flexWrap: 'wrap',
+            gap: 8,
+          }}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              {THEME_CODES.map(t => (
+                <button
+                  key={t.id}
+                  onClick={() => setSelectedCode(selectedCode === t.id ? null : t.id)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 5,
+                    fontSize: 11, background: 'none', border: 'none',
+                    cursor: 'pointer', padding: '2px 4px',
+                    borderRadius: 4,
+                    opacity: selectedCode && selectedCode !== t.id ? 0.35 : 1,
+                    transition: 'opacity .15s',
+                  }}
+                >
+                  <span style={{
+                    width: 10, height: 10, borderRadius: 2,
+                    background: t.color, flexShrink: 0,
+                  }} />
+                  <span style={{ color: 'var(--text-2)' }}>{t.label}</span>
+                </button>
+              ))}
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button
+                onClick={expandAll}
+                style={{
+                  fontSize: 10, color: 'var(--text-3)', background: 'none',
+                  border: 'none', cursor: 'pointer', textDecoration: 'underline',
+                }}
+              >
+                Expand all
+              </button>
+              <button
+                onClick={collapseAll}
+                style={{
+                  fontSize: 10, color: 'var(--text-3)', background: 'none',
+                  border: 'none', cursor: 'pointer', textDecoration: 'underline',
+                }}
+              >
+                Collapse all
+              </button>
+            </div>
+          </div>
+
+          {/* Q/A Blocks */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {(TRANSCRIPT_DATA[selectedParticipant]?.turns || []).map((turn, idx) => {
+              const isOpen = expandedQ.has(idx);
+              const codedCount = turn.answer.filter(a => a.signal).length;
+              const hasMatchingSignal = selectedCode
+                ? turn.answer.some(a => a.signal === selectedCode)
+                : true;
+
+              return (
+                <div key={idx} style={{
+                  background: 'var(--surface)',
+                  borderRadius: 'var(--radius-md)',
+                  border: '1px solid var(--border)',
+                  overflow: 'hidden',
+                  opacity: selectedCode && !hasMatchingSignal ? 0.25 : 1,
+                  transition: 'opacity .2s',
+                }}>
+                  {/* Question Header (clickable) */}
+                  <button
+                    onClick={() => toggleQ(idx)}
+                    style={{
+                      width: '100%',
+                      padding: '10px 14px',
+                      background: isOpen ? 'var(--bg)' : 'var(--surface)',
+                      borderBottom: isOpen ? '1px solid var(--border)' : 'none',
+                      border: 'none',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 8,
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                    }}
+                  >
+                    <span style={{
+                      fontSize: 10,
+                      color: 'var(--text-3)',
+                      marginTop: 2,
+                      flexShrink: 0,
+                      width: 14,
+                    }}>
+                      {isOpen ? '\u25BC' : '\u25B6'}
+                    </span>
+                    <span style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 9,
+                      fontWeight: 600,
+                      color: 'var(--text-3)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      padding: '2px 6px',
+                      background: isOpen ? 'var(--surface)' : 'var(--bg)',
+                      borderRadius: 4,
+                      flexShrink: 0,
+                      marginTop: 1,
+                    }}>
+                      Q{idx + 1}
+                    </span>
+                    <span style={{
+                      fontSize: 12,
+                      color: 'var(--text-2)',
+                      lineHeight: 1.5,
+                      flex: 1,
+                      overflow: 'hidden',
+                      display: '-webkit-box',
+                      WebkitLineClamp: isOpen ? 'unset' : 2,
+                      WebkitBoxOrient: 'vertical',
+                    }}>
+                      {turn.question}
+                    </span>
+                    <span style={{
+                      fontSize: 10,
+                      color: 'var(--text-3)',
+                      flexShrink: 0,
+                      marginTop: 2,
+                      whiteSpace: 'nowrap',
+                    }}>
+                      {turn.answer.length} lines
+                      {codedCount > 0 && (
+                        <span style={{ marginLeft: 4 }}>
+                          · {codedCount} coded
+                        </span>
+                      )}
+                    </span>
+                  </button>
+
+                  {/* Answer Lines (expanded) */}
+                  {isOpen && (
+                    <div style={{ padding: '10px 14px 14px' }}>
+                      {turn.answer.length === 0 ? (
+                        <div style={{
+                          fontSize: 12, color: 'var(--text-3)',
+                          fontStyle: 'italic', padding: '8px 0',
+                        }}>
+                          (No response recorded)
+                        </div>
+                      ) : (
+                        turn.answer.map((line, li) => {
+                          const themeCode = line.signal
+                            ? THEME_CODES.find(t => t.id === line.signal)
+                            : null;
+                          const dimmed = selectedCode && line.signal !== selectedCode;
+
+                          return (
+                            <div key={li} style={{
+                              fontSize: 13,
+                              lineHeight: 1.75,
+                              padding: '4px 0 4px 12px',
+                              color: themeCode ? themeCode.color : 'var(--text-1)',
+                              borderLeft: themeCode
+                                ? `3px solid ${themeCode.color}`
+                                : '3px solid transparent',
+                              background: themeCode
+                                ? `color-mix(in srgb, ${themeCode.color} 6%, transparent)`
+                                : 'transparent',
+                              borderRadius: '0 4px 4px 0',
+                              marginBottom: 2,
+                              opacity: dimmed ? 0.2 : 1,
+                              transition: 'opacity .15s',
+                            }}
+                              title={themeCode ? themeCode.label : ''}
+                            >
+                              {line.text}
+                              {themeCode && (
+                                <span style={{
+                                  fontSize: 9,
+                                  fontWeight: 600,
+                                  color: themeCode.color,
+                                  marginLeft: 8,
+                                  opacity: 0.6,
+                                  fontFamily: 'var(--font-mono)',
+                                  letterSpacing: '0.04em',
+                                }}>
+                                  {themeCode.label}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Stats Footer */}
+          <div style={{
+            marginTop: 16,
+            padding: '12px 16px',
+            background: 'var(--surface)',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--border)',
+            fontSize: 11,
+            color: 'var(--text-3)',
+            display: 'flex',
+            gap: 16,
+          }}>
+            <span>
+              {TRANSCRIPT_DATA[selectedParticipant]?.turns.length || 0} question blocks
+            </span>
+            <span>
+              {(TRANSCRIPT_DATA[selectedParticipant]?.turns || [])
+                .reduce((sum, t) => sum + t.answer.length, 0)} total lines
+            </span>
+            <span>
+              {(TRANSCRIPT_DATA[selectedParticipant]?.turns || [])
+                .reduce((sum, t) => sum + t.answer.filter(a => a.signal).length, 0)} coded lines
+            </span>
+          </div>
+        </section>
+      )}
+
+      {/* ── Participant Profiles ── */}
+      {view !== 'transcript' && (
         <section style={{ marginBottom: 48 }}>
           <h2
             style={{
@@ -574,204 +816,92 @@ export default function ColorCoding() {
               color: 'var(--text-1)',
             }}
           >
-            Key Quotes by Theme
+            Per-Participant Signal Profile
           </h2>
-          {THEME_CODES.filter(
-            (t) => !selectedTheme || selectedTheme === t.id
-          ).map((t) => (
-            <div
-              key={t.id}
-              style={{
-                marginBottom: 28,
-                padding: '16px 20px',
-                background: 'var(--surface)',
-                borderRadius: 'var(--radius-md)',
-                borderLeft: `4px solid ${t.color}`,
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: 14,
-                  fontWeight: 600,
-                  color: t.color,
-                  marginBottom: 12,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                }}
-              >
-                <span
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: 2,
-                    background: t.color,
-                  }}
-                />
-                {t.number}. {t.label}
-              </h3>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(155px, 1fr))',
+              gap: 12,
+            }}
+          >
+            {PIDS.map((pid) => {
+              const d = CODING_DATA[pid];
+              const sorted = THEME_CODES.slice()
+                .sort((a, b) => (d.counts[b.id] || 0) - (d.counts[a.id] || 0))
+                .filter((t) => (d.counts[t.id] || 0) > 0);
 
-              {PIDS.map((pid) => {
-                const quotes = CODING_DATA[pid].topQuotes || {};
-                const q = quotes[t.id];
-                if (!q) return null;
-                return (
+              return (
+                <div
+                  key={pid}
+                  style={{
+                    padding: 16,
+                    background: 'var(--surface)',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border)',
+                  }}
+                >
                   <div
-                    key={pid}
-                    style={{
-                      marginBottom: 10,
-                      paddingLeft: 12,
-                      borderLeft: '2px solid var(--border)',
-                    }}
+                    style={{ fontWeight: 700, fontSize: 14, marginBottom: 2, color: 'var(--text-1)' }}
                   >
-                    <span
-                      style={{
-                        fontSize: 10,
-                        fontWeight: 600,
-                        color: 'var(--text-3)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
-                      }}
-                    >
-                      {CODING_DATA[pid].label} —{' '}
-                      {CODING_DATA[pid].desc}
-                    </span>
-                    <div
-                      style={{
-                        fontSize: 13,
-                        color: 'var(--text-1)',
-                        marginTop: 2,
-                        lineHeight: 1.5,
-                        fontStyle: 'italic',
-                      }}
-                    >
-                      {q}
-                    </div>
+                    {d.label}
                   </div>
-                );
-              })}
-            </div>
-          ))}
+                  <div
+                    style={{ fontSize: 11, color: 'var(--text-3)', marginBottom: 12 }}
+                  >
+                    {d.desc}
+                  </div>
+
+                  {sorted.map((t) => {
+                    const count = d.counts[t.id];
+                    const w = d.codedLines > 0 ? (count / d.codedLines) * 100 : 0;
+                    return (
+                      <div key={t.id} style={{ marginBottom: 6 }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            fontSize: 10,
+                            color: 'var(--text-2)',
+                            marginBottom: 2,
+                          }}
+                        >
+                          <span>{t.label}</span>
+                          <span>{count}</span>
+                        </div>
+                        <div
+                          style={{
+                            height: 6,
+                            borderRadius: 3,
+                            background: 'var(--border)',
+                            overflow: 'hidden',
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: `${w}%`,
+                              height: '100%',
+                              background: t.color,
+                              borderRadius: 3,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  <div style={{ marginTop: 10, fontSize: 10, color: 'var(--text-3)' }}>
+                    {d.codedLines} coded / {d.totalLines} total (
+                    {((d.codedLines / d.totalLines) * 100).toFixed(1)}%)
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </section>
       )}
 
-      {/* ── Participant Profiles ── */}
-      <section style={{ marginBottom: 48 }}>
-        <h2
-          style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 18,
-            marginBottom: 16,
-            color: 'var(--text-1)',
-          }}
-        >
-          Per-Participant Theme Profile
-        </h2>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-            gap: 12,
-          }}
-        >
-          {PIDS.map((pid) => {
-            const d = CODING_DATA[pid];
-            const sorted = THEME_CODES.slice()
-              .sort(
-                (a, b) =>
-                  (d.counts[b.id] || 0) - (d.counts[a.id] || 0)
-              )
-              .filter((t) => (d.counts[t.id] || 0) > 0);
-
-            return (
-              <div
-                key={pid}
-                style={{
-                  padding: 16,
-                  background: 'var(--surface)',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border)',
-                }}
-              >
-                <div
-                  style={{
-                    fontWeight: 700,
-                    fontSize: 14,
-                    marginBottom: 2,
-                    color: 'var(--text-1)',
-                  }}
-                >
-                  {d.label}
-                </div>
-                <div
-                  style={{
-                    fontSize: 11,
-                    color: 'var(--text-3)',
-                    marginBottom: 12,
-                  }}
-                >
-                  {d.desc}
-                </div>
-
-                {sorted.slice(0, 5).map((t, idx) => {
-                  const count = d.counts[t.id];
-                  const w =
-                    d.codedLines > 0
-                      ? (count / d.codedLines) * 100
-                      : 0;
-                  return (
-                    <div key={t.id} style={{ marginBottom: 6 }}>
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          fontSize: 10,
-                          color: 'var(--text-2)',
-                          marginBottom: 2,
-                        }}
-                      >
-                        <span>{t.label}</span>
-                        <span>{count}</span>
-                      </div>
-                      <div
-                        style={{
-                          height: 6,
-                          borderRadius: 3,
-                          background: 'var(--border)',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: `${w}%`,
-                            height: '100%',
-                            background: t.color,
-                            borderRadius: 3,
-                            transition: 'width .3s',
-                          }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-
-                <div
-                  style={{
-                    marginTop: 10,
-                    fontSize: 10,
-                    color: 'var(--text-3)',
-                  }}
-                >
-                  {d.codedLines} coded / {d.totalLines} total (
-                  {((d.codedLines / d.totalLines) * 100).toFixed(1)}%)
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── Methodology Note ── */}
+      {/* ── Note ── */}
       <section
         style={{
           marginBottom: 32,
@@ -782,31 +912,16 @@ export default function ColorCoding() {
         }}
       >
         <h3
-          style={{
-            fontSize: 13,
-            fontWeight: 600,
-            marginBottom: 8,
-            color: 'var(--text-2)',
-          }}
+          style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'var(--text-2)' }}
         >
-          Methodology Note
+          Note
         </h3>
         <p
-          style={{
-            fontSize: 12,
-            lineHeight: 1.6,
-            color: 'var(--text-2)',
-            margin: 0,
-          }}
+          style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--text-2)', margin: 0 }}
         >
-          This is a first-pass automated coding using keyword/phrase matching
-          against the full interview transcripts. Coverage ranges from 10–21%,
-          which is typical for qualitative coding where interviewer questions,
-          filler speech, and transitions are not coded. The color-coded .docx
-          transcripts (exported separately) serve as the primary working
-          documents for review and refinement. Theme assignments should be
-          validated through manual review — some passages may be miscategorized
-          or missed by automated matching.
+          First-pass automated coding using keyword matching. Finding = what we
+          observe. Insight = why it happens. Color-coded .docx transcripts
+          exported separately for manual review and refinement.
         </p>
       </section>
     </div>
